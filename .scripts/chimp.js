@@ -9,7 +9,7 @@ var appOptions = {
   port: 3000,
   env: {
     ROOT_URL: 'http://localhost:3000/',
-    VELOCITY: 0,
+   //  VELOCITY: 0,
     JASMINE_CLIENT_UNIT: 0,
     JASMINE_CLIENT_INTEGRATION: 0
   }
