@@ -28,7 +28,7 @@ It’s very common for a testing codebase to become “out of date”. This typi
 ### Lesson #1: Test Scripts !== Executable Specifications
 
 Here is a test script (taken from the Nightwatch.js homepage):
-```
+```javascript
 module.exports = {
   'Demo test Google' : function (client) {
     client
@@ -65,7 +65,8 @@ Test scripts are not all bad, they can be useful. For example, you might want to
 Also notice how the script tells you *HOW* the system is doing something, but not *WHAT* or *WHY*. It completely lacks context. The interesting thing is that there were some specifications at some point that specify how the system should behave. Someone, somewhere had to talk, send emails, look at wireframes and whiteboards and transform that all into code. Where is the specification kept though? In a GitHub issue? In the brains of the developers that wrote it years ago? Actually, it's in the code - that's always the source of truth.
 
 Now let's look at an executable specification in contrast, and let's assume we are Google, staying true to the example above:
-```
+
+```gherkin
 Feature: Google Index updates cached pages 
 
   As a searcher
@@ -83,7 +84,7 @@ That is the specification right there. It does not tell you at all *HOW* to do i
 
 The tests that are produced in this fashion are always long lasting because they come *BEFORE* the code. Think about it, every time you want to change the code, you start by changing the specs, and then you go on to change the tests as well as the code to match. So you have three artifacts: the specs, the tests and the code. Some frameworks merge the specs and the code (like Mocha and Jasmine) and others separate them (like Cucumber). The example above shows Cucumber's Gherkin syntax, and you can achieve the same with Mocha/Jasmine like this:
  
-```
+```javascript
 describe('Google Index updates cached pages', function() {
   
   // As a searcher
