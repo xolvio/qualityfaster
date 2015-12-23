@@ -1,0 +1,10 @@
+{
+  "name": "testing-best-practices",
+  "scripts": {
+    "test": ".scripts/chimp.js"
+  },
+  "private": true,
+  "devDependencies": {
+    "chimp": "^0.22.2"
+  }
+}
