@@ -1,0 +1,20 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    color: #333;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.bank-transfer__fieldset {
+    border: 1px solid #333;
+    border-radius: 3px;
+}

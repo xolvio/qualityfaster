@@ -1,0 +1,2 @@
+AccountHolders = {};
+AccountHolders.findOne = function() {};

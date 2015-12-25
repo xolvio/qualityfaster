@@ -1,10 +1,14 @@
 {
-  "name": "testing-best-practices",
-  "scripts": {
-    "test": ".scripts/chimp.js"
-  },
   "private": true,
+  "scripts": {
+    "test": "cd src; CI=1 .scripts/chimp.js"
+  },
+  "dependencies": {
+    "react": "^0.13.0"
+  },
   "devDependencies": {
-    "chimp": "^0.22.2"
+    "babel": "^4.3.0",
+    "chimp": "^0.23.0",
+    "react-tools": "^0.12.2"
   }
 }
