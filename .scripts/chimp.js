@@ -4,6 +4,11 @@ var path = require('path'),
    extend = require('util')._extend,
    exec = require('child_process').exec;
 
+var baseDir = path.resolve(__dirname, '..');
+var srcDir = path.resolve(baseDir, 'src');
+var chimpBin = path.resolve(baseDir, 'node_modules/.bin/chimp');
+
+
 var appOptions = {
   settings: 'settings.json',
   port: 3000,
@@ -28,9 +33,9 @@ var mirrorOptions = {
 };
 
 var chimpSwitches =
-   ' --path=tests/features' +
-   ' -r=tests/features/step_definitions/domain' +
-   ' --criticalSteps=tests/features/step_definitions/critical';
+   ' --path=' + path.resolve(srcDir, 'tests/features') +
+   ' -r=' + path.resolve(srcDir, 'tests/features/step_definitions/domain') +
+   ' --criticalSteps=' + path.resolve(srcDir, 'tests/features/step_definitions/critical');
 
 if (!process.env.CI && !process.env.CI_BRANCH && !process.env.CIRCLE_BRANCH && !process.env.TRAVIS_BRANCH) {
   chimpSwitches += ' --watch'; // when not in Watch mode, Chimp existing will exit Meteor too
@@ -75,6 +80,7 @@ function startApp(callback) {
     command: 'meteor --settings ' + appOptions.settings + ' --port ' + appOptions.port,
     waitForMessage: appOptions.waitForMessage,
     options: {
+      cwd: srcDir,
       env: extend(appOptions.env, process.env)
     }
   }, callback);
@@ -88,6 +94,7 @@ function startMirror(callback) {
     logFile: mirrorOptions.logFile,
     waitForMessage: 'App running at',
     options: {
+      cwd: srcDir,
       env: extend(mirrorOptions.env, process.env)
     }
   }, callback);
@@ -96,7 +103,7 @@ function startMirror(callback) {
 function startChimp(command) {
   startProcess({
     name: 'Chimp',
-    command: path.resolve(__dirname, '../../node_modules/.bin/chimp') + ' ' + command
+    command: chimpBin + ' ' + command
   });
 }
 
