@@ -1,1 +1,0 @@
-var testUtils = React.addons.TestUtils;
