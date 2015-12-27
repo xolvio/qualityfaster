@@ -2,12 +2,12 @@
 var path = require('path'),
    fs = require('fs'),
    extend = require('util')._extend,
-   exec = require('child_process').exec;
+   exec = require('child_process').exec,
+   processes = [];
 
-var baseDir = path.resolve(__dirname, '..');
-var srcDir = path.resolve(baseDir, 'src');
-var chimpBin = path.resolve(baseDir, 'node_modules/.bin/chimp');
-
+var baseDir = path.resolve(__dirname, '..'),
+   srcDir = path.resolve(baseDir, 'src'),
+   chimpBin = path.resolve(baseDir, 'node_modules/.bin/chimp');
 
 var appOptions = {
   settings: 'settings.json',
@@ -26,7 +26,7 @@ var mirrorOptions = {
   settings: appOptions.settings,
   port: 3100,
   env: {
-    MONGO_URL: 'mongodb://localhost:27017/chimp_db',
+    MONGO_URL: 'mongodb://localhost:' + 3001 + '/chimp_db',
     ROOT_URL: 'http://localhost:3100/'
   },
   logFile: './chimp-mirror.log'
@@ -38,12 +38,14 @@ var chimpSwitches =
    ' --criticalSteps=' + path.resolve(srcDir, 'tests/features/step_definitions/critical');
 
 if (!process.env.CI && !process.env.CI_BRANCH && !process.env.CIRCLE_BRANCH && !process.env.TRAVIS_BRANCH) {
-  chimpSwitches += ' --watch'; // when not in Watch mode, Chimp existing will exit Meteor too
+  chimpSwitches += ' --watch';
 } else {
+  // when not in Watch mode, Chimp existing will exit Meteor too
+  // we also don't need Velocity for the app chimp will run against
   appOptions.env.VELOCITY = 0;
 }
 
-// set this flat to start with a mirror.
+// set this flag to start with a mirror locally (ala Velocity xolvio:cucumber style)
 if (process.env.WITH_MIRROR) {
   chimpWithMirror();
 } else if (process.env.NO_METEOR) {
@@ -90,7 +92,7 @@ function startMirror(callback) {
   startProcess({
     name: 'Meteor Mirror',
     command: 'meteor --settings ' + mirrorOptions.settings + ' --port ' + mirrorOptions.port,
-    silent: true,
+    //silent: true,
     logFile: mirrorOptions.logFile,
     waitForMessage: 'App running at',
     options: {
@@ -132,6 +134,10 @@ function startProcess(opts, callback) {
   }
   proc.on('close', function (code) {
     console.log(opts.name, 'exited with code ' + code);
+    for (var i = 0; i < processes.length; i += 1) {
+      processes[i].kill();
+    }
     process.exit(code);
   });
+  processes.push(proc);
 }

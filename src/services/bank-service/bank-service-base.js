@@ -14,7 +14,7 @@ BankService = {
 };
 
 Meteor.methods({
-  'bank/transfer': function (toAccountNumber, amount) {
+  'bank/transfer' (toAccountNumber, amount) {
     if (!Meteor.userId()) {
       return {message: 'You are not logged in'};
     }

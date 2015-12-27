@@ -1,6 +1,7 @@
 *.swp
 *~
 *.iml
+*.log
 .*.haste_cache.*
 .DS_Store
 .idea
