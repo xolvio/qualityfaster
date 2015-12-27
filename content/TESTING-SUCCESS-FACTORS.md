@@ -118,7 +118,7 @@ You've probably heard of unit and end-to-end testing, and perhaps you have a cle
 This is a problem when you're trying to adhere to the testing pyramid as it can be difficult to understand what the middle and top layers really mean. If look at this [Google image search](https://goo.gl/7iZevn), you'll see a plethora of opinions about the contents and order above the bottom layer, which is always unit tests.
 
 For the record, this is the most correct one in our opinion, as originally posted by Mike Cohn in his article [The Forgotten Layer of the Test Automation Pyramid](https://www.mountaingoatsoftware.com/blog/the-forgotten-layer-of-the-test-automation-pyramid):<br/><br/>
-![The Testing Pyramid](./images/pyramid.png?raw=true)
+![The Testing Pyramid](../images/pyramid.png?raw=true)
 
 ##### The UI Layer
 In this diagram, the top layer refers to any test that exercises the SUT through the UI. This is not the same as UI unit tests which actually below to the bottom layer. This is an important distinction as UI unit tests are strongly encouraged, and with technologies such as React are easier than ever to test.  
@@ -136,14 +136,14 @@ Service level tests are awesome at catching exactly these sorts of errors. Inter
 
 So in summary, you can't expect units tests to work alone, you need service tests to make sure they work together. This picture illustrates this point perfectly:
 
-![Pushups](./images/pushups.gif?raw=true)
+![Pushups](../images/pushups.gif?raw=true)
   
 ### Lesson #4: Do Not Test The Domain Through The UI
 If you imagine an application that has a completely speech based UI, then you can imagine simply talking to the system and it responding to you. For example, you might say *"`transferMoney` from `AccountHolder A` to `AccountHolder B`"* and it would respond with *"Successfully completed transfer"*.
 
 This is how you should look at your application domain, it is the underlying system that you can put any user-interface on top of. The UI can be a graphical one, or speech based and even haptic. The domain is the most important part of the software and the domain does not need Graphical User Interface. It might take a little getting used to, but again it's one of those things that once you truly understand, you don't go back!
 
-![Domain Core](./images/domain-core.gif?raw=true)<br/>
+![Domain Core](../images/domain-core.gif?raw=true)<br/>
 *(taken from [Taking Back BDD](http://www.slideshare.net/everzet/taking-back-bdd))*
     
 As mentioned in lesson #2, the domain is best tested as a service level tests. If you do test at the UI, you are introducing an additional layer that creates slowness. UI-based tests run in the magniture of 1000x the speed of unit tests, and 100x the speed of service tests. UI tests that drive all the way to the domain are also brittle, not only in the sense of waiting for the right elements to appear and such, but also in the sense of breaking whenever new changes to the UI are added.
