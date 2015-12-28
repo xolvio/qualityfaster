@@ -15,6 +15,7 @@ addons:
       - google-chrome
     packages:
       - google-chrome-stable
+  firefox: "latest"
 
 cache:
   directories:
