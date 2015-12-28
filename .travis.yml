@@ -65,10 +65,6 @@ before_install:
   - until nc -z localhost 27017 ; do echo Waiting for MongoDB; sleep 1; done
 
 install:
-  # Install test script dependencies
-  - cd tests/ci
-
-  - cd $HOME/build/DispatchMe/meteor-app
 
 script:
   - npm test
