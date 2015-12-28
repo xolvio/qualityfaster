@@ -13,7 +13,6 @@ We are on a mission to fix this problem, and we're setting the example in this r
 
 \- Your friends at Xolv.io :)
 
-
 #### Technologies & Tools
 
 ##### Meteor
@@ -78,12 +77,12 @@ npm test
 ```
 
 #### On CI
-
-TODO: Add sample `circle.yml` and `travis.yml` files
-
+Technically, all you need to do is this: 
 ```
 npm install
 CI=1 npm test
 ```
 
-More soon!
+But you might need to do a little more setup depending on your specific CI environment.
+
+This repository already includes a `circle.yml` and `travis.yml` files that runs Chimp on CircleCI and TravisCI, as well as taking care of all the dependency caching.
