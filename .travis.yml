@@ -6,7 +6,6 @@ node_js:
   - 5.2.0
 env:
   global:
-    CI: 1
     MONGO_URL: "mongodb://localhost:27017/meteor"
 
 addons:
