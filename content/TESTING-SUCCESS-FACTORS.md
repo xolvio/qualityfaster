@@ -110,7 +110,7 @@ But this is a terrible idea. In addition to suffering every single thing mention
 
 If you must write test scripts, then you should use Mocha, because then you remove the translation layer and have access to the proper software engineering tools and concepts.
  
-Basically, these artifacts are an anti-pattern of the Specification by Example technique, and once you understand the former, you will not go back. In the mean tmie, repease after me: "I will never write a test script using Gherkin". Say it 10 times!
+Basically, these artifacts are an anti-pattern of the Specification by Example technique, and once you understand the former, you will not go back. In the mean time, repeate after me: "I will never write a test script using Gherkin". Say it 10 times!
 
 ### Lesson #3: The Top Layers of the Testing Pyramid
 You've probably heard of unit and end-to-end testing, and perhaps you have a clear distinction between integration and acceptance tests in your mind. Unfortunately, there is not a widely accepted set of definitions for the different test types, and they vary from team to team. One definition everyone can agree on is that of a unit test: When a System Under Test (SUT) is a single unit of code, like a function in JavaScript, the test that exercises that SUT is a unit test. However when we get into integration tests vs service tests vs acceptance tests vs end-to-end tests, the dichotomy is blurred.
@@ -118,10 +118,10 @@ You've probably heard of unit and end-to-end testing, and perhaps you have a cle
 This is a problem when you're trying to adhere to the testing pyramid as it can be difficult to understand what the middle and top layers really mean. If look at this [Google image search](https://goo.gl/7iZevn), you'll see a plethora of opinions about the contents and order above the bottom layer, which is always unit tests.
 
 For the record, this is the most correct one in our opinion, as originally posted by Mike Cohn in his article [The Forgotten Layer of the Test Automation Pyramid](https://www.mountaingoatsoftware.com/blog/the-forgotten-layer-of-the-test-automation-pyramid):<br/><br/>
-![The Testing Pyramid](./images/pyramid.png?raw=true)
+![The Testing Pyramid](../images/pyramid.png?raw=true)
 
 ##### The UI Layer
-In this diagram, the top layer refers to any test that exercises the SUT through the UI. This is not the same as UI unit tests which actually below to the bottom layer. This is an important distinction as UI unit tests are strongly encouraged, and with technologies such as React are easier than ever to test.  
+In this diagram, the top layer refers to any test that exercises the SUT through the UI. This is not the same as UI unit tests which actually belong in the bottom layer. This is an important distinction as UI unit tests are strongly encouraged, and with technologies such as React are easier than ever to test.  
 
 ##### The Service Layer
 Notice how the middle layer is called "Service". This tells us that tests at this level should exercise the **service layer**. The service layer exposes business functions in a system, such as `shipOrder` for an eCommerce site and `transferMoney` for a bank system. 
@@ -136,20 +136,20 @@ Service level tests are awesome at catching exactly these sorts of errors. Inter
 
 So in summary, you can't expect units tests to work alone, you need service tests to make sure they work together. This picture illustrates this point perfectly:
 
-![Pushups](./images/pushups.gif?raw=true)
+![Pushups](../images/pushups.gif?raw=true)
   
 ### Lesson #4: Do Not Test The Domain Through The UI
 If you imagine an application that has a completely speech based UI, then you can imagine simply talking to the system and it responding to you. For example, you might say *"`transferMoney` from `AccountHolder A` to `AccountHolder B`"* and it would respond with *"Successfully completed transfer"*.
 
-This is how you should look at your application domain, it is the underlying system that you can put any user-interface on top of. The UI can be a graphical one, or speech based and even haptic. The domain is the most important part of the software and the domain does not need Graphical User Interface. It might take a little getting used to, but again it's one of those things that once you truly understand, you don't go back!
+This is how you should look at your application domain, it is the underlying system that you can put any user-interface on top of. The UI can be a graphical one, or speech based and even haptic. The domain is the most important part of the software and the domain does not need Graphical User Interface. It might take a little getting used to, but it's one of those things that once you truly understand, you don't go back!
 
-![Domain Core](./images/domain-core.gif?raw=true)<br/>
+![Domain Core](../images/domain-core.gif?raw=true)<br/>
 *(taken from [Taking Back BDD](http://www.slideshare.net/everzet/taking-back-bdd))*
     
-As mentioned in lesson #2, the domain is best tested as a service level tests. If you do test at the UI, you are introducing an additional layer that creates slowness. UI-based tests run in the magniture of 1000x the speed of unit tests, and 100x the speed of service tests. UI tests that drive all the way to the domain are also brittle, not only in the sense of waiting for the right elements to appear and such, but also in the sense of breaking whenever new changes to the UI are added.
+As mentioned in lesson #2, the domain is best tested as a service level tests. If you do test at the UI, you are introducing an additional layer that creates slowness. UI-based tests run in the magniture of 1000x the speed of unit tests, and 100x the speed of service tests. UI tests that drive all the way to the domain are also brittle, not only in the sense of waiting for the right elements to appear and such, which you can actually deal with, but also in the sense of breaking whenever new changes to the UI are added.
  
-With technologies like React, it's easier than evern to write unit tests for the UI components. When you add unit test the services and domain models, you have a testing codebase that can a) run at lightning speed and b) allows you change without affecting other parts of your system. The domain tests are the glue between all these units. 
+With technologies like React, it's easier than ever to write unit tests for the UI components. When you also add unit test the services and domain layers, you have a testing codebase that can a) run at lightning speed and b) allows you change without affecting other parts of your system. The domain tests are the glue between all these units. 
 
-As you will see in this codebase, some of the domain tests themselves use polymorphism to go through the UI, and they are labeleld as `@critical`. This means that these domain tests are part of the critical path for the functionaly and we want to ensure the UI aspect works. This is how you get the perfect balance and adhere to the testing triangle. 
+As you will see in this repository, some of the domain tests themselves go through the UI, and they are labeleld as `@critical`. This means that these domain tests are part of the critical path for the functionaly and we want to ensure the UI aspect works. They first run against the servuce layer, then the same tests run against the UI. This is how you get the perfect balance and adhere to the testing triangle. 
 
 If you test your domain through the UI only, then changes to your domain will be costly and over time, this sill mount up to a codebase you don't really enjoy changing. If you go mostly through the domain, but have just a few UI tests, you will profit!
