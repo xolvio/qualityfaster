@@ -31,7 +31,7 @@ dependencies:
     - if [[ ! -d ~/mongodb-linux-x86_64-2.6.4 ]]; then cd ~; wget http://downloads.mongodb.org/linux/mongodb-linux-x86_64-2.6.4.tgz && tar xvzf ~/mongodb-linux-x86_64-2.6.4.tgz; fi
     - sudo /etc/init.d/mongodb stop
     - sudo cp ~/mongodb-linux-x86_64-2.6.4/bin/* /usr/bin
-    - sudo /etc/init.d/mongodb start
+    - sudo service mongodb start
 
     # Cache Metoer
     - if [ -d ~/.meteor ]; then sudo ln -s ~/.meteor/meteor /usr/local/bin/meteor; fi
@@ -43,7 +43,7 @@ dependencies:
     # Cache Velocity Meteor Release
     - .scripts/ci/cache-velocity.js:
         environment:
-          MONGO_URL: "mongodb://localhost:' + 27017 + '/velocity_cache"
+          MONGO_URL: "mongodb://localhost:27017/velocity_cache"
 
     # Cache Selenium & ChromeDriver
     - ./bin/chimp --path=content # there are no tests in content
@@ -52,4 +52,4 @@ test:
   override:
     - npm test:
         environment:
-          MONGO_URL: "mongodb://localhost:' + 27017 + '/velocity_cache"
+          MONGO_URL: "mongodb://localhost:27017/meteor"
