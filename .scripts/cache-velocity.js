@@ -3,7 +3,7 @@ var path = require('path'),
    _ = require('lodash'),
    spawn = require('child_process').spawn;
 
-var baseDir = path.resolve(__dirname, '..', '..'),
+var baseDir = path.resolve(__dirname, '..'),
    srcDir = path.resolve(baseDir, 'src');
 
 cacheVelocityMeteorRelease();
