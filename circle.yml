@@ -37,7 +37,7 @@ dependencies:
     - npm install
 
     # Cache Velocity Meteor Release
-    - .scripts/ci/cache-velocity.js
+    - .scripts/ci/cache-velocity.js:
       environment:
         MONGO_URL: "mongodb://localhost:' + 27017 + '/velocity_cache"
 
@@ -46,6 +46,6 @@ dependencies:
 
 test:
   override:
-    - npm test
+    - npm test:
       environment:
         MONGO_URL: "mongodb://localhost:' + 27017 + '/velocity_cache"
