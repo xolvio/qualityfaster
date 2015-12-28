@@ -37,12 +37,12 @@ var chimpSwitches =
    ' -r=' + path.resolve(srcDir, 'tests/features/step_definitions/domain') +
    ' --criticalSteps=' + path.resolve(srcDir, 'tests/features/step_definitions/critical');
 
-if (!process.env.CI && !process.env.CI_BRANCH && !process.env.CIRCLE_BRANCH && !process.env.TRAVIS_BRANCH) {
-  chimpSwitches += ' --watch';
-} else {
+if (process.env.CI || process.env.TRAVIS || process.env.CIRCLECI) {
   // when not in Watch mode, Chimp existing will exit Meteor too
   // we also don't need Velocity for the app chimp will run against
   appOptions.env.VELOCITY = 0;
+} else {
+  chimpSwitches += ' --watch';
 }
 
 // set this flag to start with a mirror locally (ala Velocity xolvio:cucumber style)
