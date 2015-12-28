@@ -20,7 +20,7 @@ module.exports = function (config) {
     exclude: [
     ],
 
-    // preprocess matching files before serving them to the browser
+    // pre-process matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
       '**/*.jsx': ['react-jsx']
@@ -53,7 +53,6 @@ module.exports = function (config) {
         flags: ['--no-sandbox']
       }
     },
-
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
