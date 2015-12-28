@@ -9,7 +9,7 @@ var baseDir = path.resolve(__dirname, '..', '..'),
 cacheVelocityMeteorRelease();
 
 function cacheVelocityMeteorRelease() {
-  console.log('Caching Velocity Meteor Release');
+  console.log('Caching Velocity Meteor Release (can take a while the first time)');
   var childProcess = spawn('meteor',
      [
        '--raw-logs',

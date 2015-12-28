@@ -28,7 +28,7 @@ dependencies:
     - ./.scripts/ci/download-chrome.sh
 
     # Cache Mongo
-    - ./.scripts/ci/download-chrome.sh
+    - ./.scripts/ci/download-mongo.sh
 
     # Cache Metoer
     - ./.scripts/ci/download-meteor.sh
@@ -38,10 +38,14 @@ dependencies:
 
     # Cache Velocity Meteor Release
     - .scripts/ci/cache-velocity.js
+      environment:
+        MONGO_URL: "mongodb://localhost:' + 27017 + '/velocity_cache"
 
     # Cache Selenium & ChromeDriver
-    - ./bin/chimp --path=bin # there are no tests in bin
+    - ./bin/chimp --path=content # there are no tests in content
 
 test:
   override:
     - npm test
+      environment:
+        MONGO_URL: "mongodb://localhost:' + 27017 + '/velocity_cache"
