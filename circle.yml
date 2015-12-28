@@ -24,17 +24,6 @@ dependencies:
     - "src/.meteor/local/mirrors"
 
   override:
-    # Cache Chrome
-    - sudo rm /tmp/update-chrome || true
-    - sudo rm -rf /usr/local/bin/chromedriver*
-    - /opt/google/chrome/chrome --version | grep '38' &> /dev/null; if [ $? == 0 ]; then echo UPDATE_CHROME > /tmp/update-chrome; fi
-    - if [ -e /tmp/update-chrome ] && [ -e ~/_opt/google-chrome.tar ]; then sudo tar -xvf ~/_opt/google-chrome.tar -C /; fi
-    - if [ -e /tmp/update-chrome ] && [ ! -e ~/_opt/google-chrome.tar ]; then wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -; fi
-    - if [ -e /tmp/update-chrome ] && [ ! -e ~/_opt/google-chrome.tar ]; then sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'; fi
-    - if [ -e /tmp/update-chrome ] && [ ! -e ~/_opt/google-chrome.tar ]; then sudo apt-get update; fi
-    - if [ -e /tmp/update-chrome ] && [ ! -e ~/_opt/google-chrome.tar ]; then sudo apt-get install google-chrome-stable; fi
-    - if [ -e /tmp/update-chrome ] && [ ! -e ~/_opt/google-chrome.tar ]; then mkdir ~/_opt; tar -cvf ~/_opt/google-chrome.tar /opt/google/chrome/; fi
-
     # Cache Mongo 2.6
     - if [[ ! -d ~/mongodb-linux-x86_64-2.6.4 ]]; then cd ~; wget http://downloads.mongodb.org/linux/mongodb-linux-x86_64-2.6.4.tgz && tar xvzf ~/mongodb-linux-x86_64-2.6.4.tgz; fi
     - sudo /etc/init.d/mongodb stop
