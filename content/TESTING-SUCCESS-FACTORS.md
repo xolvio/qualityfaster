@@ -56,7 +56,7 @@ Test scripts are not all bad, they can be useful. For example, you might want to
 
 **Test scripts temporary and short-lived.** Remember that, always!
 
-Also notice how the script tells you *HOW* the system is doing something through clicking and pressing, but not *WHAT* or *WHY*. It completely lacks context. The interesting thing here, is that there were specifications at some point that specified how the system should behave. Someone, somewhere talked, sent emails, looked at wireframes and whiteboards and transformed a lot of specifications into code. But where is the specification kept? In a GitHub issue? In the brains of the developers that wrote it years ago? Actually, it's in the code - that's always the source of truth.
+Also notice how the script tells you *HOW* the system is doing something through clicking and pressing, but not *WHAT* or *WHY*. It completely lacks context. The interesting thing here, is that there were specifications at some point that specified how the system should behave. Someone, somewhere talked, sent emails, looked at wire-frames and whiteboards and transformed a lot of specifications into code. But where is the specification kept? In a GitHub issue? In the brains of the developers that wrote it years ago? Actually, it's in the code - that's always the source of truth.
 
 Now let's look at an executable specification in contrast, and let's assume we are Google, staying true to the example above:
 
@@ -110,7 +110,7 @@ But this is a terrible idea. In addition to suffering every single thing mention
 
 If you must write test scripts, then you should use Mocha, because then you remove the translation layer and have access to the proper software engineering tools and concepts.
  
-Basically, these artifacts are an anti-pattern of the Specification by Example technique, and once you understand the former, you will not go back. In the mean time, repeate after me: "I will never write a test script using Gherkin". Say it 10 times!
+Basically, these artifacts are an anti-pattern of the Specification by Example technique, and once you understand the former, you will not go back. In the mean time, repeat after me: "I will never write a test script using Gherkin". Say it 10 times!
 
 ### Lesson #3: The Top Layers of the Testing Pyramid
 You've probably heard of unit and end-to-end testing, and perhaps you have a clear distinction between integration and acceptance tests in your mind. Unfortunately, there is not a widely accepted set of definitions for the different test types, and they vary from team to team. One definition everyone can agree on is that of a unit test: When a System Under Test (SUT) is a single unit of code, like a function in JavaScript, the test that exercises that SUT is a unit test. However when we get into integration tests vs service tests vs acceptance tests vs end-to-end tests, the dichotomy is blurred.
@@ -146,10 +146,10 @@ This is how you should look at your application domain, it is the underlying sys
 ![Domain Core](../images/domain-core.gif?raw=true)<br/>
 *(taken from [Taking Back BDD](http://www.slideshare.net/everzet/taking-back-bdd))*
     
-As mentioned in lesson #2, the domain is best tested as a service level tests. If you do test at the UI, you are introducing an additional layer that creates slowness. UI-based tests run in the magniture of 1000x the speed of unit tests, and 100x the speed of service tests. UI tests that drive all the way to the domain are also brittle, not only in the sense of waiting for the right elements to appear and such, which you can actually deal with, but also in the sense of breaking whenever new changes to the UI are added.
+As mentioned in lesson #2, the domain is best tested as a service level tests. If you do test at the UI, you are introducing an additional layer that creates slowness. UI-based tests run in the magnitude of 1000x the speed of unit tests, and 100x the speed of service tests. UI tests that drive all the way to the domain are also brittle, not only in the sense of waiting for the right elements to appear and such, which you can actually deal with, but also in the sense of breaking whenever new changes to the UI are added.
  
 With technologies like React, it's easier than ever to write unit tests for the UI components. When you also add unit test the services and domain layers, you have a testing codebase that can a) run at lightning speed and b) allows you change without affecting other parts of your system. The domain tests are the glue between all these units. 
 
-As you will see in this repository, some of the domain tests themselves go through the UI, and they are labeleld as `@critical`. This means that these domain tests are part of the critical path for the functionaly and we want to ensure the UI aspect works. They first run against the servuce layer, then the same tests run against the UI. This is how you get the perfect balance and adhere to the testing triangle. 
+As you will see in this repository, some of the domain tests themselves go through the UI, and they are labeled as `@critical`. This means that these domain tests are part of the critical path for the functionality and we want to ensure the UI aspect works. They first run against the service layer, then the same tests run against the UI. This is how you get the perfect balance and adhere to the testing triangle. 
 
 If you test your domain through the UI only, then changes to your domain will be costly and over time, this sill mount up to a codebase you don't really enjoy changing. If you go mostly through the domain, but have just a few UI tests, you will profit!
