@@ -6,8 +6,9 @@ module.exports = function () {
       'src/client/**'
     ],
     tests: [
-      'src/tests/components/**'
+      'src/tests/components/ui/**'
     ],
+    testFramework: 'jasmine',
     preprocessors: {
       '**/*.jsx': file => require('react-tools').transformWithDetails(file.content, {sourceMap: true, harmony: true})
     }
