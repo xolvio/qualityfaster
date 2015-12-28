@@ -6,18 +6,20 @@ var path = require('path'),
 var baseDir = path.resolve(__dirname, '..'),
    srcDir = path.resolve(baseDir, 'src'),
    karmaBin = path.resolve(baseDir, 'node_modules/.bin/karma'),
-   velocityBin = path.resolve(baseDir, 'node_modules/.bin/velocity');
-chimpScript = path.resolve(__dirname, 'start.js');
+   velocityBin = path.resolve(baseDir, 'node_modules/.bin/velocity'),
+   chimpScript = path.resolve(__dirname, 'start.js');
 
+runTests();
 
-runKarma(function () {
-  runVelocity(function () {
-    runChimp(function () {
-      console.log('Yay!');
+function runTests() {
+  runKarma(function () {
+    runVelocity(function () {
+      runChimp(function () {
+        console.log('Yay!');
+      });
     });
   });
-});
-
+}
 
 function runKarma(callback) {
   startProcess({

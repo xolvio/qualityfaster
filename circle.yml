@@ -1,0 +1,47 @@
+machine:
+  java:
+    version: oraclejdk8
+  node:
+    version: 5.2.0
+
+general:
+  branches:
+    ignore:
+      - gh-pages
+
+dependencies:
+  cache_directories:
+    - "node_modules"
+    - "~/.npm"
+    - "~/_opt"
+    - "~/mongodb-linux-x86_64-2.6.4"
+    - "~/.meteor"
+    - "src/.meteor/local/build"
+    - "src/.meteor/local/bundler-cache"
+    - "src/.meteor/local/db"
+    - "src/.meteor/local/isopacks"
+    - "src/.meteor/local/plugin-cache"
+    - "src/.meteor/local/mirrors"
+
+  override:
+    # Cache Chrome
+    - ./.scripts/ci/download-chrome.sh
+
+    # Cache Mongo
+    - ./.scripts/ci/download-chrome.sh
+
+    # Cache Metoer
+    - ./.scripts/ci/download-meteor.sh
+
+    # Cache npm deps
+    - npm install
+
+    # Cache Velocity Meteor Release
+    - .scripts/ci/cache-velocity.js
+
+    # Cache Selenium & ChromeDriver
+    - ./bin/chimp --path=bin # there are no tests in bin
+
+test:
+  override:
+    - npm test

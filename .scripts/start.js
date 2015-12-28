@@ -71,8 +71,7 @@ function chimpWithMirror() {
 function chimpNoMirror() {
   appOptions.waitForMessage = 'App running at';
   startApp(function () {
-    startChimp('--ddp=' + appOptions.env.ROOT_URL + chimpSwitches
-    );
+    startChimp('--ddp=' + appOptions.env.ROOT_URL + chimpSwitches);
   });
 }
 
