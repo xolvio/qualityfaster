@@ -38,8 +38,8 @@ dependencies:
 
     # Cache Velocity Meteor Release
     - .scripts/ci/cache-velocity.js:
-      environment:
-        MONGO_URL: "mongodb://localhost:' + 27017 + '/velocity_cache"
+        environment:
+          MONGO_URL: "mongodb://localhost:' + 27017 + '/velocity_cache"
 
     # Cache Selenium & ChromeDriver
     - ./bin/chimp --path=content # there are no tests in content
@@ -47,5 +47,5 @@ dependencies:
 test:
   override:
     - npm test:
-      environment:
-        MONGO_URL: "mongodb://localhost:' + 27017 + '/velocity_cache"
+        environment:
+          MONGO_URL: "mongodb://localhost:' + 27017 + '/velocity_cache"
