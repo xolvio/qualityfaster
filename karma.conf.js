@@ -69,4 +69,10 @@ module.exports = function (config) {
     config.singleRun = true;
   }
 
+  // FIXME Travis doesn't seem to run Karma + Chrome, but Chrome works with Chimp
+  if (process.env.TRAVIS) {
+    config.browsers = ['Firefox'];
+    config.singleRun = true;
+  }
+
 };
