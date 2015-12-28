@@ -4,7 +4,7 @@
 
 We at Xolv.io are testing and automation geeks that help other companies deliver higher quality, faster. We wrote [Chimp.js](http://chimpjs.com) to help us with this mission and we would like to show you how to use it properly **and be awesome at testing!**. This repository is a complete modern Agile development and testing setup that allows you to release features at high speed, and maintain that speed as the complexity of your team, codebase and domain increases.
 
-Just like snowboarding or driving a car, your chances of forming good habits starts with knowing what the good habits are and then practicing them. We cannot emphasise enough the importance of testing. Too often we're called in to enterprise projects and asked "will the patient live?", and every single time, the root causes are the lack of automated tests and automation in general. 
+Just like snowboarding or driving a car, your chances of forming good habits starts with knowing what the good habits are and then practicing them. We cannot emphasise enough the importance of testing. Too often we're called in both to enterprise and growing projects and asked "will the patient live?", and every single time, the root causes are the lack of automated tests and automation in general. 
 
 The key to succeeding long-term, is knowing what makes your tests work with you and not against you. So we ask that you **read everything** on our [testing success factors](./content/TESTING-SUCCESS-FACTORS.md) page prior to digging into the codebase. You are going to know a lot more about a high-performance engine or snowboard if you RTFM!
 
@@ -33,11 +33,11 @@ Meteor embraces this view. It is a complete Node.js based full-stack JavaScript 
 In this repository, we have created a great developer experience for unit, acceptance and end-to-end testing, with super fast feedback. Here are the tools choices:
 
 * **[Wallaby](http://wallabyjs.com/) (premium)**<br/>
-  An IDE extension that gives you realtime feedback for your unit tests. Real realtime! You break a test, you instantly know. It also shows you which lines of code you don't have coverage for yet. You should seriously check this out if you haven't already. It will speed your entire get up!
+  An IDE extension that gives you real-time feedback for your unit tests. Real real-time! You break a test, you instantly know. It also shows you which lines of code you don't have coverage for yet. You should seriously check this out if you haven't already. It will speed your entire get up!
 * **[Karma](http://karma-runner.github.io/)**<br/>
-  Used to run the unit tests in CI mode or when doing a full run locally. If you don't use Wallaby, you can also use Karma to run all the tests everytime you save a file.
+  Used to run the unit tests in CI mode or when doing a full run locally. If you don't use Wallaby, you can also use Karma to run all the tests every time you save a file.
 * **[Chimp](https://github.com/xolvio/chimp/)**<br/>
-  Our very own OSS pacakge. Chimp allows you to drive the development of new features with quality built in from the outset. We have configuredit in this repository to drive the domain development first, then the UI for critical scenarios. 
+  Our very own OSS package. Chimp allows you to drive the development of new features with quality built in from the outset. We have configured it in this repository to drive the domain development first, then the UI for critical scenarios. 
 * **[Whirlwind](https://github.com/xolvio/whirlwind)**<br/>
   Another package of our own, Whirlwind reduces test run times from hours to minutes using parallelization. It basically spreads the load of tests across CI nodes, and within them too.   
 * **[Meteor Jasmine](https://github.com/xolvio/meteor-jasmine/)** *- Temporary until Meteor 1.3 is released*<br/>
@@ -71,7 +71,7 @@ Please remember to **read everything** on our [testing success factors](./conten
    
 4. Test and Develop!
 
-If you'd like to run a full build locally, exit the scripts aboe and type:
+If you'd like to run a full build locally, exit the scripts above and type:
 
 ```
 npm test
