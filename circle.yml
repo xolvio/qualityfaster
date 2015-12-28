@@ -27,11 +27,15 @@ dependencies:
     # Cache Chrome
     - ./.scripts/ci/download-chrome.sh
 
-    # Cache Mongo
-    - ./.scripts/ci/download-mongo.sh
+    # Cache Mongo 2.6
+    - if [[ ! -d ~/mongodb-linux-x86_64-2.6.4 ]]; then cd ~; wget http://downloads.mongodb.org/linux/mongodb-linux-x86_64-2.6.4.tgz && tar xvzf ~/mongodb-linux-x86_64-2.6.4.tgz; fi
+    - sudo /etc/init.d/mongodb stop
+    - sudo cp ~/mongodb-linux-x86_64-2.6.4/bin/* /usr/bin
+    - sudo /etc/init.d/mongodb start
 
     # Cache Metoer
-    - ./.scripts/ci/download-meteor.sh
+    - if [ -d ~/.meteor ]; then sudo ln -s ~/.meteor/meteor /usr/local/bin/meteor; fi
+    - if [ ! -e $HOME/.meteor/meteor ]; then curl https://install.meteor.com | sh; fi
 
     # Cache npm deps
     - npm install
