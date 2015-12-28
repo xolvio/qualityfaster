@@ -46,7 +46,7 @@ dependencies:
           MONGO_URL: "mongodb://localhost:27017/velocity_cache"
 
     # Cache Selenium & ChromeDriver
-    - ./bin/chimp --path=content # there are no tests in content
+    - ./node_modules/.bin/chimp --path=content # there are no tests in content
 
 test:
   override:
