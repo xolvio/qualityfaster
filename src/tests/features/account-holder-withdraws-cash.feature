@@ -1,8 +1,8 @@
 Feature: Account holder same-bank money transfers
 
   As an Account Holder
-  I want to transfer money from my bank account
-  So that I can pay my dues to other account holders in the same bank
+  I want to transfer money from my bank account to other account holders in the same bank
+  So that I can pay my dues
 
   Background:
     Given I am logged in
