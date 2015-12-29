@@ -45,7 +45,6 @@ module.exports = function (config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
     customLaunchers: {
       Chrome_CI: {
         base: 'Chrome',
@@ -65,6 +64,8 @@ module.exports = function (config) {
   if (process.env.CI || process.env.TRAVIS || process.env.CIRCLECI) {
     config.browsers = ['Chrome_CI', 'Firefox'];
     config.singleRun = true;
+  } else {
+    config.browsers = ['Chrome'];
   }
 
   // FIXME Travis doesn't seem to run Karma + Chrome, but Chrome works with Chimp
