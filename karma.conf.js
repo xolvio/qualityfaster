@@ -12,6 +12,7 @@ module.exports = function (config) {
     files: [
       {pattern: 'src/tests/components/support/**', included: true},
       {pattern: 'node_modules/react/dist/react-with-addons.js', included: true},
+      {pattern: 'src/client/components/**', included: true},
       {pattern: 'src/tests/components/**', included: true}
     ],
 
