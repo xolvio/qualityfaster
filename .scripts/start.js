@@ -46,8 +46,8 @@ if (process.env.CI || process.env.TRAVIS || process.env.CIRCLECI) {
 }
 
 if (process.env.SIMIAN_API && process.env.SIMIAN_REPOSITORY) {
-  chimpSwitches += '--simianRepositoryId=' + process.env.SIMIAN_REPOSITORY + ' ';
-  chimpSwitches += '--simianAccessToken=' + process.env.SIMIAN_API + ' ';
+  chimpSwitches += ' --simianRepositoryId=' + process.env.SIMIAN_REPOSITORY;
+  chimpSwitches += ' --simianAccessToken=' + process.env.SIMIAN_API;
 }
 
 // set this flag to start with a mirror locally (ala Velocity xolvio:cucumber style)
