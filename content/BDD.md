@@ -1,5 +1,5 @@
 # What is BDD  
-If you as the Dan North (the originator of BDD) what it is, he would say:
+If you ask Dan North (the originator of BDD) what it is, he would say:
  
 > BDD is a second-generation, outside-in, pull-based, multiple-stakeholder, multiple-scale, high-automation, agile methodology. It describes a cycle of interactions with well-defined outputs, resulting in the delivery of working, tested software that matters.
  
