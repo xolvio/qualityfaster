@@ -1,8 +1,12 @@
 Account = Astro.Class({
   name: 'Account',
   fields: {
-    number: {
+    branchNumber: {
       type: 'number'
+    },
+    numberOfChecks: {
+      type: 'number',
+      default: 0
     },
     balance: {
       type: 'number',

@@ -5,10 +5,11 @@ Feature: Account holder same-bank money transfers
   So that I can pay my dues
 
   Background:
-    Given I am logged in
-    And "James" has an account with the same bank
+    Given I have an account with the branch number 12345
+    And "James" has an account with the branch number 12345
+    And I am logged in
 
-  @watch @critical
+  @critical
   Scenario: Account has sufficient funds
     Given my bank account balance is $100
     And "James"'s bank account balance is $0

@@ -1,28 +1,27 @@
 fixtures.accountHolders = {
   DEFAULT_PASSWORD: 'l3tMe1n',
-  create: function (accountHolder) {
+  create: function (accountHolder, branchNumber) {
     accountHolder.password = accountHolder.password || this.DEFAULT_PASSWORD;
-    return server.execute(function (accountHolder) {
-      return AccountService.create(accountHolder).raw();
-    }, accountHolder);
+    return server.execute(function (accountHolder, branchNumber) {
+      return AccountService.create(accountHolder, branchNumber).raw();
+    }, accountHolder, branchNumber);
   },
   serverLogin: function (accountHolder) {
     server.call('login', {
       user: {username: accountHolder.username},
-      password: accountHolder.password
+      password: this.DEFAULT_PASSWORD
     });
   },
   clientLogin: function (accountHolder) {
+    accountHolder.password = this.DEFAULT_PASSWORD;
     client.execute(function (accountHolder, done) {
       Meteor.loginWithPassword(accountHolder.username, accountHolder.password, done);
     }, accountHolder);
   },
-  createAndLogin: function (accountHolder) {
-    var newAccountHolder = this.create(accountHolder);
+  login: function (accountHolder) {
     this.serverLogin(accountHolder);
     if (CRITICAL) {
       this.clientLogin(accountHolder);
     }
-    return newAccountHolder;
   }
 };
