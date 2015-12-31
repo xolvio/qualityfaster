@@ -19,8 +19,6 @@ It’s very common for a testing codebase to become “out of date”. This typi
 ## The Key Lessons
 
 ### Lesson #1: Test Scripts !== Executable Specifications
-
-
 Here is a test script (taken from the Nightwatch.js homepage):
 ```javascript
 module.exports = {
@@ -34,8 +32,7 @@ module.exports = {
     .waitForElementVisible('button[name=btnG]', 1000)
     .click('button[name=btnG]')
     .pause(1000)
-    .assert.containsText('ol#rso li:first-child',
-      'Rembrandt - Wikipedia')
+    .assert.containsText('ol#rso li:first-child', 'Rembrandt - Wikipedia')
     .end();
   }
 };
@@ -97,22 +94,44 @@ describe('Google Index updates cached pages', function() {
 ```
 
 ### Lesson #2: Say No To Natural Language Test Scripts!
-There's something very appealing about tests that read this way:
+When you use feature files to write test scripts, you are making one of the most common mistakes when it comes to writing a maintainable set of executable specifications. In addition to suffering every single problem mentioned in [Lesson #1](#lesson-1-test-scripts--executable-specifications), there are an additional set of gotchas when using Gherkin in this fashion. Let's explore why it's a terrible idea!
+
+There's something very appealing about feature files that look like this:
 
 ```gherkin
-    Given I visit http://my.website.com
-    When I enter Jimbo into the username field
-    And I enter pa55word into the password field
-    Then I should see the title "Hello Jimbo"
+    Given I visit "google.com"
+    Then the title should be Google
+    And the text input should be visible
+    When I set the the text input value to "rembrandt van rijn"
+    And I click the "btnG" button
+    And I wait 1 second
+    Then the first list item child should be "Rembrandt - Wikipedia" 
 ```
+The attractive aspects seem to be the readability and the step reuse. These are highly desirable qualities of any codebase, however the language used in these feature files is not a programming language, it is a language intended to express the business domain and therefore it is the **domain language**. Tools like Cucumber contain a natural language parser that helps you to extract meaning out of this domain language, but you are not forced to use a specific structured syntax like you have to when programming. Developers see this as an "opportunity" to create structured test scripts, but they end up missing the point of domain language entirely. Worse yet, they plant the slow germinating seeds of their worst maintenance nightmare!
 
-But this is a terrible idea. In addition to suffering every single thing mentioned in lesson #1, these uglies creates an additional problem of being difficult to refactor. GWT parsers are not designed to be a programming language. They are designed to express specifications in natural language and they do that part very well. However, when you build up a huge set of test scripts in natural language, you have to resort to RegEx and other nasty means to do maintenance.   
+If you are not familiar with the meaning of the "domain" in the context of software engineering, you would be wise to research the subject starting with the [Wikipedia page](https://en.wikipedia.org/wiki/Domain-driven_design). 
 
-If you must write test scripts, then you should use Mocha, because then you remove the translation layer and have access to the proper software engineering tools and concepts.
- 
-Basically, these artifacts are an anti-pattern of the Specification by Example technique, and once you understand the former, you will not go back. In the mean time, repeat after me: "I will never write a test script using Gherkin". Say it 10 times!
+Features files with plain language scenarios and steps are intended to discover and iterate over the domain of your application. The domain language evolves with time. It evolves as the application code is written to fulfil the specifications, and through new discoveries that are made whilst working with customers. The language becomes more specific and less ambiguous and most importantly, the domain language gets used everywhere. It's used in the specifications, in the test code and in the application code. It's even the language the customer sees. All of this is to say, the domain language becomes ubiquitous, or to use the correct buzzwords, it is the **ubiquitous domain language**.
 
-### Lesson #3: The Top Layers of the Testing Pyramid
+The ubiquitous domain language is the point of natural language executable specifications. When correctly used in this way, tools like Cucumber suit their purpose very well. However, when you write test scripts using Cucumber's Gherkin syntax, it's like writing your application using Regex! It's possible, but it's not going to be fun to maintain. The Gherkin syntax is not easy to refactor and if you change your step implementations, you need to update in multiple places. For domain concerns, this is not a big issue since reuse means you have got some part of your domain figured out and therefore it's unlikely that you'll make huge changes. For example "Given I have created an account". More over, if you ever change the implementation of *how* an account is created, you would only change the test and the code underneath the specification but not the specification itself. When the Gherkin is syntax used for UI tests however, changing the implementation of the account creation would mean updating all the scripts that reference the UI to create an account. I told you it's a terrible idea!   
+
+To put it succinctly, **using UI based steps in your specification breaks the ubiquitous language principle entirely** and entirely defeats the purpose. If you are interested in step reuse and the readability of your testing codebase, you can achieve that through proper software engineer principles at the automation layer, thus creating a clear delineation between the natural domain language, and the test automation code that verifies the domain language is being fulfilled by the application.   
+
+If however you insist on writing test scripts and wish to ignore all the advice, you should not use an executable specification tool like Cucumber. You would be better off removing the natural language parsing and instead, apply some good software engineering tools and concepts to create some code that you have complete control over. Something like this would be better for you:
+
+```javascript
+  client
+    .visit('google.com')
+    .getTitle().should.be('Google')
+    .type('rembrandt van rijn')
+    .clickThe('Search', 'button')
+    .wait(aSecond)
+    .expect(theFirstItem).to.be('Rembrandt - Wikipedia');
+``` 
+
+Now, repeat after me: "I will never ever write test script using Gherkin again, never ever!". Say it 10 times.
+
+### Lesson #3: The Middle Layers of the Testing Pyramid
 You've probably heard of unit and end-to-end testing, and perhaps you have a clear distinction between integration and acceptance tests in your mind. Unfortunately, there is not a widely accepted set of definitions for the different test types, and they vary from team to team. One definition everyone can agree on is that of a unit test: When a System Under Test (SUT) is a single unit of code, like a function in JavaScript, the test that exercises that SUT is a unit test. However when we get into integration tests vs service tests vs acceptance tests vs end-to-end tests, the dichotomy is blurred.
  
 This is a problem when you're trying to adhere to the testing pyramid as it can be difficult to understand what the middle and top layers really mean. If look at this [Google image search](https://goo.gl/7iZevn), you'll see a plethora of opinions about the contents and order above the bottom layer, which is always unit tests.
