@@ -1,24 +1,9 @@
-# Testing Success Factors 
-For your testing codebase to serve you well and stand the test of time, you must be committed to making your automated tests fast, reliable and maintainable.
+# Testing Success Factors
 
-### Speed 
-Waiting costs everybody time, money and hair-loss. Investing time to make your tests run fast will pay back exponentially. The quicker you can detect defects, the cheaper it is to fix them. Making sure that your tests can run fast as the codebase grows can be a major engineering challenge. Ignoring the challenge does not make it go away and as the build & test time slows down, so does your team productivity, which costs you money.
+## Lesson #1: Test Scripts !== Executable Specifications
+![Head in Sand](https://raw.githubusercontent.com/xolvio/automated-testing-best-practices/master/images/head-in-sand.png?raw=true)
 
-> Slow tests are the #3 reason teams fails at automated testing
 
-### Reliability 
-Flaky tests that fail when you change unrelated parts of your system, and false negatives (or worse false positives) will introduce delays into your development process and will make your team lose faith in the process. When this happens, it is twice the problem of slow tests. Not only are developers triggering reruns of the build and hoping for the best, they are also losing time.
-
-> Unreliable tests are the #2 reason teams fails at automated testing
-
-### Maintainability
-It’s very common for a testing codebase to become “out of date”. This typically happens when the tests look like scripts as opposed to test codebase that employs a software engineering discipline. As the application codebase changes, these test scripts quickly mismatch the code and it’s far easier to disable them than it is to maintain them.
-
-> Unmaintainable tests are the #1 reason teams fails at automated testing
-
-## The Key Lessons
-
-### Lesson #1: Test Scripts !== Executable Specifications
 Here is a test script (taken from the Nightwatch.js homepage):
 ```javascript
 module.exports = {
@@ -93,7 +78,9 @@ describe('Google Index updates cached pages', function() {
 });
 ```
 
-### Lesson #2: Say No To Natural Language Test Scripts!
+## Lesson #2: Say No To Natural Language Test Scripts!
+![Turing](https://raw.githubusercontent.com/xolvio/automated-testing-best-practices/master/images/turing.png?raw=true)
+
 When you use feature files to write test scripts, you are making one of the most common mistakes when it comes to writing a maintainable set of executable specifications. In addition to suffering every single problem mentioned in [Lesson #1](#lesson-1-test-scripts--executable-specifications), there are an additional set of gotchas when using Gherkin in this fashion. Let's explore why it's a terrible idea!
 
 There's something very appealing about feature files that look like this:
@@ -131,13 +118,13 @@ If however you insist on writing test scripts and wish to ignore all the advice,
 
 Now, repeat after me: "I will never ever write test script using Gherkin again, never ever!". Say it 10 times.
 
-### Lesson #3: The Middle Layers of the Testing Pyramid
+## Lesson #3: The Middle Layers of the Testing Pyramid
 You've probably heard of unit and end-to-end testing, and perhaps you have a clear distinction between integration and acceptance tests in your mind. Unfortunately, there is not a widely accepted set of definitions for the different test types, and they vary from team to team. One definition everyone can agree on is that of a unit test: When a System Under Test (SUT) is a single unit of code, like a function in JavaScript, the test that exercises that SUT is a unit test. However when we get into integration tests vs service tests vs acceptance tests vs end-to-end tests, the dichotomy is blurred.
  
 This is a problem when you're trying to adhere to the testing pyramid as it can be difficult to understand what the middle and top layers really mean. If look at this [Google image search](https://goo.gl/7iZevn), you'll see a plethora of opinions about the contents and order above the bottom layer, which is always unit tests.
 
 For the record, this is the most correct one in our opinion, as originally posted by Mike Cohn in his article [The Forgotten Layer of the Test Automation Pyramid](https://www.mountaingoatsoftware.com/blog/the-forgotten-layer-of-the-test-automation-pyramid):<br/><br/>
-![The Testing Pyramid](../images/pyramid.png?raw=true)
+![The Testing Pyramid](https://raw.githubusercontent.com/xolvio/automated-testing-best-practices/master/images/pyramid.png?raw=true)
 
 ##### The UI Layer
 In this diagram, the top layer refers to any test that exercises the SUT through the UI. This is not the same as UI unit tests which actually belong in the bottom layer. This is an important distinction as UI unit tests are strongly encouraged, and with technologies such as React are easier than ever to test.  
@@ -155,14 +142,14 @@ Service level tests are awesome at catching exactly these sorts of errors. Inter
 
 So in summary, you can't expect units tests to work alone, you need service tests to make sure they work together. This picture illustrates this point perfectly:
 
-![Pushups](../images/pushups.gif?raw=true)
+![Pushups](https://raw.githubusercontent.com/xolvio/automated-testing-best-practices/master/images/pushups.gif?raw=true)
   
-### Lesson #4: Do Not Test The Domain Through The UI
+## Lesson #4: Do Not Test The Domain Through The UI
 If you imagine an application that has a completely speech based UI, then you can imagine simply talking to the system and it responding to you. For example, you might say *"`transferMoney` from `AccountHolder A` to `AccountHolder B`"* and it would respond with *"Successfully completed transfer"*.
 
 This is how you should look at your application domain, it is the underlying system that you can put any user-interface on top of. The UI can be a graphical one, or speech based and even haptic. The domain is the most important part of the software and the domain does not need Graphical User Interface. It might take a little getting used to, but it's one of those things that once you truly understand, you don't go back!
 
-![Domain Core](../images/domain-core.gif?raw=true)<br/>
+![Domain Core](https://raw.githubusercontent.com/xolvio/automated-testing-best-practices/master/images/domain-core.gif?raw=true)<br/>
 *(taken from [Taking Back BDD](http://www.slideshare.net/everzet/taking-back-bdd))*
     
 As mentioned in lesson #2, the domain is best tested as a service level tests. If you do test at the UI, you are introducing an additional layer that creates slowness. UI-based tests run in the magnitude of 1000x the speed of unit tests, and 100x the speed of service tests. UI tests that drive all the way to the domain are also brittle, not only in the sense of waiting for the right elements to appear and such, which you can actually deal with, but also in the sense of breaking whenever new changes to the UI are added.
