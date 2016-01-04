@@ -46,7 +46,11 @@ dependencies:
     - ./node_modules/.bin/chimp --path=content # there are no tests in content
 
 test:
+  pre:
+    - mkdir -p $CIRCLE_TEST_REPORTS/cucumber
+    
   override:
     - npm test:
         environment:
           MONGO_URL: "mongodb://localhost:27017/meteor"
+          CUCUMBER_JSON_OUTPUT: "$CIRCLE_TEST_REPORTS/cucumber/chrome.cucumber"
