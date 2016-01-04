@@ -26,6 +26,7 @@ var mirrorOptions = {
   settings: appOptions.settings,
   port: 3100,
   env: {
+    IS_MIRROR: 1,
     MONGO_URL: 'mongodb://localhost:' + 3001 + '/chimp_db',
     ROOT_URL: 'http://localhost:3100/'
   },
@@ -97,7 +98,7 @@ function startMirror(callback) {
   startProcess({
     name: 'Meteor Mirror',
     command: 'meteor --settings ' + mirrorOptions.settings + ' --port ' + mirrorOptions.port,
-    //silent: true,
+    silent: true,
     logFile: mirrorOptions.logFile,
     waitForMessage: 'App running at',
     options: {
