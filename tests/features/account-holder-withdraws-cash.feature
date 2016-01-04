@@ -9,7 +9,7 @@ Feature: Account holder same-bank money transfers
     And "James" has an account with the branch number 12345
     And I am logged in
 
-  @critical
+  @critical @focus
   Scenario: Account has sufficient funds
     Given my bank account balance is $100
     And "James"'s bank account balance is $0

@@ -10,7 +10,6 @@ Feature: Mobile check deposit
     And I am logged in
     And the bank has issued a 10-check checkbook to "Clare"
 
-  @watch
   Scenario: Deposit check by number from same bank
     Given my bank account balance is $100
     And "Clare"'s bank account balance is $90

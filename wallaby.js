@@ -1,12 +1,12 @@
 module.exports = function () {
   return {
     files: [
-      {pattern: 'src/tests/components/_support/**', instrument: true},
+      {pattern: 'tests/components/_support/**', instrument: true},
       {pattern: 'node_modules/react/dist/react-with-addons.js', instrument: false},
       'src/client/**'
     ],
     tests: [
-      'src/tests/components/ui/**'
+      'tests/components/ui/**'
     ],
     testFramework: 'jasmine',
     preprocessors: {
