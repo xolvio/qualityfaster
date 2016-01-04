@@ -1,7 +1,7 @@
 module.exports = function () {
   return {
     files: [
-      {pattern: 'src/tests/components/support/**', instrument: true},
+      {pattern: 'src/tests/components/_support/**', instrument: true},
       {pattern: 'node_modules/react/dist/react-with-addons.js', instrument: false},
       'src/client/**'
     ],
