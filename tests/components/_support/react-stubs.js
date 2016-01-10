@@ -1,2 +1,2 @@
 ReactDOM = {};
-ReactDOM.render = emptyFunction;
+ReactDOM.render = function() {};

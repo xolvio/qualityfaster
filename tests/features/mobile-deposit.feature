@@ -10,13 +10,12 @@ Feature: Mobile check deposit
     And I am logged in
     And the bank has issued a 10-check checkbook to "Clare"
 
+  @critical
   Scenario: Deposit check by number from same bank
     Given my bank account balance is $100
     And "Clare"'s bank account balance is $90
     And "Clare" has written a $10 check to me
-    When I enter the branch number, account number and amount from the check
+    When I deposit the check into my account
     Then my account balance should be $110
     And "Clare"'s account balance should be $80
     And "Clare" should have 9 checks left in her checkbook
-
-#  Scenario: Deposit check by number from another bank

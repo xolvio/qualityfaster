@@ -13,12 +13,7 @@ var appOptions = {
   settings: 'settings.json',
   port: 3000,
   env: {
-    ROOT_URL: 'http://localhost:3000/',
-    VELOCITY: 1,
-    JASMINE_CLIENT_UNIT: 0,
-    JASMINE_SERVER_UNIT: 0,
-    JASMINE_CLIENT_INTEGRATION: 0,
-    JASMINE_SERVER_INTEGRATION: 1
+    ROOT_URL: 'http://localhost:3000'
   }
 };
 
@@ -28,7 +23,7 @@ var mirrorOptions = {
   env: {
     IS_MIRROR: 1,
     MONGO_URL: 'mongodb://localhost:' + 3001 + '/chimp_db',
-    ROOT_URL: 'http://localhost:3100/'
+    ROOT_URL: 'http://localhost:3100'
   },
   logFile: './chimp-mirror.log'
 };
@@ -36,14 +31,11 @@ var mirrorOptions = {
 var chimpSwitches =
    ' --path=' + path.resolve('tests/features') +
    ' -r=' + path.resolve('tests/features/step_definitions/domain') +
-   ' --criticalSteps=' + path.resolve('tests/features/step_definitions/critical' +
-   ' --singleSnippetPerFile=1');
+   ' --criticalSteps=' + path.resolve('tests/features/step_definitions/critical') +
+   ' --singleSnippetPerFile=1';
 
-if (process.env.CI || process.env.TRAVIS || process.env.CIRCLECI) {
+if (!process.env.CI && !process.env.TRAVIS && !process.env.CIRCLECI) {
   // when not in Watch mode, Chimp existing will exit Meteor too
-  // we also don't need Velocity for the app chimp will run against
-  appOptions.env.VELOCITY = 0;
-} else {
   chimpSwitches += ' --watch';
 }
 
@@ -58,6 +50,9 @@ if (process.env.WITH_MIRROR) {
 } else if (process.env.NO_METEOR) {
   startChimp('--ddp=' + appOptions.env.ROOT_URL + chimpSwitches);
 } else {
+  // *************************************************
+  // THIS IS THE DEFAULT
+  // *************************************************
   chimpNoMirror();
 }
 
@@ -69,8 +64,7 @@ function chimpWithMirror() {
     startMirror(function () {
       console.log('=> Test App running at:', mirrorOptions.env.ROOT_URL);
       console.log('=> Log file: tail -f', path.resolve(mirrorOptions.logFile), '\n');
-      startChimp('--ddp=' + mirrorOptions.env.ROOT_URL + chimpSwitches
-      )
+      startChimp('--ddp=' + mirrorOptions.env.ROOT_URL + chimpSwitches);
     });
   });
 }
@@ -78,6 +72,7 @@ function chimpWithMirror() {
 function chimpNoMirror() {
   appOptions.waitForMessage = 'App running at';
   startApp(function () {
+    //console.log('chimp --ddp=' + appOptions.env.ROOT_URL + chimpSwitches)
     startChimp('--ddp=' + appOptions.env.ROOT_URL + chimpSwitches);
   });
 }

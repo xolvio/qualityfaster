@@ -1,5 +1,5 @@
 ReactMeteorData = {};
-ReactMeteorData.data = emptyFunction;
+
 ReactMeteorData.componentWillMount = function () {
-  this.data = ReactMeteorData.data();
+  this.data = this.props.meteorData;
 };

@@ -1,9 +1,10 @@
 module.exports = function () {
   this.Given(/^"([^"]*)" has an account with the branch number (\d+)$/, function (otherAccountHolderName, branchNumber) {
-    this.accounts = this.accounts || [];
-    this.accounts[otherAccountHolderName] = fixtures.accountHolders.create({
-      name: otherAccountHolderName,
-      username: otherAccountHolderName.toLowerCase()
-    }, branchNumber);
+    server.execute(function (otherAccountHolderName, branchNumber) {
+      serverWorld[otherAccountHolderName] = new AccountHolder({
+        username: otherAccountHolderName,
+        'account.branchNumber': branchNumber
+      });
+    }, otherAccountHolderName, branchNumber);
   });
 };
