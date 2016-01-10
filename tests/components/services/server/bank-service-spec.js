@@ -1,3 +1,5 @@
+import {AccountHolder} from '/src/modules/models/acccount-holder';
+
 describe('Bank Service', function () {
   beforeEach(function () {
     this.fromAccountHolder = new AccountHolder({'username': 'accountHolder1'});

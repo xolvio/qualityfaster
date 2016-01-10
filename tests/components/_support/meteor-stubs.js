@@ -1,8 +1,16 @@
-Meteor = {};
-Meteor.userId = function() {};
-Meteor.call = function() {};
-Meteor.subscribe = function() {};
+var global = window || global;
 
-Meteor.startup = function(func) {
+var emptyFunction = function () {
+};
+
+const Meteor = {
+  userId: emptyFunction,
+  call: emptyFunction,
+  subscribe: emptyFunction
+};
+
+Meteor.startup = function (func) {
   func();
 };
+
+global.Meteor = Meteor;

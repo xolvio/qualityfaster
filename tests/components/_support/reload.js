@@ -1,3 +1,7 @@
+var global = window || global;
+
+const Package = global.Package || {};
+
 // Prevents that reload does reloading while testing
 Package.reload = {
   Reload: {
@@ -12,3 +16,5 @@ Package.reload = {
     _reload: function () {}
   }
 };
+
+global.Package = Package;
