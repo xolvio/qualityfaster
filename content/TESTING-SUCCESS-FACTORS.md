@@ -4,7 +4,7 @@
 ![Head in Sand](https://raw.githubusercontent.com/xolvio/automated-testing-best-practices/master/images/head-in-sand.png?raw=true)
 
 
-Here is a test script (taken from the Nightwatch.js homepage):
+Here is a test script (taken from the [Nightwatch.js](http://nightwatchjs.org/) homepage):
 ```javascript
 module.exports = {
   'Demo test Google' : function (client) {
@@ -56,9 +56,14 @@ Feature: Google Index updates cached pages
     Then the results show "Wikipedia - Rembrandt"
 ```
 
-That is the specification right there. It does not tell you at all *HOW* to do it, but it does tell you *WHAT* and *WHY*. From the specifications, you can do two things. You can write automated tests that check the code the fulfils the specifications, and you can write the actual code that fulfils the specifications. You can even do this crazy thing called Test Driven Development that drive the development of the specs above using tests and is known to reduce defects by 30-50%.
+That is the specification right there. It does not tell you at all *HOW* to do it, but does tell you *WHAT* and *WHY*. From the specifications, you can do two things:
 
-The tests that are produced in this fashion are always long lasting because they come *BEFORE* the code. Think about it, every time you want to change the code, you start by changing the specs, and then you go on to change the tests as well as the code to match. So you have three artifacts: the specs, the tests and the code. Some frameworks merge the specs and the code (like Mocha and Jasmine) and others separate them (like Cucumber). The example above shows Cucumber's Gherkin syntax, and you can achieve the same with Mocha/Jasmine like this:
+1. Write automated tests that check the code fulfils the specifications
+2. Write the actual code that fulfils the specifications.
+
+You can even do this crazy thing called Test Driven Development (TDD) that drive the development of the specs above using tests and is known to reduce defects by 30-50%.
+
+The tests produced in this fashion are always long lasting because they come *BEFORE* the code. Think about it, every time you want to change the code, you start by changing the specs, and then you go on to change the tests as well as the code to match. So you have three artifacts: the specs, the tests and the code. Some frameworks merge the specs and the code (like [Mocha](https://mochajs.org/) and [Jasmine](http://jasmine.github.io/)) and others separate them (like [Cucumber](https://cucumber.io/)). The example above shows Cucumber's [Gherkin](https://cucumber.io/docs/reference#gherkin) syntax, and you can achieve the same with Mocha/Jasmine like this:
  
 ```javascript
 describe('Google Index updates cached pages', function() {
@@ -154,7 +159,7 @@ This is how you should look at your application domain, it is the underlying sys
     
 As mentioned in lesson #2, the domain is best tested as a service level tests. If you do test at the UI, you are introducing an additional layer that creates slowness. UI-based tests run in the magnitude of 1000x the speed of unit tests, and 100x the speed of service tests. UI tests that drive all the way to the domain are also brittle, not only in the sense of waiting for the right elements to appear and such, which you can actually deal with, but also in the sense of breaking whenever new changes to the UI are added.
  
-With technologies like React, it's easier than ever to write unit tests for the UI components. When you also add unit test the services and domain layers, you have a testing codebase that can a) run at lightning speed and b) allows you change without affecting other parts of your system. The domain tests are the glue between all these units. 
+With technologies like React, it's easier than ever to write unit tests for the UI components. When you also unit test the service and domain layers, you have a testing codebase that can a) run at lightning speed and b) prevent regression when making seemingly unrelated changes. The domain tests are the glue between all these units. 
 
 As you will see in this repository, some of the domain tests themselves go through the UI, and they are labeled as `@critical`. This means that these domain tests are part of the critical path for the functionality and we want to ensure the UI aspect works. They first run against the service layer, then the same tests run against the UI. This is how you get the perfect balance and adhere to the testing triangle. 
 
