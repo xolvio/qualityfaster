@@ -75,34 +75,40 @@ In this repository, we have created a great developer experience for unit, accep
 Please remember to **read everything** on our [testing success factors](./content/TESTING-SUCCESS-FACTORS.md) before proceeding.
 
 #### Locally
-1. Clone this repo<br/>
+1. **Clone** this repo<br/>
    ```
    git clone https://github.com/xolvio/automated-testing-best-practices.git
    cd automated-testing-best-practices
    npm install
    ```
 
-2. Start the unit testing runner by either starting Wallaby from your IDE (highly recommended! See above), or you can start Karma with:
+2. **Start the unit testing runner** by either starting Wallaby from your IDE (highly recommended! See above), or you can start Karma with:
    ```
    node_modules/.bin/karma start
    ```
    
-3. Start Chimp + Meteor without Mirror<br/>
+3. **Start Chimp + Meteor**<br/>
    ```
    npm start
    ```
-   Or if you like to have a Mirror (another Meteor app for Chimp to run against):<br/>
-   ```
-   WITH_MIRROR=1 npm start
-   ```
+   [Start script docs](.scripts/README.md#npm-start)
    
-4. Test and Develop!
+   _Options_
+   - Use another Meteor app as a mirror for Chimp to run against
+   
+     ```
+     WITH_MIRROR=1 npm start   
+     ```
+   
+   
+4. **Test and Develop!**
 
-If you'd like to run a full build locally, exit the scripts above and type:
+  If you'd like to run a full build locally, exit the process and run:
 
-```
-npm test
-```
+  ```
+  npm test
+  ```
+  [Test script docs](.scripts/README.md#npm-test)
 
 #### On CI
 Technically, all you need to do is this: 
