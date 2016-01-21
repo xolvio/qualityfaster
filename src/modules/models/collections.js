@@ -1,1 +1,1 @@
-export const AccountHolders = Meteor.users;
+export const AccountHolders = Accounts.users;

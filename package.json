@@ -6,7 +6,7 @@
   },
   "devDependencies": {
     "babel-core": "^6.3.17",
-    "babel-plugin-react-transform": "2.0.0-beta1",
+    "babel-loader": "^6.2.0",
     "babel-plugin-transform-decorators-legacy": "^1.2.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.4.0",
     "babel-plugin-transform-runtime": "^6.3.13",
@@ -14,21 +14,19 @@
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.3.13",
     "babel-preset-stage-0": "^6.3.13",
-    "babel-runtime": "^6.2.0",
     "chimp": "^0.24.1",
-    "enzyme": "^1.2.0",
     "jasmine": "https://github.com/xolvio/jasmine-npm/archive/29065151846755d6bbad369f506143ebf69b168f.tar.gz",
+    "json-loader": "^0.5.4",
     "karma": "^0.13.16",
     "karma-chrome-launcher": "^0.2.2",
     "karma-firefox-launcher": "^0.1.7",
-    "karma-react-jsx-preprocessor": "^0.1.1",
-    "lodash": "^3.10.1",
+    "karma-jasmine": "^0.3.6",
+    "karma-sourcemap-loader": "0.3.6",
+    "karma-webpack": "1.7.0",
     "phantomjs": "^1.9.19",
-    "react": "^0.13.0",
-    "react-tools": "^0.12.2",
     "shelljs": "^0.5.3",
     "underscore": "^1.8.3",
     "velocity-cli": "^0.4.3",
-    "wallabify": "0.0.12"
+    "webpack": "^1.12.9"
   }
 }

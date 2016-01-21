@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 var path = require('path'),
-   _ = require('lodash'),
+   _ = require('underscore'),
    spawn = require('child_process').spawn;
 
 var baseDir = path.resolve(__dirname, '..'),

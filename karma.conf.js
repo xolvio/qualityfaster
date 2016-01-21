@@ -1,4 +1,54 @@
+var path = require('path');
+var fs = require('fs');
+
+var basePath = path.resolve(__dirname);
+
 module.exports = function (config) {
+  var babelSettings = { presets: ['react', 'es2015', 'stage-0'] };
+  babelSettings.plugins = ['transform-decorators-legacy'];
+
+  var webpackConfig = {
+    resolve: {
+      root: path.join(basePath, 'src', 'modules'),
+      extensions: ['', '.js', '.jsx', '.json']
+    },
+    module: {
+      loaders: [
+        {
+          test: /\.jsx?$/,
+          loader: 'babel',
+          query: babelSettings,
+          exclude: /node_modules/
+        },
+        { test: /\.json$/, loader: 'json-loader' }
+      ]
+    },
+    devtool: 'inline-source-map'
+  };
+
+
+  var packageStubs = fs.readdirSync('./tests/client/stubs/packages')
+    .map(function (fileName) {
+      return 'packages/' + fileName;
+    });
+
+  var appManifest = require(path.resolve(basePath, './src/.meteor/local/build/programs/web.browser/program.json')).manifest;
+  var meteorPackageFiles = appManifest
+    .filter(function (file) {
+      return file.type === 'js' && file.path.startsWith('packages/') &&
+        !file.path.startsWith('packages/velocity') &&
+        [
+
+        ].indexOf(file.path) === -1;
+    })
+    .map(function (file) {
+      var basePath = packageStubs.indexOf(file.path) !== -1 ?
+        'tests/client/stubs' :
+        'src/.meteor/local/build/programs/web.browser';
+      return {pattern: path.join(basePath, file.path)};
+    });
+
+
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -10,11 +60,15 @@ module.exports = function (config) {
 
     // list of files / patterns to load in the browser
     files: [
-      {pattern: 'tests/components/_support/**', included: true},
-      {pattern: 'node_modules/react/dist/react-with-addons.js', included: true},
-      {pattern: 'src/client/components/**', included: true},
-      {pattern: 'tests/components/ui/**', included: true}
-    ],
+      'src/.meteor/local/build/programs/web.browser/merged-stylesheets.css',
+      'tests/client/__meteor_runtime_config__.js',
+    ].concat(
+      meteorPackageFiles,
+      [
+        {pattern: 'tests/components/_support/**'},
+        {pattern: 'tests/components/ui/**'}
+      ]
+    ),
 
     // list of files to exclude
     exclude: [ '**/*.md' ],
@@ -22,7 +76,16 @@ module.exports = function (config) {
     // pre-process matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      '**/*.jsx': ['react-jsx']
+      'tests/**/*.@(js|jsx)': ['webpack', 'sourcemap'],
+      'src/modules/**/*.@(js|jsx)': ['webpack', 'sourcemap']
+    },
+
+    webpack: webpackConfig,
+
+    webpackMiddleware: {
+      // webpack-dev-middleware configuration
+      // i. e.
+      noInfo: true
     },
 
     // test results reporter to use

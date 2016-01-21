@@ -1,4 +1,4 @@
-export default AccountSummary = React.createClass({
+export default React.createClass({
   render() {
     return (
        <div className="account-summary">
