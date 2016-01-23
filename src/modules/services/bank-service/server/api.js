@@ -10,11 +10,8 @@ Meteor.methods({
     }
     const fromAccountHolder = AccountHolders.findOne(Meteor.userId());
     const toAccountHolder = AccountHolders.findOne(toAccountNumber);
-    var result = bankService.transfer(fromAccountHolder, toAccountHolder, amount);
-    fromAccountHolder.save();
-    toAccountHolder.save();
 
-    return result;
+    return bankService.transfer(fromAccountHolder, toAccountHolder, amount);
   },
   'bank/depositCheck' (fromAccountNumber, branchNumber, amount) {
     if (!Meteor.userId()) {

@@ -1,10 +1,25 @@
+import {validateAndThrowMeteorError} from '../../../validation';
+
+export function validateTransfer({fromAccountHolder, toAccountHolder, amount}) {
+  if (fromAccountHolder.get('account.balance') < amount) {
+    return {id: 'INSUFFICIENT_FUNDS', message: 'Insufficient Funds'};
+  } else {
+    return null;
+  }
+}
+
+export function persistTransfer({fromAccountHolder, toAccountHolder, amount}) {
+  fromAccountHolder.set('account.balance', fromAccountHolder.get('account.balance') - amount);
+  toAccountHolder.set('account.balance', toAccountHolder.get('account.balance') + amount);
+  fromAccountHolder.save();
+  toAccountHolder.save();
+}
+
 export default class BankServiceIso {
   transfer(fromAccountHolder, toAccountHolder, amount) {
-    if (fromAccountHolder.get('account.balance') < amount) {
-      return {message: 'Insufficient Funds'};
-    }
-    fromAccountHolder.set('account.balance', fromAccountHolder.get('account.balance') - amount);
-    toAccountHolder.set('account.balance', toAccountHolder.get('account.balance') + amount);
+    const transferEvent = {fromAccountHolder, toAccountHolder, amount};
+    validateAndThrowMeteorError(transferEvent, [validateTransfer]);
+    persistTransfer(transferEvent);
   }
   issueChecks(accountHolder, numberOfChecks) {
     accountHolder.set('account.numberOfChecks', accountHolder.get('account.numberOfChecks') + numberOfChecks);
