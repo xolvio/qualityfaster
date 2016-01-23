@@ -27,6 +27,7 @@
     "shelljs": "^0.5.3",
     "underscore": "^1.8.3",
     "velocity-cli": "^0.4.3",
+    "wallaby-webpack": "0.0.10",
     "webpack": "^1.12.9"
   }
 }
