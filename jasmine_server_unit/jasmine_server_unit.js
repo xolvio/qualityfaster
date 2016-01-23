@@ -12,9 +12,9 @@ if (!process.env.MONGO_URL) {
   process.env.MONGO_URL = 'mongodb://127.0.0.1:27017/jasmine-server';
 }
 
-var basePath = path.resolve(__dirname, '../src');
+var basePath = path.resolve(__dirname, '..');
 process.chdir(basePath);
-var serverAppPath = path.resolve(basePath, '.meteor/local/build/programs/server');
+var serverAppPath = path.resolve(basePath, 'src/.meteor/local/build/programs/server');
 
 var Fiber = require('fibers');
 var fs = require('fs');
@@ -235,9 +235,9 @@ Fiber(function () {
   jasmine.loadConfig({
     spec_dir: '.',
     spec_files: [
-      'modules/**/*_spec.@(js|jsx)',
-      '!modules/*/client/**/*_spec.@(js|jsx)',
-      'tests/jasmine/server/unit/**/*_spec.@(js|jsx)',
+      'src/modules/**/*-spec.@(js|jsx)',
+      '!src/modules/*/client/**/*-spec.@(js|jsx)',
+      'tests/jasmine/server/unit/**/*-spec.@(js|jsx)',
       '!tests/jasmine/server/unit/quarantine/**/*.@(js|jsx)',
     ]
   });
