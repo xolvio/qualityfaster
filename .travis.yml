@@ -58,6 +58,10 @@ before_install:
   # Cache Velocity Meteor Release
   - .scripts/cache-velocity.js
 
+  - MONGO_URL='mongodb://127.0.0.1:27017/jasmine-server' ./.scripts/jasmine_server_unit/jasmine_server_unit.sh
+
+  - ./node_modules/.bin/karma start karma.conf.js
+
   # Cache Selenium & ChromeDriver
   - ./node_modules/.bin/chimp --path=content # there are no tests in content
 

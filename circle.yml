@@ -42,6 +42,12 @@ dependencies:
         environment:
           MONGO_URL: "mongodb://localhost:27017/velocity_cache"
 
+    - ./.scripts/jasmine_server_unit/jasmine_server_unit.sh:
+        environment:
+          MONGO_URL: 'mongodb://127.0.0.1:27017/jasmine-server'
+
+    - ./node_modules/.bin/karma start karma.conf.js
+
     # Cache Selenium & ChromeDriver
     - ./node_modules/.bin/chimp --path=content # there are no tests in content
 
