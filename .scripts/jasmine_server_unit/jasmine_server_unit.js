@@ -12,7 +12,7 @@ if (!process.env.MONGO_URL) {
   process.env.MONGO_URL = 'mongodb://127.0.0.1:27017/jasmine-server';
 }
 
-var basePath = path.resolve(__dirname, '..');
+var basePath = path.resolve(__dirname, '..', '..');
 process.chdir(basePath);
 var serverAppPath = path.resolve(basePath, 'src/.meteor/local/build/programs/server');
 
