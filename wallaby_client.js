@@ -8,7 +8,7 @@ module.exports = function (wallaby) {
 
   var webpackConfig = {
     resolve: {
-      root: path.join(wallaby.projectCacheDir, 'src', 'modules'),
+      root: path.join(wallaby.projectCacheDir, 'src', 'imports'),
       extensions: ['', '.js', '.jsx', '.json']
     },
     module: {
@@ -61,19 +61,19 @@ module.exports = function (wallaby) {
        meteorPackageFiles,
        [
          {pattern: 'tests/components/_support/**', load: false},
-         {pattern: 'src/modules/**/*.@(js|jsx)', load: false},
-         {pattern: 'src/modules/**/server/**/*.@(js|jsx)', ignore: true},
+         {pattern: 'src/imports/**/*.@(js|jsx)', load: false},
+         {pattern: 'src/imports/**/server/**/*.@(js|jsx)', ignore: true},
        ]
     ),
     tests: [
-      {pattern: 'modules/**/*-spec.@(js|jsx)', load: false},
-      {pattern: 'modules/**/server/**/*-spec.@(js|jsx)', ignore: true},
+      {pattern: 'imports/**/*-spec.@(js|jsx)', load: false},
+      {pattern: 'imports/**/server/**/*-spec.@(js|jsx)', ignore: true},
       {pattern: 'tests/components/ui/**/*-spec.@(js|jsx)', load: false},
     ],
 
     compilers: {
       // Important: Make sure that src/.meteor/ is excluded from the pattern
-      'src/modules/**/*.@(js|jsx)': babelCompiler,
+      'src/imports/**/*.@(js|jsx)': babelCompiler,
       'tests/**/*.@(js|jsx)': babelCompiler,
     },
 

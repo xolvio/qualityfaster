@@ -1,4 +1,4 @@
-import {AccountHolder} from '/src/modules/models/acccount-holder';
+import {AccountHolder} from '/src/imports/models/acccount-holder';
 
 describe('Bank Service', function () {
   beforeEach(function () {

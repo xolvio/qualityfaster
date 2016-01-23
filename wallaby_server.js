@@ -15,25 +15,25 @@ module.exports = function (wallaby) {
     );
 
   process.env.NODE_PATH += path.delimiter +
-    path.join(wallaby.projectCacheDir, 'src', 'modules');
+    path.join(wallaby.projectCacheDir, 'src', 'imports');
 
   return {
     files: [
-      {pattern: 'src/modules/**/*-spec.@(js|jsx)', ignore: true},
-      {pattern: 'src/modules/**/client/**/*.@(js|jsx)', ignore: true},
-      {pattern: 'src/modules/**/*.@(js|jsx)', load: false},
+      {pattern: 'src/imports/**/*-spec.@(js|jsx)', ignore: true},
+      {pattern: 'src/imports/**/client/**/*.@(js|jsx)', ignore: true},
+      {pattern: 'src/imports/**/*.@(js|jsx)', load: false},
     ],
 
     tests: [
-      {pattern: 'src/modules/**/*-spec.@(js|jsx)'},
-      {pattern: 'src/modules/**/client/**/*-spec.@(js|jsx)', ignore: true},
+      {pattern: 'src/imports/**/*-spec.@(js|jsx)'},
+      {pattern: 'src/imports/**/client/**/*-spec.@(js|jsx)', ignore: true},
       {pattern: 'tests/jasmine/server/unit/**/*-spec.@(js|jsx)'},
       {pattern: 'tests/jasmine/server/unit/quarantine/**/*.@(js|jsx)', ignore: true},
     ],
 
     compilers: {
       // Important: Make sure that src/.meteor/ is excluded from the pattern
-      'src/modules/**/*.@(js|jsx)': babelCompiler,
+      'src/imports/**/*.@(js|jsx)': babelCompiler,
       'tests/jasmine/server/unit/**/*.@(js|jsx)': babelCompiler,
     },
 

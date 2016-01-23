@@ -235,8 +235,8 @@ Fiber(function () {
   jasmine.loadConfig({
     spec_dir: '.',
     spec_files: [
-      'src/modules/**/*-spec.@(js|jsx)',
-      '!src/modules/*/client/**/*-spec.@(js|jsx)',
+      'src/imports/**/*-spec.@(js|jsx)',
+      '!src/imports/*/client/**/*-spec.@(js|jsx)',
       'tests/jasmine/server/unit/**/*-spec.@(js|jsx)',
       '!tests/jasmine/server/unit/quarantine/**/*.@(js|jsx)',
     ]

@@ -1,4 +1,4 @@
-//import {AccountSummary} from '/src/modules/client/components/bank-transfer.jsx';
+//import {AccountSummary} from '/src/imports/client/components/bank-transfer.jsx';
 //
 //var testUtils = React.addons.TestUtils;
 //

@@ -9,7 +9,7 @@ module.exports = function (config) {
 
   var webpackConfig = {
     resolve: {
-      root: path.join(basePath, 'src', 'modules'),
+      root: path.join(basePath, 'src', 'imports'),
       extensions: ['', '.js', '.jsx', '.json']
     },
     module: {
@@ -77,7 +77,7 @@ module.exports = function (config) {
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
       'tests/**/*.@(js|jsx)': ['webpack', 'sourcemap'],
-      'src/modules/**/*.@(js|jsx)': ['webpack', 'sourcemap']
+      'src/imports/**/*.@(js|jsx)': ['webpack', 'sourcemap']
     },
 
     webpack: webpackConfig,

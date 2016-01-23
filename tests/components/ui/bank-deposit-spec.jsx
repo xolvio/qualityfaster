@@ -1,4 +1,4 @@
-//import {AccountSummary} from '/src/modules/client/components/bank-deposit';
+//import {AccountSummary} from '/src/imports/client/components/bank-deposit';
 //
 //var testUtils = React.addons.TestUtils;
 //

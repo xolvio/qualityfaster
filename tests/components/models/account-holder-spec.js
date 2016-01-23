@@ -1,4 +1,4 @@
-//import {AccountHolder} from '/modules/models/account-holder.js';
+//import {AccountHolder} from '/imports/models/account-holder.js';
 //
 //describe('Account Holder', function () {
 //  describe('initialization event', function () {
