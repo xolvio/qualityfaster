@@ -23,7 +23,7 @@
     "karma-jasmine": "^0.3.6",
     "karma-sourcemap-loader": "0.3.6",
     "karma-webpack": "1.7.0",
-    "phantomjs": "^2.1.2",
+    "phantomjs": "^1.9.19",
     "shelljs": "^0.5.3",
     "underscore": "^1.8.3",
     "velocity-cli": "^0.4.3",

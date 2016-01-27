@@ -86,7 +86,7 @@ module.exports = function (wallaby) {
 
     env: {
       type: 'browser',
-      runner: './node_modules/.bin/phantomjs',
+      runner: require('phantomjs').path,
     },
 
     testFramework: 'jasmine',
