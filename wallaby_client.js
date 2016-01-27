@@ -62,13 +62,13 @@ module.exports = function (wallaby) {
        [
          {pattern: 'tests/components/_support/**', load: false},
          {pattern: 'src/imports/**/*.@(js|jsx)', load: false},
+         {pattern: 'src/imports/**/*-spec.@(js|jsx)', ignore: true},
          {pattern: 'src/imports/**/server/**/*.@(js|jsx)', ignore: true},
        ]
     ),
     tests: [
-      {pattern: 'imports/**/*-spec.@(js|jsx)', load: false},
-      {pattern: 'imports/**/server/**/*-spec.@(js|jsx)', ignore: true},
-      {pattern: 'tests/components/ui/**/*-spec.@(js|jsx)', load: false},
+      {pattern: 'src/imports/**/*-spec.@(js|jsx)', load: false},
+      {pattern: 'src/imports/**/server/**/*-spec.@(js|jsx)', ignore: true},
     ],
 
     compilers: {

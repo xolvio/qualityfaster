@@ -66,12 +66,15 @@ module.exports = function (config) {
       meteorPackageFiles,
       [
         {pattern: 'tests/components/_support/**'},
-        {pattern: 'tests/components/ui/**'}
+        {pattern: 'src/imports/**/*-spec.@(js|jsx)'},
       ]
     ),
 
     // list of files to exclude
-    exclude: [ '**/*.md' ],
+    exclude: [
+      'src/imports/**/server/**/*-spec.@(js|jsx)',
+      '**/*.md'
+    ],
 
     // pre-process matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
