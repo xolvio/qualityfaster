@@ -13,7 +13,7 @@ var appOptions = {
   settings: 'settings.json',
   port: 3000,
   env: {
-    ROOT_URL: 'http://localhost:3000/',
+    ROOT_URL: 'http://localhost:3000',
     VELOCITY: 1,
     JASMINE_CLIENT_UNIT: 0,
     JASMINE_SERVER_UNIT: 0,
@@ -28,7 +28,7 @@ var mirrorOptions = {
   env: {
     IS_MIRROR: 1,
     MONGO_URL: 'mongodb://localhost:' + 3001 + '/chimp_db',
-    ROOT_URL: 'http://localhost:3100/'
+    ROOT_URL: 'http://localhost:3100'
   },
   logFile: './chimp-mirror.log'
 };
