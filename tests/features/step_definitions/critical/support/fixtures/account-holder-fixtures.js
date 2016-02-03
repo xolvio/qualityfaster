@@ -3,6 +3,7 @@ fixtures.accountHolders = {
   create: function (accountHolder, branchNumber) {
     accountHolder.password = accountHolder.password || this.DEFAULT_PASSWORD;
     return server.execute(function (accountHolder, branchNumber) {
+      var AccountService = require('./imports/services/account-service').getInstance();
       return AccountService.create(accountHolder, branchNumber).raw();
     }, accountHolder, branchNumber);
   },
@@ -20,8 +21,6 @@ fixtures.accountHolders = {
   },
   login: function (accountHolder) {
     this.serverLogin(accountHolder);
-    if (CRITICAL) {
-      this.clientLogin(accountHolder);
-    }
+    this.clientLogin(accountHolder);
   }
 };
