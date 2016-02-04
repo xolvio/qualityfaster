@@ -18,7 +18,7 @@ export function persistTransfer({fromAccountHolder, toAccountHolder, amount}) {
 export default class BankServiceIso {
   transfer(fromAccountHolder, toAccountHolder, amount) {
     const transferEvent = {fromAccountHolder, toAccountHolder, amount};
-    validateAndThrowMeteorError(transferEvent, [validateTransfer]);
+    validateAndThrowMeteorError([validateTransfer], transferEvent);
     persistTransfer(transferEvent);
   }
   issueChecks(accountHolder, numberOfChecks) {
