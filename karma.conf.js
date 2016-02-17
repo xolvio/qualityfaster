@@ -27,7 +27,7 @@ module.exports = function (config) {
   };
 
 
-  var packageStubs = fs.readdirSync('./tests/client/stubs/packages')
+  var packageStubs = fs.readdirSync('src/imports/testing/client/stubs')
     .map(function (fileName) {
       return 'packages/' + fileName;
     });
@@ -61,7 +61,7 @@ module.exports = function (config) {
     // list of files / patterns to load in the browser
     files: [
       'src/.meteor/local/build/programs/web.browser/merged-stylesheets.css',
-      'tests/client/__meteor_runtime_config__.js',
+      'src/imports/testing/client/__meteor_runtime_config__.js',
     ].concat(
       meteorPackageFiles,
       [

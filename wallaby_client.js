@@ -28,7 +28,7 @@ module.exports = function (wallaby) {
     plugins: ['transform-decorators-legacy'],
   });
 
-  var packageStubs = fs.readdirSync('./tests/client/stubs/packages')
+  var packageStubs = fs.readdirSync('./src/imports/testing/client/stubs')
     .map(function (fileName) {
       return 'packages/' + fileName;
     });
@@ -56,11 +56,11 @@ module.exports = function (wallaby) {
     // their wrapped versions will be loaded instead
     files: [
       'src/.meteor/local/build/programs/web.browser/merged-stylesheets.css',
-      'tests/client/__meteor_runtime_config__.js',
+      'src/imports/testing/client/__meteor_runtime_config__.js',
     ].concat(
        meteorPackageFiles,
        [
-         {pattern: 'tests/components/_support/**', load: false},
+         {pattern: 'src/imports/testing/_support/**', load: false},
          {pattern: 'src/imports/**/*.@(js|jsx)', load: false},
          {pattern: 'src/imports/**/*-spec.@(js|jsx)', ignore: true},
          {pattern: 'src/imports/**/server/**/*.@(js|jsx)', ignore: true},

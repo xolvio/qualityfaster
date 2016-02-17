@@ -46,7 +46,7 @@ module.exports = function (wallaby) {
         process.env.ROOT_URL = 'http://localhost:3000/';
       }
       if (!process.env.MONGO_URL) {
-        process.env.MONGO_URL = 'mongodb://127.0.0.1:27017/wallaby-server';
+        process.env.MONGO_URL = 'mongodb://127.0.0.1:3001/wallaby-server';
       }
 
       var serverAppPath = path.resolve(

@@ -7,7 +7,7 @@ var path = require('path'),
 
 var baseDir = path.resolve(__dirname, '..'),
    srcDir = path.resolve(baseDir, 'src'),
-   chimpBin = path.resolve(baseDir, 'node_modules/.bin/chimp');
+   chimpBin = path.resolve(baseDir, '.scripts/node_modules/.bin/chimp');
 
 var appOptions = {
   settings: 'settings.json',
@@ -29,10 +29,12 @@ var mirrorOptions = {
 };
 
 var chimpSwitches =
-   ' --path=' + path.resolve('tests/features') +
-   ' -r=' + path.resolve('tests/features/step_definitions/domain') +
-   ' --criticalSteps=' + path.resolve('tests/features/step_definitions/critical') +
-   ' --singleSnippetPerFile=1';
+   ' --path=' + path.resolve('tests/specifications') +
+   ' --domainSteps=' + path.resolve('tests/step_definitions/domain') +
+   ' --criticalSteps=' + path.resolve('tests/step_definitions/critical') +
+   ' --watchSource=' + path.resolve('tests') +
+   ' --singleSnippetPerFile=1' +
+   ' --no-source';
 
 if (!process.env.CI && !process.env.TRAVIS && !process.env.CIRCLECI) {
   // when not in Watch mode, Chimp existing will exit Meteor too
@@ -91,6 +93,7 @@ function startApp(callback) {
 
 function startMirror(callback) {
   startProcess({
+    // TODO check if settings file exists first
     name: 'Meteor Mirror',
     command: 'meteor --settings ' + mirrorOptions.settings + ' --port ' + mirrorOptions.port,
     silent: true,
