@@ -20,13 +20,13 @@ module.exports = function (wallaby) {
   return {
     files: [
       {pattern: 'src/imports/**/*-spec.@(js|jsx)', ignore: true},
-      {pattern: 'src/imports/**/client/**/*.@(js|jsx)', ignore: true},
+      {pattern: 'src/imports/**/ui/**/*.@(js|jsx)', ignore: true},
       {pattern: 'src/imports/**/*.@(js|jsx)', load: false},
     ],
 
     tests: [
       {pattern: 'src/imports/**/*-spec.@(js|jsx)'},
-      {pattern: 'src/imports/**/client/**/*-spec.@(js|jsx)', ignore: true},
+      {pattern: 'src/imports/**/ui/**/*-spec.@(js|jsx)', ignore: true},
       {pattern: 'tests/jasmine/server/unit/**/*-spec.@(js|jsx)'},
       {pattern: 'tests/jasmine/server/unit/quarantine/**/*.@(js|jsx)', ignore: true},
     ],

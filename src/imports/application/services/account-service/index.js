@@ -11,7 +11,8 @@ export default class AccountService extends AccountServiceIso {
     var nullAccountHolder = {
       account: {}
     };
+
     var accountHolder = Meteor.user();
-    return accountHolder ? accountHolder : nullAccountHolder;
+    return accountHolder ? accountHolder.accountHolder : nullAccountHolder;
   }
 };

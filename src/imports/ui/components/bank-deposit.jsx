@@ -4,7 +4,9 @@ export default BankDeposit = React.createClass({
     const fromAccountNumber = React.findDOMNode(this.refs.fromAccountNumber).value.trim();
     const branchNumber = parseInt(React.findDOMNode(this.refs.branchNumber).value.trim());
     const amount = parseFloat(React.findDOMNode(this.refs.amount).value.trim());
-    Meteor.call('bank/deposit', fromAccountNumber, branchNumber, amount);
+    Meteor.call('bank/depositCheck', fromAccountNumber, branchNumber, amount, function(e, r) {
+     console.log(e, r)
+    });
   },
   render() {
     return (

@@ -9,4 +9,5 @@ if (false) {
   require('./imports/domain/services/bank-service/server');
   require('./imports/application/services/account-service');
   require('./imports/application/services/account-service/server');
+  require('./imports/application/services/bank-service/server');
 }

@@ -1,4 +1,4 @@
-import {App} from '/imports/client/components/app.jsx'
+import {App} from '/imports/ui/components/app.jsx'
 
 Meteor.subscribe('myAccount');
 

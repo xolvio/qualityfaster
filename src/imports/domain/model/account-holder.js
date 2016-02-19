@@ -9,6 +9,6 @@ class Account {
 export class AccountHolder {
   constructor(options) {
     this.name = options.name;
-    this.account = new Account(options.branchNumber);
+    this.account = new Account(options);
   }
 }

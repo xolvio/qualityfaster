@@ -1,43 +1,51 @@
-import {AccountHolder} from '../../domain/model/account-holder';
-import {AccountHolders} from '../collections';
-import AccountService from '../account-service/index';
+import {AccountHolder} from '../../../../domain/model/account-holder';
+import {AccountHolders} from '../../../../infrastructure/collections';
+import AccountService from '../index';
 
 describe('Account Service', function () {
   beforeEach(function () {
+    Accounts.users.remove({});
     this.accountService = AccountService.getInstance();
-    AccountHolders.remove({});
   });
   describe('create', function () {
-    xit('creates and returns an AccountHolder backed by a Meteor user account', function () {
-      var accountHolder = this.accountService.create({
+    it('creates a Meteor user account and adds an AccountHolder', function () {
+      var meteorUserId = this.accountService.create({
         username: 'hello',
-        password: 'w0rld'
+        password: 'w0rld',
+        branchNumber: 12345
       });
 
-      var meteorUser = Meteor.users.findOne({username: 'hello'});
-      expect(accountHolder._id).toEqual(meteorUser._id);
-      expect(accountHolder.username).toEqual(meteorUser.username);
+      var meteorUser = Accounts.users.findOne(meteorUserId);
+
+      expect(meteorUser.accountHolder).toBeTruthy();
     });
-    xit('does not store the password on the account holder object', function () {
-      var accountHolder = this.accountService.create({
+    it('sets the branch on the account', function () {
+      var meteorUserId = this.accountService.create({
         username: 'hello',
-        password: 'w0rld'
+        password: 'w0rld',
+        branchNumber: 12345
       });
 
-      expect(accountHolder.password).toBe(null);
-    });
-    xit('sets the branch on the account', function () {
-      var accountHolder = this.accountService.create({
-        username: 'hello',
-        password: 'w0rld'
-      }, 12345);
+      var meteorUser = Accounts.users.findOne(meteorUserId);
 
-      expect(accountHolder.account.branchNumber).toBe(12345);
+      expect(meteorUser.accountHolder.account.branchNumber).toBe(12345);
+    });
+    it('converts string branch codes to numbers on the account', function () {
+      var meteorUserId = this.accountService.create({
+        username: 'hello',
+        password: 'w0rld',
+        branchNumber: '12345'
+      });
+
+      var meteorUser = Accounts.users.findOne(meteorUserId);
+
+      expect(typeof meteorUser.accountHolder.account.branchNumber).toBe('number');
+      expect(meteorUser.accountHolder.account.branchNumber).toBe(12345);
     });
   });
   describe('getCurrentAccountHolder', function () {
     it('returns the currently logged in account holder', function () {
-      spyOn(Meteor, 'user').and.returnValue('theUser');
+      spyOn(Meteor, 'user').and.returnValue({accountHolder: 'theUser'});
 
       var accountHolder = this.accountService.getCurrentAccountHolder();
 

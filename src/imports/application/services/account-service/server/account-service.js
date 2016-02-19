@@ -1,16 +1,19 @@
+import {AccountHolder} from '../../../../domain/model/account-holder';
+
 export default class AccountServiceIso {
   create(options) {
-    var accountHolderId = Accounts.createUser({
-      username: options.username,
-      password: options.password
+    const accountHolder = new AccountHolder({
+      branchNumber: parseInt(options.branchNumber)
     });
-
-
-
-    //var newAccountHolder = Meteor.users.findOne(accountHolderId);
-    //newAccountHolder.set(accountHolder);
-    //newAccountHolder.set('account.branchNumber', branchNumber);
-    //newAccountHolder.save();
-    //return newAccountHolder;
+    var userId = Accounts.createUser({
+      username: options.username,
+      password: options.password,
+    });
+    Accounts.users.update(userId, {
+      $set: {
+        accountHolder: accountHolder
+      }
+    });
+    return userId;
   }
 };

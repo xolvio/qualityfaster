@@ -1,11 +1,10 @@
 import {AccountHolder} from '../../../model/account-holder';
 import {AccountHolders} from '../../../../infrastructure/collections';
 import BankService from '../index';
-import BankServiceApi from './api';
+import BankServiceApi from '../../../../application/services/bank-service/server/bank-service-api';
 
 describe('Bank Service', function () {
   beforeEach(function () {
-    AccountHolders.remove({});
     this.bankService = BankService.getInstance();
     this.fromAccountHolder = new AccountHolder({'name': 'accountHolder1', branchNumber: 12345});
     this.toAccountHolder = new AccountHolder({'name': 'accountHolder2', branchNumber: 12345});
@@ -24,33 +23,11 @@ describe('Bank Service', function () {
       this.fromAccountHolder.account.balance = 10;
       this.toAccountHolder.account.balance = 0;
 
-      try {
-        this.bankService.transfer(this.fromAccountHolder, this.toAccountHolder, 20);
-      } catch (e) {
-        expect(e.message).toEqual('INSUFFICIENT_FUNDS');
-        expect(this.fromAccountHolder.account.balance).toBe(10);
-        expect(this.toAccountHolder.account.balance).toBe(0);
-      }
-    });
-  });
-  describe('transfer API', function () {
-    xit('transfers an amount from account A to the account B', function () {
-      this.fromAccountHolder.account.balance = 60;
-      this.toAccountHolder.account.balance = 80;
+      var result = this.bankService.transfer(this.fromAccountHolder, this.toAccountHolder, 20);
 
-      var result = Meteor.call('bank/transfer', this.toAccountHolder.get('_id'), 20);
-
-      expect(result).toBeFalsy();
-      this.fromAccountHolder.reload();
-      this.toAccountHolder.reload();
-      expect(this.fromAccountHolder.get('account.balance')).toBe(40);
-      expect(this.toAccountHolder.get('account.balance')).toBe(100);
-    });
-    it('returns an error when the owner is not logged in', function () {
-      var result = Meteor.call('bank/transfer');
-      expect(result).toEqual({
-        message: 'You are not logged in'
-      });
+      expect(result.message).toBe('Insufficient Funds');
+      expect(this.fromAccountHolder.account.balance).toBe(10);
+      expect(this.toAccountHolder.account.balance).toBe(0);
     });
   });
   describe('issueChecks', function () {
@@ -127,31 +104,6 @@ describe('Bank Service', function () {
       expect(this.toAccountHolder.account.balance).toBe(60);
       expect(result).toEqual({
         message: 'Branch numbers do not match'
-      });
-    });
-  });
-  describe('depositCheck API', function () {
-    xit('should transfer the amount from account A to account B when the check is valid', function () {
-      this.fromAccountHolder.account.balance = 50;
-      this.fromAccountHolder.account.branchNumber = 12345;
-      this.fromAccountHolder.account.numberOfChecks = 10;
-      this.toAccountHolder.account.balance = 80;
-      this.toAccountHolder.account.branchNumber = 12345;
-
-      spyOn(Meteor, 'userId').and.returnValue(this.toAccountHolder.get('_id'));
-
-      var result = Meteor.call('bank/depositCheck', this.fromAccountHolder.get('_id'), 12345, 10);
-
-      expect(result).toBeFalsy();
-      this.fromAccountHolder.reload();
-      this.toAccountHolder.reload();
-      expect(this.fromAccountHolder.get('account.balance')).toBe(40);
-      expect(this.toAccountHolder.get('account.balance')).toBe(90);
-    });
-    it('returns an error when the owner is not logged in', function () {
-      var result = Meteor.call('bank/depositCheck');
-      expect(result).toEqual({
-        message: 'You are not logged in'
       });
     });
   });
