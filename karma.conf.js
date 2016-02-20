@@ -43,7 +43,7 @@ module.exports = function (config) {
     })
     .map(function (file) {
       var basePath = packageStubs.indexOf(file.path) !== -1 ?
-        'tests/client/stubs' :
+        'src/imports/testing/client/stubs' :
         'src/.meteor/local/build/programs/web.browser';
       return {pattern: path.join(basePath, file.path)};
     });
@@ -65,7 +65,7 @@ module.exports = function (config) {
     ].concat(
       meteorPackageFiles,
       [
-        {pattern: 'tests/components/_support/**'},
+        {pattern: 'src/imports/testing/_support/**'},
         {pattern: 'src/imports/**/*-spec.@(js|jsx)'},
       ]
     ),
