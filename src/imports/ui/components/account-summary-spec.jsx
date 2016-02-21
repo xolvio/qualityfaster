@@ -10,7 +10,7 @@ describe('Account Summary Component', function () {
       );
       const element = ReactDOM.findDOMNode(instance);
 
-      expect(element.innerText).toBe('$ 10');
+      expect($(element).text()).toBe('$ 10');
     });
   });
 });
