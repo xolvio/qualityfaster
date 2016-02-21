@@ -3,7 +3,9 @@
   "scripts": {
     "install": "cd .scripts && npm install",
     "start": ".scripts/start.js",
-    "test": ".scripts/test.js"
+    "karma": "./node_modules/.bin/karma start",
+    "test": ".scripts/test.js",
+    "ci": "npm install && CI=1 npm test"
   },
   "devDependencies": {
     "babel-core": "^6.3.17",
