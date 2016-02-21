@@ -50,8 +50,6 @@ Meteor embraces this view. It is a complete Node.js based full-stack JavaScript 
 
 ##### Packages
 
-* **[Astronomy](http://astronomy.jagi.io)**<br/>
-  Model layer for Meteor. Not only does this package allow you to write less code, it also makes it much easier to use techniques like Modelling by Example.
 * **[React](https://facebook.github.io/react/)**<br/>
   Great view layer with some great design principles. It comes with built-in testing support and is testable entirely independently without needing to run Meteor. 
 
