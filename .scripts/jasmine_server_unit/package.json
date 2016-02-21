@@ -1,9 +1,0 @@
-{
-  "name": "jasmine-server-unit",
-  "private": true,
-  "dependencies": {
-    "jasmine": "https://github.com/xolvio/jasmine-npm/archive/29065151846755d6bbad369f506143ebf69b168f.tar.gz",
-    "fibers": "1.0.5",
-    "underscore": "1.5.2"
-  }
-}

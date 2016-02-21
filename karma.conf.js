@@ -36,7 +36,6 @@ module.exports = function (config) {
   var meteorPackageFiles = appManifest
     .filter(function (file) {
       return file.type === 'js' && file.path.startsWith('packages/') &&
-        !file.path.startsWith('packages/velocity') &&
         [
 
         ].indexOf(file.path) === -1;
