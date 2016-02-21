@@ -21,7 +21,6 @@ dependencies:
     - "src/.meteor/local/db"
     - "src/.meteor/local/isopacks"
     - "src/.meteor/local/plugin-cache"
-    - "src/.meteor/local/mirrors"
 
   override:
     # Cache Mongo 2.6
@@ -36,15 +35,6 @@ dependencies:
 
     # Cache npm deps
     - npm install
-
-    # Cache Velocity Meteor Release
-    - .scripts/cache-velocity.js:
-        environment:
-          MONGO_URL: "mongodb://localhost:27017/velocity_cache"
-
-    - ./.scripts/jasmine_server_unit/jasmine_server_unit.sh:
-        environment:
-          MONGO_URL: 'mongodb://127.0.0.1:27017/jasmine-server'
 
     - ./node_modules/.bin/karma start karma.conf.js
 

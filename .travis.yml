@@ -27,7 +27,6 @@ cache:
     - "src/.meteor/local/db"
     - "src/.meteor/local/isopacks"
     - "src/.meteor/local/plugin-cache"
-    - "src/.meteor/local/mirrors"
 
 before_cache:
   - rm -rf $HOME/build/xolvio/automated-testing-best-practices/.meteor/local/log
@@ -54,11 +53,6 @@ before_install:
 
   # Install NPM dependencies
   - npm install
-
-  # Cache Velocity Meteor Release
-  - .scripts/cache-velocity.js
-
-  - MONGO_URL='mongodb://127.0.0.1:27017/jasmine-server' ./.scripts/jasmine_server_unit/jasmine_server_unit.sh
 
   - ./node_modules/.bin/karma start karma.conf.js
 
