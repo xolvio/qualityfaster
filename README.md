@@ -82,7 +82,7 @@ Please remember to **read everything** on our [testing success factors](./conten
 
 2. Start the unit testing runner by either starting Wallaby from your IDE (highly recommended! See above), or you can start Karma with:
    ```
-   node_modules/.bin/karma start
+   npm run karma
    ```
    
 3. Start Chimp + Meteor without Mirror<br/>
@@ -103,12 +103,11 @@ npm test
 ```
 
 #### On CI
-Technically, all you need to do is this: 
+All you need to do is this: 
 ```
-npm install
-CI=1 npm test
+npm run ci
 ```
 
-But you might need to do a little more setup depending on your specific CI environment.
+You might need to do a little more setup depending on your specific CI environment.
 
 This repository already includes a `circle.yml` and `travis.yml` files that runs Chimp on CircleCI and TravisCI, as well as taking care of all the dependency caching.
