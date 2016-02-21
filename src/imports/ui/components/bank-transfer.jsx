@@ -1,8 +1,8 @@
-export default BankTransfer = React.createClass({
+const BankTransfer = React.createClass({
   doTransfer(event) {
     event.preventDefault();
-    const amount = React.findDOMNode(this.refs.amount).value.trim();
-    const accountNumber = React.findDOMNode(this.refs.accountNumber).value.trim();
+    const amount = this.refs.amount.value.trim();
+    const accountNumber = this.refs.accountNumber.value.trim();
     Meteor.call('bank/transfer', accountNumber, amount);
   },
   render() {
@@ -28,3 +28,4 @@ export default BankTransfer = React.createClass({
     );
   }
 });
+export default BankTransfer;

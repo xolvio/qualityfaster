@@ -1,4 +1,3 @@
-@focus
 Feature: Mobile check deposit
 
   As an Account Holder

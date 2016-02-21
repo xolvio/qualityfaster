@@ -6,22 +6,22 @@ var path = require('path'),
 var baseDir = path.resolve(__dirname, '..'),
    srcDir = path.resolve(baseDir, 'src'),
    karmaBin = path.resolve(baseDir, 'node_modules/.bin/karma'),
-   velocityBin = path.resolve(baseDir, 'node_modules/.bin/velocity'),
    chimpScript = path.resolve(__dirname, 'start.js');
 
-runTests();
+runTestsSequentially();
+// TODO run tests in parallel for beefier machines
 
-function runTests() {
-  runKarma(function () {
-    runVelocity(function () {
-      runChimp(function () {
+function runTestsSequentially() {
+  runClientTests(function () {
+    runServerTests(function () {
+      runEndToEndTests(function () {
         console.log('Yay!');
       });
     });
   });
 }
 
-function runKarma(callback) {
+function runClientTests(callback) {
   startProcess({
     name: 'Karma',
     options: {},
@@ -29,17 +29,12 @@ function runKarma(callback) {
   }, callback);
 }
 
-function runVelocity(callback) {
-  startProcess({
-    name: 'Velocity',
-    options: {
-      cwd: srcDir
-    },
-    command: velocityBin + ' test-app --ci'
-  }, callback);
+function runServerTests(callback) {
+  // TODO add Meteor 1.3 server testing mode
+  callback();
 }
 
-function runChimp(callback) {
+function runEndToEndTests(callback) {
   startProcess({
     name: 'Chimp',
     options: {
