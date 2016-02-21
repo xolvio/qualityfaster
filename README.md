@@ -80,12 +80,7 @@ Please remember to **read everything** on our [testing success factors](./conten
    npm install
    ```
 
-2. Start the unit testing runner by either starting Wallaby from your IDE (highly recommended! See above), or you can start Karma with:
-   ```
-   npm run karma
-   ```
-   
-3. Start Chimp + Meteor without Mirror<br/>
+1. Start Chimp + Meteor without Mirror<br/>
    ```
    npm start
    ```
@@ -93,6 +88,15 @@ Please remember to **read everything** on our [testing success factors](./conten
    ```
    WITH_MIRROR=1 npm start
    ```
+
+3. Start the unit testing runner by either starting Wallaby from your IDE (highly recommended! See above), or you can start Karma with:
+   ```
+   npm run karma
+   ```
+   
+   NOTES: 
+   * You need to run Meteor before you run the Wallaby server testing mode as it requires a connection to the running database
+   * Currently the only way to run server unit tests is using Wallaby locally, CI tests will not work until Meteor 1.3 is released
    
 4. Test and Develop!
 
