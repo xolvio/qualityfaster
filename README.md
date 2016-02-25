@@ -1,6 +1,5 @@
 # Automated Testing Best Practices by [Xolv.io](http://xolv.io)
-![Circle Build](https://circleci.com/gh/xolvio/automated-testing-best-practices.svg?style=shield&circle-token=:circle-token)
-![Travis Build](https://travis-ci.org/xolvio/automated-testing-best-practices.svg?branch=master)
+![Travis Build](https://travis-ci.org/lgandecki/automated-testing-best-practices.svg?branch=master)
 
 We at Xolv.io are testing and automation geeks that help other companies deliver higher quality, faster. We wrote [Chimp.js](http://chimpjs.com) to help us with this mission and we would like to show you how to use it properly **and be awesome at testing!** 
 
