@@ -7,7 +7,6 @@ Feature: Same-bank money transfers
   Background:
     Given I have an account with the branch number 12345
     And "James" has an account with the branch number 12345
-    And I am logged in
 
   @critical
   Scenario: Account has sufficient funds
