@@ -13,7 +13,7 @@ addons:
     sources:
       - google-chrome
     packages:
-      - google-chrome-stable
+    - google-chrome-stable
   firefox: "latest"
 
 cache:
@@ -54,13 +54,15 @@ before_install:
   # Install NPM dependencies
   - npm install
 
+  - cd .scripts
   # Cache the build and dependencies
-  - .scripts/cache-build-and-dependencies.js
-
-  - ./node_modules/.bin/karma start karma.conf.js
-
+  - cache-build-and-dependencies.js
   # Cache Selenium & ChromeDriver
-  - ./node_modules/.bin/chimp --path=content # there are no tests in content
+  - node_modules/.bin/chimp --path=features # there are no tests in content
+  - cd ..
+
+  # Cache Karma dependencies
+  - ./node_modules/.bin/karma start karma.conf.js
 
   # Make sure Mongo has started
   - until nc -z localhost 27017 ; do echo Waiting for MongoDB; sleep 1; done
