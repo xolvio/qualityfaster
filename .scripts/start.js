@@ -44,6 +44,10 @@ if (process.env.SIMIAN_API && process.env.SIMIAN_REPOSITORY) {
   chimpSwitches += ' --simianAccessToken=' + process.env.SIMIAN_API;
 }
 
+if (process.env.CUCUMBER_JSON_OUTPUT) {
+  chimpSwitches += ' --jsonOutput=' + process.env.CUCUMBER_JSON_OUTPUT;
+}
+
 // set this flag to start with a mirror locally (ala Velocity xolvio:cucumber style)
 if (process.env.WITH_MIRROR) {
   chimpWithMirror();
@@ -72,7 +76,6 @@ function chimpWithMirror() {
 function chimpNoMirror() {
   appOptions.waitForMessage = 'App running at';
   startApp(function () {
-    //console.log('chimp --ddp=' + appOptions.env.ROOT_URL + chimpSwitches)
     startChimp('--ddp=' + appOptions.env.ROOT_URL + chimpSwitches);
   });
 }
