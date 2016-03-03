@@ -13,7 +13,7 @@ addons:
     sources:
       - google-chrome
     packages:
-      - google-chrome-stable
+    - google-chrome-stable
   firefox: "latest"
 
 cache:
@@ -27,7 +27,6 @@ cache:
     - "src/.meteor/local/db"
     - "src/.meteor/local/isopacks"
     - "src/.meteor/local/plugin-cache"
-    - "src/.meteor/local/mirrors"
 
 before_cache:
   - rm -rf $HOME/build/xolvio/automated-testing-best-practices/.meteor/local/log
@@ -55,11 +54,15 @@ before_install:
   # Install NPM dependencies
   - npm install
 
-  # Cache Velocity Meteor Release
-  - .scripts/cache-velocity.js
-
+  - cd .scripts
+  # Cache the build and dependencies
+  - MONGO_URL=mongodb://localhost:27017/cache && ./cache-build-and-dependencies.js
   # Cache Selenium & ChromeDriver
-  - ./node_modules/.bin/chimp --path=content # there are no tests in content
+  - ./node_modules/.bin/chimp --path=features # there are no tests in content
+  - cd ..
+
+  # Cache Karma dependencies
+  - ./node_modules/.bin/karma start karma.conf.js
 
   # Make sure Mongo has started
   - until nc -z localhost 27017 ; do echo Waiting for MongoDB; sleep 1; done

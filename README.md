@@ -1,6 +1,6 @@
 # Automated Testing Best Practices by [Xolv.io](http://xolv.io)
-![Circle Build](https://circleci.com/gh/xolvio/automated-testing-best-practices.svg?style=shield&circle-token=:circle-token)
-![Travis Build](https://travis-ci.org/xolvio/automated-testing-best-practices.svg?branch=master)
+[![Circle Build](https://circleci.com/gh/xolvio/automated-testing-best-practices.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/xolvio/automated-testing-best-practices)
+[![Travis Build](https://travis-ci.org/xolvio/automated-testing-best-practices.svg?branch=master)](https://travis-ci.org/xolvio/automated-testing-best-practices)
 
 We at Xolv.io are testing and automation geeks that help other companies deliver higher quality, faster. We wrote [Chimp.js](http://chimpjs.com) to help us with this mission and we would like to show you how to use it properly **and be awesome at testing!** 
 
@@ -50,8 +50,6 @@ Meteor embraces this view. It is a complete Node.js based full-stack JavaScript 
 
 ##### Packages
 
-* **[Astronomy](http://astronomy.jagi.io)**<br/>
-  Model layer for Meteor. Not only does this package allow you to write less code, it also makes it much easier to use techniques like Modelling by Example.
 * **[React](https://facebook.github.io/react/)**<br/>
   Great view layer with some great design principles. It comes with built-in testing support and is testable entirely independently without needing to run Meteor. 
 
@@ -64,44 +62,39 @@ In this repository, we have created a great developer experience for unit, accep
 * **[Karma](http://karma-runner.github.io/)**<br/>
   Used to run the unit tests in CI mode or when doing a full run locally. If you don't use Wallaby, you can also use Karma to run all the tests every time you save a file.
 * **[Chimp](https://github.com/xolvio/chimp/)**<br/>
-  Our very own OSS package. Chimp allows you to drive the development of new features with quality built in from the outset. We have configured it in this repository to drive the domain development first, then the UI for critical scenarios. 
-* **[Whirlwind](https://github.com/xolvio/whirlwind)**<br/>
-  Another package of our own, Whirlwind reduces test run times from hours to minutes using parallelization. It basically spreads the load of tests across CI nodes, and within them too.   
-* **[Meteor Jasmine](https://github.com/xolvio/meteor-jasmine/)** *- Temporary until Meteor 1.3 is released*<br/>
-  Meteor will soon support an app-testing mode as well as modules. As and when we understand the exact mechanics, we will change our strategy. For now, Velocity is the most effective way to do app-level tests.
+  Our very own OSS package. Chimp allows you to drive the development of new features with quality built in from the outset. We have configured it in this repository to drive the domain development first, then the UI for critical scenarios.
 
 ## Installation & Usage
 
 Please remember to **read everything** on our [testing success factors](./content/TESTING-SUCCESS-FACTORS.md) before proceeding.
 
 #### Locally
-1. **Clone** this repo<br/>
+1. Clone this repo<br/>
    ```
    git clone https://github.com/xolvio/automated-testing-best-practices.git
    cd automated-testing-best-practices
    npm install
    ```
 
-2. **Start the unit testing runner** by either starting Wallaby from your IDE (highly recommended! See above), or you can start Karma with:
-   ```
-   node_modules/.bin/karma start
-   ```
-   
-3. **Start Chimp + Meteor**<br/>
+1. Start Chimp + Meteor without Mirror<br/>
    ```
    npm start
    ```
-   [Start script docs](.scripts/README.md#npm-start)
+   Or if you like to have a Mirror (another Meteor app for Chimp to run against):<br/>
+   ```
+   WITH_MIRROR=1 npm start
+   ```
+
+3. Start the unit testing runner by either starting Wallaby from your IDE (highly recommended! See above), or you can start Karma with:
+   ```
+   npm run karma
+   ```
    
-   _Options_
-   - Use another Meteor app as a mirror for Chimp to run against
+   NOTES: 
+   * You need to run Meteor before you run the Wallaby server testing mode as it requires a connection to the running database
+   * Currently the only way to run server unit tests is using Wallaby locally, CI tests will not work until Meteor 1.3 is released
    
-     ```
-     WITH_MIRROR=1 npm start   
-     ```
-   
-   
-4. **Test and Develop!**
+4. Test and Develop!
 
   If you'd like to run a full build locally, exit the process and run:
 
@@ -111,12 +104,11 @@ Please remember to **read everything** on our [testing success factors](./conten
   [Test script docs](.scripts/README.md#npm-test)
 
 #### On CI
-Technically, all you need to do is this: 
+All you need to do is this: 
 ```
-npm install
-CI=1 npm test
+npm run ci
 ```
 
-But you might need to do a little more setup depending on your specific CI environment.
+You might need to do a little more setup depending on your specific CI environment.
 
 This repository already includes a `circle.yml` and `travis.yml` files that runs Chimp on CircleCI and TravisCI, as well as taking care of all the dependency caching.

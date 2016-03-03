@@ -21,7 +21,6 @@ xolvio:backdoor
 ## App Packages
 
 react
+accounts-base
 accounts-password
 accounts-ui
-
-jagi:astronomy
