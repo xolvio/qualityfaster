@@ -54,6 +54,9 @@ before_install:
   # Install NPM dependencies
   - npm install
 
+  # Cache the build and dependencies
+  - .scripts/cache-build-and-dependencies.js
+
   - ./node_modules/.bin/karma start karma.conf.js
 
   # Cache Selenium & ChromeDriver

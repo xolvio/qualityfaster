@@ -36,6 +36,12 @@ dependencies:
     # Cache npm deps
     - npm install
 
+    # Cache the build and dependencies
+    - .scripts/cache-build-and-dependencies.js:
+        environment:
+          MONGO_URL: "mongodb://localhost:27017/cache"
+
+    # Cache Karma dependencies
     - ./node_modules/.bin/karma start karma.conf.js
 
     # Cache Selenium & ChromeDriver
