@@ -3,7 +3,7 @@ module.exports = function () {
     this.accounts['My Account'] = fixtures.accountHolders.create({
       name: 'My Account',
       username: 'myAccount',
-      branchNumber: branchNumber
+      branchNumber: parseInt(branchNumber)
     });
   });
 };

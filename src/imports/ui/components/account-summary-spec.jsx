@@ -1,5 +1,5 @@
 import AccountSummary from './account-summary.jsx';
-import {AccountHolders} from '../../infrastructure/collections';
+
 const {renderIntoDocument} = React.addons.TestUtils;
 
 describe('Account Summary Component', function () {

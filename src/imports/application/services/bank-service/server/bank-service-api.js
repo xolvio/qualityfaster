@@ -1,11 +1,13 @@
 import {AccountHolders} from '../../../../infrastructure/collections';
 import BankService from '../../../../domain/services/bank-service';
+import {AccountHolderRepository} from '../../../../domain/model/account-holder/account-holder-repository';
 
 const bankService = BankService.getInstance();
 
 Meteor.methods({
-  'bank/transfer' (toAccountNumber, amount) {
-    if (!Meteor.userId()) {
+  'bank/transfer' (toAccountHolderId, amount) {
+    const meteorUser = Meteor.user();
+    if (!meteorUser) {
       return {message: 'You are not logged in'};
     }
 
@@ -21,31 +23,29 @@ Meteor.methods({
     //const transferEvent = {fromAccountHolder, toAccountHolder, amount};
     //validateAndThrowError([validateTransfer], transferEvent);
 
-    const from = AccountHolders.findOne(Meteor.userId());
-    const to = AccountHolders.findOne(toAccountNumber);
-    bankService.transfer(from.accountHolder, to.accountHolder, parseFloat(amount));
-    AccountHolders.update(from._id, from);
-    AccountHolders.update(to._id, to);
+    const fromAccountHolder = AccountHolderRepository.find(meteorUser.accountHolderId);
+    const toAccountHolder = AccountHolderRepository.find(toAccountHolderId);
+    bankService.transfer(fromAccountHolder, toAccountHolder, parseFloat(amount));
+    AccountHolderRepository.update(fromAccountHolder);
+    AccountHolderRepository.update(toAccountHolder);
   },
   'bank/depositCheck' (fromAccountNumber, branchNumber, amount) {
-    if (!Meteor.userId()) {
+    const meteorUser = Meteor.user();
+    if (!meteorUser) {
       return {message: 'You are not logged in'};
     }
-    const from = AccountHolders.findOne(fromAccountNumber);
-    const to = AccountHolders.findOne(Meteor.userId());
-    var result = bankService.depositCheck(from.accountHolder, to.accountHolder, branchNumber, amount);
-    AccountHolders.update(from._id, from);
-    AccountHolders.update(to._id, to);
+    const fromAccountHolder = AccountHolderRepository.find(fromAccountNumber);
+    const toAccountHolder = AccountHolderRepository.find(meteorUser.accountHolderId);
+    var result = bankService.depositCheck(fromAccountHolder, toAccountHolder, branchNumber, amount);
+    AccountHolderRepository.update(fromAccountHolder);
+    AccountHolderRepository.update(toAccountHolder);
     return result;
   },
   'bank/issueChecks' (accountHolderId, numberOfChecks) {
-    // XXX this should require a role of Bank Teller or similar
-    const accountHolder = AccountHolders.findOne(accountHolderId);
+    // FIXME spike - needs to be fleshed out and tested
+    // XXX looks like this needs the role of Bank Teller or similar
+    const accountHolder = AccountHolderRepository.find(accountHolderId);
     bankService.issueChecks(accountHolder, numberOfChecks);
-    accountHolder.save();
+    AccountHolderRepository.update(accountHolder);
   }
 });
-
-
-
-

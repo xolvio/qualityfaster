@@ -1,1 +1,1 @@
-export const AccountHolders = Accounts.users;
+export const AccountHolders = new Mongo.Collection('accountHolders');

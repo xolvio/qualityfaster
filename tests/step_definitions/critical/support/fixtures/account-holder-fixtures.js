@@ -1,13 +1,19 @@
 fixtures.accountHolders = {
   DEFAULT_PASSWORD: 'l3tMe1n',
-  create: function (accountHolder, branchNumber) {
-    accountHolder.password = accountHolder.password || this.DEFAULT_PASSWORD;
+  create: function (accountHolderData) {
+    accountHolderData.password = accountHolderData.password || this.DEFAULT_PASSWORD;
     return server.execute(function (accountHolder) {
       var AccountService = require('/imports/application/services/account-service').default.getInstance();
-      serverWorld[accountHolder.name] = accountHolder;
       var userId = AccountService.create(accountHolder);
-      return Accounts.users.findOne(userId);
-    }, accountHolder);
+      serverWorld[accountHolder.name] = Accounts.users.findOne(userId);
+      return serverWorld[accountHolder.name];
+    }, accountHolderData);
+  },
+  findById: function (accountHolderId) {
+    return server.execute(function (accountHolderId) {
+      const AccountHolderRepository = require('/imports/domain/model/account-holder/account-holder-repository').AccountHolderRepository;
+      return AccountHolderRepository.find(accountHolderId);
+    }, accountHolderId);
   },
   serverLogin: function (accountHolder) {
     server.call('login', {

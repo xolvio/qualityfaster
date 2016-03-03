@@ -1,22 +1,32 @@
-import {AccountHolder} from '../../../../domain/model/account-holder';
-import {AccountHolders} from '../../../../infrastructure/collections';
+import {AccountHolder} from '../../../../domain/model/account-holder/account-holder';
+import {AccountHolderRepository} from '../../../../domain/model/account-holder/account-holder-repository';
+import {AccountHolderFactory} from '../../../../domain/model/account-holder/account-holder-factory';
 import BankServiceApi from './bank-service-api';
 import BankService from '../../../../domain/services/bank-service';
 
 describe('Bank Service', function () {
   beforeEach(function () {
-    this.fromAccountHolder = new AccountHolder({'name': 'accountHolder1', branchNumber: 12345});
-    this.toAccountHolder = new AccountHolder({'name': 'accountHolder2', branchNumber: 12345});
-    spyOn(AccountHolders, 'findOne').and.returnValues(
-       {accountHolder: this.fromAccountHolder},
-       {accountHolder: this.toAccountHolder}
+
+    this.fromAccountHolder = AccountHolderFactory.create({
+      name: 'accountHolder1',
+      branchNumber: 12345
+    });
+
+    this.toAccountHolder = AccountHolderFactory.create({
+      name: 'accountHolder2',
+      branchNumber: 12345,
+    });
+
+    spyOn(AccountHolderRepository, 'find').and.returnValues(
+       this.fromAccountHolder,
+       this.toAccountHolder
     );
   });
-  describe('transfer API', function () {
+  describe('bank/transfer API', function () {
     it('transfers an amount from account A to the account B', function () {
       this.fromAccountHolder.account.balance = 60;
       this.toAccountHolder.account.balance = 80;
-      spyOn(Meteor, 'userId').and.returnValue('someUserId');
+      spyOn(Meteor, 'user').and.returnValue({accountHolderId: 'theAccountHolderReference'});
 
       var result = Meteor.call('bank/transfer', this.toAccountHolder._id, 20);
 
@@ -26,7 +36,7 @@ describe('Bank Service', function () {
     });
     it('converts strings to numbers', function () {
       spyOn(BankService.prototype, 'transfer');
-      spyOn(Meteor, 'userId').and.returnValue('someUserId');
+      spyOn(Meteor, 'user').and.returnValue({accountHolderId: 'theAccountHolderId'});
 
       Meteor.call('bank/transfer', this.toAccountHolder._id, "20.01");
 
@@ -40,14 +50,14 @@ describe('Bank Service', function () {
       });
     });
   });
-  describe('depositCheck API', function () {
+  describe('bank/depositCheck API', function () {
     it('should transfer the amount from account A to account B when the check is valid', function () {
       this.fromAccountHolder.account.balance = 50;
       this.fromAccountHolder.account.branchNumber = 12345;
       this.fromAccountHolder.account.numberOfChecks = 10;
       this.toAccountHolder.account.balance = 80;
       this.toAccountHolder.account.branchNumber = 12345;
-      spyOn(Meteor, 'userId').and.returnValue('someUserId');
+      spyOn(Meteor, 'user').and.returnValue({accountHolderId: 'theAccountHolderId'});
 
       var result = Meteor.call('bank/depositCheck', this.fromAccountHolder._id, 12345, 10);
 

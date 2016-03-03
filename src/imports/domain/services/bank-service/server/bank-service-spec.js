@@ -1,4 +1,5 @@
-import {AccountHolder} from '../../../model/account-holder';
+import {AccountHolder} from '../../../model/account-holder/account-holder';
+import {AccountHolderFactory} from '../../../model/account-holder/account-holder-factory';
 import {AccountHolders} from '../../../../infrastructure/collections';
 import BankService from '../index';
 import BankServiceApi from '../../../../application/services/bank-service/server/bank-service-api';
@@ -6,8 +7,14 @@ import BankServiceApi from '../../../../application/services/bank-service/server
 describe('Bank Service', function () {
   beforeEach(function () {
     this.bankService = BankService.getInstance();
-    this.fromAccountHolder = new AccountHolder({'name': 'accountHolder1', branchNumber: 12345});
-    this.toAccountHolder = new AccountHolder({'name': 'accountHolder2', branchNumber: 12345});
+    this.fromAccountHolder = AccountHolderFactory.create({
+      name: 'accountHolder1',
+      branchNumber: 12345
+    });
+    this.toAccountHolder = AccountHolderFactory.create({
+      name: 'accountHolder2',
+      branchNumber: 12345
+    });
   });
   describe('transfer', function () {
     it('should transfer the amount from account A to the account B', function () {
