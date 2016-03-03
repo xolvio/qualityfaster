@@ -127,16 +127,12 @@ module.exports = function (config) {
   });
 
   if (process.env.CI || process.env.TRAVIS || process.env.CIRCLECI) {
-    config.browsers = ['Chrome_CI', 'Firefox'];
+    // FIXME Travis / Circle don't seem to run Karma + Chrome, yet Chrome works with Chimp :/
+    //config.browsers = ['Chrome_CI', 'Firefox'];
+    config.browsers = ['Firefox'];
     config.singleRun = true;
   } else {
     config.browsers = ['Chrome'];
-  }
-
-  // FIXME Travis doesn't seem to run Karma + Chrome, but Chrome works with Chimp
-  if (process.env.TRAVIS) {
-    config.browsers = ['Firefox'];
-    config.singleRun = true;
   }
 
 };

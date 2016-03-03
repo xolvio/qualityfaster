@@ -54,12 +54,10 @@ before_install:
   # Install NPM dependencies
   - npm install
 
-  - cd .scripts
   # Cache the build and dependencies
-  - cache-build-and-dependencies.js
+  - ./scripts/cache-build-and-dependencies.js
   # Cache Selenium & ChromeDriver
-  - node_modules/.bin/chimp --path=features # there are no tests in content
-  - cd ..
+  - cd .scripts && node_modules/.bin/chimp --path=features # there are no tests in content
 
   # Cache Karma dependencies
   - ./node_modules/.bin/karma start karma.conf.js
