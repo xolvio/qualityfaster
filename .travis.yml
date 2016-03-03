@@ -56,13 +56,8 @@ before_install:
 
   - cd .scripts
   # Cache the build and dependencies
-#  - ./cache-build-and-dependencies.js
+  - MONGO_URL=mongodb://localhost:27017/cache && ./cache-build-and-dependencies.js
   # Cache Selenium & ChromeDriver
-  - echo - - -
-  - ls ./node_modules
-  - echo - - -
-  - ls ./node_modules/.bin
-  - echo - - -
   - ./node_modules/.bin/chimp --path=features # there are no tests in content
   - cd ..
 
