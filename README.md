@@ -62,11 +62,7 @@ In this repository, we have created a great developer experience for unit, accep
 * **[Karma](http://karma-runner.github.io/)**<br/>
   Used to run the unit tests in CI mode or when doing a full run locally. If you don't use Wallaby, you can also use Karma to run all the tests every time you save a file.
 * **[Chimp](https://github.com/xolvio/chimp/)**<br/>
-  Our very own OSS package. Chimp allows you to drive the development of new features with quality built in from the outset. We have configured it in this repository to drive the domain development first, then the UI for critical scenarios. 
-* **[Whirlwind](https://github.com/xolvio/whirlwind)**<br/>
-  Another package of our own, Whirlwind reduces test run times from hours to minutes using parallelization. It basically spreads the load of tests across CI nodes, and within them too.   
-* **[Meteor Jasmine](https://github.com/xolvio/meteor-jasmine/)** *- Temporary until Meteor 1.3 is released*<br/>
-  Meteor will soon support an app-testing mode as well as modules. As and when we understand the exact mechanics, we will change our strategy. For now, Velocity is the most effective way to do app-level tests.
+  Our very own OSS package. Chimp allows you to drive the development of new features with quality built in from the outset. We have configured it in this repository to drive the domain development first, then the UI for critical scenarios.
 
 ## Installation & Usage
 
