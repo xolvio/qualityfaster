@@ -37,12 +37,17 @@ dependencies:
     - npm install
 
     # Cache the build and dependencies
-    - .scripts/cache-build-and-dependencies.js:
-        environment:
-          MONGO_URL: "mongodb://localhost:27017/cache"
+#    - .scripts/cache-build-and-dependencies.js:
+#        environment:
+#          MONGO_URL: "mongodb://localhost:27017/cache"
 
     # Cache Selenium & ChromeDriver
     # there are no tests in content
+    - echo - - -
+    - ls ./.scripts/node_modules
+    - echo - - -
+    - ls ./.scripts/node_modules/.bin
+    - echo - - -
     - (cd .scripts && ./node_modules/.bin/chimp --path=features)
 
 
