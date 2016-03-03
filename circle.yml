@@ -42,8 +42,9 @@ dependencies:
           MONGO_URL: "mongodb://localhost:27017/cache"
 
     # Cache Selenium & ChromeDriver
-    - ./node_modules/.bin/chimp --path=features: # there are no tests in content
-        pwd: .scripts
+    # there are no tests in content
+    - (cd .scripts && ./node_modules/.bin/chimp --path=features)
+
 
     # Cache Karma dependencies
     - ./node_modules/.bin/karma start karma.conf.js
