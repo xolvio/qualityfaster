@@ -10,3 +10,5 @@ Pioneered by Konstantin Kudryashov, here are some of his links:
 
 #### Notes
 Domain discovery supersedes outside-in testing
+
+![](https://ga-beacon-xolvio.appspot.com/UA-34846790-2/modeling-by-example?pixel)
