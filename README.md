@@ -112,3 +112,5 @@ npm run ci
 You might need to do a little more setup depending on your specific CI environment.
 
 This repository already includes a `circle.yml` and `travis.yml` files that runs Chimp on CircleCI and TravisCI, as well as taking care of all the dependency caching.
+
+![](https://ga-beacon-xolvio.appspot.com/UA-34846790-2/readme?pixel)
