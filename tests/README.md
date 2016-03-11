@@ -23,3 +23,5 @@ describe('The overlay', function() {
 ```
 
 Then you go and make the changes to the code to make the test pass. This technique massively reduces the risk of regression bugs.
+
+![](https://ga-beacon-xolvio.appspot.com/UA-34846790-2/tests/readme?pixel)
