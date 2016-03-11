@@ -8,3 +8,5 @@
 
 * ***The Testing Pyramid*** *is adhered to 100%*<br/>
   Interestingly this doesn't require any extra effort, it is a side-effect of the Modelling by Example technique. If you don't know what the testing pyramid is, please read [our description](./content/TESTING-PYRAMID.md) 
+
+![](https://ga-beacon-xolvio.appspot.com/UA-34846790-2/todo?pixel)
