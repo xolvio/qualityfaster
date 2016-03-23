@@ -41,7 +41,7 @@ function runEndToEndTests(callback) {
     options: {
       env: extend({CI: 1}, process.env)
     },
-    command: chimpScript
+    command: chimpScript + ' ' + process.argv[2]
   }, callback);
 }
 

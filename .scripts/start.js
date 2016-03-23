@@ -28,8 +28,11 @@ var mirrorOptions = {
   logFile: './chimp-mirror.log'
 };
 
+console.log("arguments ", process.argv)
+
+
 var chimpSwitches =
-   ' --path=' + path.resolve('tests/specifications') +
+   ' --path=' + path.resolve(process.argv[2]) +
    ' --domainSteps=' + path.resolve('tests/step_definitions/domain') +
    ' --criticalSteps=' + path.resolve('tests/step_definitions/critical') +
    ' --watchSource=' + path.resolve('tests') +
