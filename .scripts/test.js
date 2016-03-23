@@ -8,6 +8,7 @@ var baseDir = path.resolve(__dirname, '..'),
    karmaBin = path.resolve(baseDir, 'node_modules/.bin/karma'),
    chimpScript = path.resolve(__dirname, 'start.js');
 
+console.log("arguments ", process.argv)
 runTestsSequentially();
 // TODO run tests in parallel for beefier machines
 
