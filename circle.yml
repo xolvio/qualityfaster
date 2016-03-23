@@ -53,7 +53,7 @@ test:
     - mkdir -p $CIRCLE_TEST_REPORTS/cucumber
 
   override:
-    - bundle exec ./scripts/test.js
+    - bundle exec ./scripts/test.js: 
         parallel: true
         files:
           - tests/specifications/*/*.feature
