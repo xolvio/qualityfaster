@@ -164,3 +164,5 @@ With technologies like React, it's easier than ever to write unit tests for the 
 As you will see in this repository, some of the domain tests themselves go through the UI, and they are labeled as `@critical`. This means that these domain tests are part of the critical path for the functionality and we want to ensure the UI aspect works. They first run against the service layer, then the same tests run against the UI. This is how you get the perfect balance and adhere to the testing triangle. 
 
 If you test your domain through the UI only, then changes to your domain will be costly and over time, this sill mount up to a codebase you don't really enjoy changing. If you go mostly through the domain, but have just a few UI tests, you will profit!
+
+![](https://ga-beacon-xolvio.appspot.com/UA-34846790-2/testing-success-factors?pixel)

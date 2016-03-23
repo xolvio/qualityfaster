@@ -66,3 +66,5 @@ Calling these two the same with different syntax is like saying the Sun and the 
 Test Driven Development (TDD) is a process that starts with a specification and uses tests that verify the specification to drive the development of the actualizing code. **TDD is a developer only activity.**
 
 Behaviour Driven Development (BDD) is a process that spans across the entire product development lifecycle, starting with the initial definition of the specification. **BDD is a team-wide activity.**
+
+![](https://ga-beacon-xolvio.appspot.com/UA-34846790-2/bdd?pixel)

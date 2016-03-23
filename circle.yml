@@ -21,7 +21,6 @@ dependencies:
     - "src/.meteor/local/db"
     - "src/.meteor/local/isopacks"
     - "src/.meteor/local/plugin-cache"
-    - "src/.meteor/local/mirrors"
 
   override:
     # Cache Mongo 2.6
@@ -37,18 +36,22 @@ dependencies:
     # Cache npm deps
     - npm install
 
-    # Cache Velocity Meteor Release
-    - .scripts/cache-velocity.js:
+    # Cache the build and dependencies
+    - .scripts/cache-build-and-dependencies.js:
         environment:
-          MONGO_URL: "mongodb://localhost:27017/velocity_cache"
+          MONGO_URL: "mongodb://localhost:27017/cache"
 
     # Cache Selenium & ChromeDriver
-    - ./node_modules/.bin/chimp --path=content # there are no tests in content
+    - ./node_modules/.bin/chimp --path=features: # there are no tests in content
+        pwd: .scripts
+
+    # Cache Karma dependencies
+    - ./node_modules/.bin/karma start karma.conf.js
 
 test:
   pre:
     - mkdir -p $CIRCLE_TEST_REPORTS/cucumber
-    
+
   override:
     - npm test:
         environment:

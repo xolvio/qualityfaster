@@ -1,3 +1,0 @@
-beforeEach(function () {
-  AccountHolders.remove({});
-});
