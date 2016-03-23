@@ -7,18 +7,13 @@ var path = require('path'),
 
 var baseDir = path.resolve(__dirname, '..'),
    srcDir = path.resolve(baseDir, 'src'),
-   chimpBin = path.resolve(baseDir, 'node_modules/.bin/chimp');
+   chimpBin = path.resolve(baseDir, '.scripts/node_modules/.bin/chimp');
 
 var appOptions = {
   settings: 'settings.json',
   port: 3000,
   env: {
-    ROOT_URL: 'http://localhost:3000',
-    VELOCITY: 1,
-    JASMINE_CLIENT_UNIT: 0,
-    JASMINE_SERVER_UNIT: 0,
-    JASMINE_CLIENT_INTEGRATION: 0,
-    JASMINE_SERVER_INTEGRATION: 1
+    ROOT_URL: 'http://localhost:3000'
   }
 };
 
@@ -34,16 +29,15 @@ var mirrorOptions = {
 };
 
 var chimpSwitches =
-   ' --path=' + path.resolve('tests/features') +
-   ' -r=' + path.resolve('tests/features/step_definitions/domain') +
-   ' --criticalSteps=' + path.resolve('tests/features/step_definitions/critical') +
-   ' --singleSnippetPerFile=1';
+   ' --path=' + path.resolve('tests/specifications') +
+   ' --domainSteps=' + path.resolve('tests/step_definitions/domain') +
+   ' --criticalSteps=' + path.resolve('tests/step_definitions/critical') +
+   ' --watchSource=' + path.resolve('tests') +
+   ' --singleSnippetPerFile=1' +
+   ' --no-source';
 
-if (process.env.CI || process.env.TRAVIS || process.env.CIRCLECI) {
+if (!process.env.CI && !process.env.TRAVIS && !process.env.CIRCLECI) {
   // when not in Watch mode, Chimp existing will exit Meteor too
-  // we also don't need Velocity for the app chimp will run against
-  appOptions.env.VELOCITY = 0;
-} else {
   chimpSwitches += ' --watch';
 }
 
@@ -62,6 +56,9 @@ if (process.env.WITH_MIRROR) {
 } else if (process.env.NO_METEOR) {
   startChimp('--ddp=' + appOptions.env.ROOT_URL + chimpSwitches);
 } else {
+  // *************************************************
+  // THIS IS THE DEFAULT
+  // *************************************************
   chimpNoMirror();
 }
 
@@ -73,8 +70,7 @@ function chimpWithMirror() {
     startMirror(function () {
       console.log('=> Test App running at:', mirrorOptions.env.ROOT_URL);
       console.log('=> Log file: tail -f', path.resolve(mirrorOptions.logFile), '\n');
-      startChimp('--ddp=' + mirrorOptions.env.ROOT_URL + chimpSwitches
-      )
+      startChimp('--ddp=' + mirrorOptions.env.ROOT_URL + chimpSwitches);
     });
   });
 }
@@ -100,6 +96,7 @@ function startApp(callback) {
 
 function startMirror(callback) {
   startProcess({
+    // TODO check if settings file exists first
     name: 'Meteor Mirror',
     command: 'meteor --settings ' + mirrorOptions.settings + ' --port ' + mirrorOptions.port,
     silent: true,

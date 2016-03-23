@@ -1,0 +1,4 @@
+fixtures.common = {
+  reset: function () {
+  }
+};
