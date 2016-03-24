@@ -6,9 +6,12 @@ var path = require('path'),
 var baseDir = path.resolve(__dirname, '..'),
    srcDir = path.resolve(baseDir, 'src'),
    karmaBin = path.resolve(baseDir, 'node_modules/.bin/karma'),
-   chimpScript = path.resolve(__dirname, 'start.js');
+   chimpScript = path.resolve(__dirname, 'start.js'),
+    features = process.argv.slice(2);
 
-console.log("arguments ", process.argv)
+console.log("arguments ", process.argv);
+console.log("features ", features);
+
 runTestsSequentially();
 // TODO run tests in parallel for beefier machines
 
@@ -35,13 +38,18 @@ function runServerTests(callback) {
   callback();
 }
 
+
+if (features.length > 0) {
+  chimpScript = chimpScript + ' ' + features.join(" ");
+}
+
 function runEndToEndTests(callback) {
   startProcess({
     name: 'Chimp',
     options: {
       env: extend({CI: 1}, process.env)
     },
-    command: chimpScript + ' ' + process.argv[2]
+    command: chimpScript
   }, callback);
 }
 

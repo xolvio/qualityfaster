@@ -11,7 +11,9 @@ function DepositWidget() {
     browser.setValue(selectors.fromAccountNumber, check.fromAccountNumber);
     browser.setValue(selectors.branchNumber, check.branchNumber);
     browser.setValue(selectors.amount, check.amount);
+    console.log("before click");
     browser.click(selectors.submit);
+    console.log("after click");
   };
 }
 widgets.depositWidget = new DepositWidget();

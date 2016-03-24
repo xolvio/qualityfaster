@@ -1,6 +1,6 @@
 {
   "private": true,
   "devDependencies": {
-    "chimp": "^0.30.0"
+    "chimp": "^0.31.0"
   }
 }

@@ -7,7 +7,8 @@ var path = require('path'),
 
 var baseDir = path.resolve(__dirname, '..'),
    srcDir = path.resolve(baseDir, 'src'),
-   chimpBin = path.resolve(baseDir, '.scripts/node_modules/.bin/chimp');
+   chimpBin = path.resolve(baseDir, '.scripts/node_modules/.bin/chimp'),
+    features = process.argv.slice(2);
 
 var appOptions = {
   settings: 'settings.json',
@@ -30,14 +31,22 @@ var mirrorOptions = {
 
 console.log("arguments ", process.argv)
 
+var chimpSwitches;
 
-var chimpSwitches =
-   ' --path=' + path.resolve(process.argv[2]) +
+if (features.length > 0) {
+    chimpSwitches = features.join(" ");
+} else {
+    chimpSwitches = ' --path=' + path.resolve('tests/specifications');
+}
+
+chimpSwitches +=
    ' --domainSteps=' + path.resolve('tests/step_definitions/domain') +
    ' --criticalSteps=' + path.resolve('tests/step_definitions/critical') +
    ' --watchSource=' + path.resolve('tests') +
    ' --singleSnippetPerFile=1' +
    ' --no-source';
+
+console.log("chimpSwitches ", chimpSwitches);
 
 if (!process.env.CI && !process.env.TRAVIS && !process.env.CIRCLECI) {
   // when not in Watch mode, Chimp existing will exit Meteor too
@@ -113,6 +122,7 @@ function startMirror(callback) {
 }
 
 function startChimp(command) {
+  console.log("chimpBin ", chimpBin);
   startProcess({
     name: 'Chimp',
     command: chimpBin + ' ' + command
