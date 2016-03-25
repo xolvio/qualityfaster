@@ -26,11 +26,16 @@ function runTestsSequentially() {
 }
 
 function runClientTests(callback) {
-  startProcess({
-    name: 'Karma',
-    options: {},
-    command: karmaBin + ' start karma.conf.js --single-run'
-  }, callback);
+  const _circleNodeIndex = process.env.CIRCLE_NODE_INDEX;
+  if (_circleNodeIndex && _circleNodeIndex !== 0) {
+    callback();
+  } else {
+    startProcess({
+      name: 'Karma',
+      options: {},
+      command: karmaBin + ' start karma.conf.js --single-run'
+    }, callback);
+  }
 }
 
 function runServerTests(callback) {
