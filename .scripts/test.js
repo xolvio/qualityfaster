@@ -28,6 +28,8 @@ function runTestsSequentially() {
 function runClientTests(callback) {
   console.log("process.env.CIRCLE_NODE_INDEX ", process.env.CIRCLE_NODE_INDEX)
   const _circleNodeIndex = process.env.CIRCLE_NODE_INDEX;
+  console.log("_circleNodeIndex", _circleNodeIndex);
+  console.log("typeof _circleNodeIndex !== 'undefined' ", typeof _circleNodeIndex !== 'undefined')
   if (typeof _circleNodeIndex !== 'undefined' && _circleNodeIndex !== 0) {
     callback();
   } else {
