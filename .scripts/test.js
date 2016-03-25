@@ -30,8 +30,8 @@ function runClientTests(callback) {
   const _circleNodeIndex = process.env.CIRCLE_NODE_INDEX;
   console.log("_circleNodeIndex", _circleNodeIndex);
   console.log("typeof _circleNodeIndex !== 'undefined' ", typeof _circleNodeIndex !== 'undefined')
-  console.log(" _circleNodeIndex !== 0 ",  _circleNodeIndex !== 0);
-  if (typeof _circleNodeIndex !== 'undefined' && _circleNodeIndex !== 0) {
+  console.log(" _circleNodeIndex !== 0 ",  parseInt(_circleNodeIndex) !== 0);
+  if (typeof _circleNodeIndex !== 'undefined' && parseInt(_circleNodeIndex) !== 0) {
     console.log("I'm inside the if")
     callback();
   } else {
