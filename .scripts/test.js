@@ -12,7 +12,6 @@ var baseDir = path.resolve(__dirname, '..'),
 console.log("features ", features);
 
 if (features.length > 0) {
-  console.log("HERE features.length bigger than 0");
   chimpScript = chimpScript + ' ' + features.join(" ");
 }
 
@@ -32,7 +31,7 @@ function runTestsSequentially() {
 function runClientTests(callback) {
   const _circleNodeIndex = process.env.CIRCLE_NODE_INDEX;
   if (typeof _circleNodeIndex !== 'undefined' && parseInt(_circleNodeIndex) !== 0) {
-    callback.apply(this);
+    callback();
   } else {
     startProcess({
       name: 'Karma',
