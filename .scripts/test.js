@@ -44,10 +44,12 @@ function runServerTests(callback) {
 
 
 if (features.length > 0) {
+  console.log("HERE features.length bigger than 0");
   chimpScript = chimpScript + ' ' + features.join(" ");
 }
 
 function runEndToEndTests(callback) {
+  console.log("HERE chimpScript ", chimpScript);
   startProcess({
     name: 'Chimp',
     options: {

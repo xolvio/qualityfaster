@@ -10,6 +10,8 @@ var baseDir = path.resolve(__dirname, '..'),
    chimpBin = path.resolve(baseDir, '.scripts/node_modules/.bin/chimp'),
     features = [];
 
+console.log("arguments ", process.argv);
+
 process.argv.slice(2).forEach(function(featureFile) { features.push(path.resolve(featureFile))});
 
 var appOptions = {
@@ -31,7 +33,6 @@ var mirrorOptions = {
   logFile: './chimp-mirror.log'
 };
 
-console.log("arguments ", process.argv)
 
 var chimpSwitches = '';
 
