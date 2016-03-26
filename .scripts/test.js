@@ -11,6 +11,11 @@ var baseDir = path.resolve(__dirname, '..'),
 
 console.log("features ", features);
 
+if (features.length > 0) {
+  console.log("HERE features.length bigger than 0");
+  chimpScript = chimpScript + ' ' + features.join(" ");
+}
+
 runTestsSequentially();
 // TODO run tests in parallel for beefier machines
 
@@ -27,7 +32,7 @@ function runTestsSequentially() {
 function runClientTests(callback) {
   const _circleNodeIndex = process.env.CIRCLE_NODE_INDEX;
   if (typeof _circleNodeIndex !== 'undefined' && parseInt(_circleNodeIndex) !== 0) {
-    callback();
+    callback.apply(this);
   } else {
     startProcess({
       name: 'Karma',
@@ -42,11 +47,6 @@ function runServerTests(callback) {
   callback();
 }
 
-
-if (features.length > 0) {
-  console.log("HERE features.length bigger than 0");
-  chimpScript = chimpScript + ' ' + features.join(" ");
-}
 
 function runEndToEndTests(callback) {
   console.log("HERE chimpScript ", chimpScript);
