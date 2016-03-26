@@ -9,7 +9,6 @@ var baseDir = path.resolve(__dirname, '..'),
    chimpScript = path.resolve(__dirname, 'start.js'),
     features = process.argv.slice(2);
 
-console.log("arguments ", process.argv);
 console.log("features ", features);
 
 runTestsSequentially();
@@ -26,16 +25,10 @@ function runTestsSequentially() {
 }
 
 function runClientTests(callback) {
-  console.log("process.env.CIRCLE_NODE_INDEX ", process.env.CIRCLE_NODE_INDEX)
   const _circleNodeIndex = process.env.CIRCLE_NODE_INDEX;
-  console.log("_circleNodeIndex", _circleNodeIndex);
-  console.log("typeof _circleNodeIndex !== 'undefined' ", typeof _circleNodeIndex !== 'undefined')
-  console.log(" _circleNodeIndex !== 0 ",  parseInt(_circleNodeIndex) !== 0);
   if (typeof _circleNodeIndex !== 'undefined' && parseInt(_circleNodeIndex) !== 0) {
-    console.log("I'm inside the if")
     callback();
   } else {
-    console.log("outside the if");
     startProcess({
       name: 'Karma',
       options: {},

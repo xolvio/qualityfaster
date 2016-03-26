@@ -49,7 +49,6 @@ before_install:
   - export PATH=$MONGO_HOME/bin:$PATH
   - mkdir -p $HOME/data/db
   - $MONGO_HOME/bin/mongod --dbpath $HOME/data/db > $HOME/mongo.log 2>&1 &
-  - ls -alR $HOME/build/
   - cd $HOME/build/lgandecki/automated-testing-best-practices
 
   # Install NPM dependencies
