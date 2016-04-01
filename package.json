@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "install": "cd .scripts && npm install",
+    "install": "cd .scripts && npm install && cd ../src && npm install",
     "start": ".scripts/start.js",
     "karma": "./node_modules/.bin/karma start",
     "test": ".scripts/test.js",
