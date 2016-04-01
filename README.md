@@ -10,6 +10,8 @@ For your testing codebase to serve you well and stand the test of time, you must
 
 Please read EVERYTHING, even if you are already a ninja.
 
+> __Note:__ The automation scripts that are provided in this repository are still a work in progress. Contributions to improve them are appreciated.
+
 #### Speed 
 Waiting costs everybody time, money and hair-loss. Investing time to make your tests run fast will pay back exponentially. The quicker you can detect defects, the cheaper it is to fix them. Making sure that your tests can run fast as the codebase grows can be a major engineering challenge. Ignoring the challenge does not make it go away and as the build & test time slows down, so does your team productivity, which costs you money.
 
