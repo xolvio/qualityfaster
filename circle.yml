@@ -60,3 +60,4 @@ test:
         environment:
           MONGO_URL: "mongodb://localhost:27017/meteor"
           CUCUMBER_JSON_OUTPUT: "$CIRCLE_TEST_REPORTS/cucumber/chrome.cucumber"
+          NODE_INDEX: $CIRCLE_NODE_INDEX

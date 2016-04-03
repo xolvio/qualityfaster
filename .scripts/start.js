@@ -10,8 +10,6 @@ var baseDir = path.resolve(__dirname, '..'),
    chimpBin = path.resolve(baseDir, '.scripts/node_modules/.bin/chimp'),
     features = [];
 
-console.log("arguments ", process.argv);
-
 process.argv.slice(2).forEach(function(featureFile) { features.push(path.resolve(featureFile))});
 
 var appOptions = {
@@ -36,14 +34,6 @@ var mirrorOptions = {
 
 var chimpSwitches = '';
 
-//if (features.length > 0) {
-//    chimpSwitches = features.join(" ");
-//} else {
-//    chimpSwitches = ' --path=' + path.resolve('tests/specifications');
-//}
-
-
-
 if (features.length > 0) {
   chimpSwitches += ' --path=' + path.resolve('tests') + ' ' + features.join(" ");
 } else {
@@ -55,8 +45,6 @@ chimpSwitches +=
    ' --watchSource=' + path.resolve('tests') +
    ' --singleSnippetPerFile=1' +
    ' --no-source';
-
-console.log("chimpSwitches ", chimpSwitches);
 
 if (!process.env.CI && !process.env.TRAVIS && !process.env.CIRCLECI) {
   // when not in Watch mode, Chimp existing will exit Meteor too
