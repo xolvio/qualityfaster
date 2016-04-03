@@ -3,7 +3,7 @@
 
 window.__meteor_runtime_config__ = {
   meteorEnv: {
-    "NODE_ENV": process.env.NODE_ENV || "develompent"
+    "NODE_ENV": process.env.NODE_ENV || "development"
   },
   "meteorRelease": "METEOR@1.3",
   "PUBLIC_SETTINGS": {},
