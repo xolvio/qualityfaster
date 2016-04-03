@@ -137,7 +137,14 @@ function startChimp(command) {
   console.log("command ", command);
   startProcess({
     name: 'Chimp',
-    command: chimpBin + ' ' + command
+    command: chimpBin + ' ' + command,
+    options: {
+      env: Object.assign({}, process.env, {
+        NODE_PATH: process.env.NODE_PATH +
+          path.delimiter + srcDir +
+          path.delimiter + srcDir + '/node_modules',
+      }),
+    },
   });
 }
 

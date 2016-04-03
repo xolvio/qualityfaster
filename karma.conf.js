@@ -64,7 +64,7 @@ module.exports = function (config) {
     ].concat(
       meteorPackageFiles,
       [
-        {pattern: 'src/imports/testing/_support/**'},
+        {pattern: 'src/imports/testing/_support/**/*.@(js|jsx)'},
         {pattern: 'src/imports/**/*-spec.@(js|jsx)'},
       ]
     ),

@@ -10,20 +10,22 @@ For your testing codebase to serve you well and stand the test of time, you must
 
 Please read EVERYTHING, even if you are already a ninja.
 
+> __Note:__ The automation scripts that are provided in this repository are still a work in progress. Contributions to improve them are appreciated.
+
 #### Speed 
 Waiting costs everybody time, money and hair-loss. Investing time to make your tests run fast will pay back exponentially. The quicker you can detect defects, the cheaper it is to fix them. Making sure that your tests can run fast as the codebase grows can be a major engineering challenge. Ignoring the challenge does not make it go away and as the build & test time slows down, so does your team productivity, which costs you money.
 
-> Slow tests are the #3 reason teams fails at automated testing
+> Slow tests are the #3 reason teams fail at automated testing
 
 #### Reliability 
 Flaky tests that fail when you change unrelated parts of your system, and false negatives (or worse false positives) will introduce delays into your development process and will make your team lose faith in the process. When this happens, it is twice the problem of slow tests. Not only are developers triggering reruns of the build and hoping for the best, they are also losing time.
 
-> Unreliable tests are the #2 reason teams fails at automated testing
+> Unreliable tests are the #2 reason teams fail at automated testing
 
 #### Maintainability
 It’s very common for a testing codebase to become “out of date”. This typically happens when the tests look like scripts as opposed to test codebase that employs a software engineering discipline. As the application codebase changes, these test scripts quickly mismatch the code and it’s far easier to disable them than it is to maintain them.
 
-> Unmaintainable tests are the #1 reason teams fails at automated testing
+> Unmaintainable tests are the #1 reason teams fail at automated testing
 
 You have to learn the right techniques and form the right habits to be able to do this.
 
