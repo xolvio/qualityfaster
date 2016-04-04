@@ -2,7 +2,10 @@
 /* jshint camelcase: false */
 
 window.__meteor_runtime_config__ = {
-  "meteorRelease": "METEOR@1.2.1",
+  meteorEnv: {
+    "NODE_ENV": process.env.NODE_ENV || "development"
+  },
+  "meteorRelease": "METEOR@1.3",
   "PUBLIC_SETTINGS": {},
   "ROOT_URL": "http://localhost:3000/",
   "ROOT_URL_PATH_PREFIX": "",

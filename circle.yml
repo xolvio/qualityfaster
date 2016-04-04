@@ -29,7 +29,7 @@ dependencies:
     - sudo cp ~/mongodb-linux-x86_64-2.6.4/bin/* /usr/bin
     - sudo service mongodb start
 
-    # Cache Metoer
+    # Cache Meteor
     - if [ -d ~/.meteor ]; then sudo ln -s ~/.meteor/meteor /usr/local/bin/meteor; fi
     - if [ ! -e $HOME/.meteor/meteor ]; then curl https://install.meteor.com | sh; fi
 
@@ -53,7 +53,11 @@ test:
     - mkdir -p $CIRCLE_TEST_REPORTS/cucumber
 
   override:
-    - npm test:
+    - node ./.scripts/test.js:
+        parallel: true
+        files:
+          - tests/specifications/*/*.feature
         environment:
           MONGO_URL: "mongodb://localhost:27017/meteor"
           CUCUMBER_JSON_OUTPUT: "$CIRCLE_TEST_REPORTS/cucumber/chrome.cucumber"
+          NODE_INDEX: $CIRCLE_NODE_INDEX

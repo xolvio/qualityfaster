@@ -4,9 +4,13 @@ var path = require('path'),
    exec = require('child_process').exec;
 
 var baseDir = path.resolve(__dirname, '..'),
-   srcDir = path.resolve(baseDir, 'src'),
    karmaBin = path.resolve(baseDir, 'node_modules/.bin/karma'),
-   chimpScript = path.resolve(__dirname, 'start.js');
+   chimpScript = path.resolve(__dirname, 'start.js'),
+    features = process.argv.slice(2);
+
+if (features.length > 0) {
+  chimpScript = chimpScript + ' ' + features.join(" ");
+}
 
 runTestsSequentially();
 // TODO run tests in parallel for beefier machines
@@ -22,17 +26,27 @@ function runTestsSequentially() {
 }
 
 function runClientTests(callback) {
-  startProcess({
-    name: 'Karma',
-    options: {},
-    command: karmaBin + ' start karma.conf.js --single-run'
-  }, callback);
+  if (isFirstBuildInParallelRun()) {
+    startProcess({
+      name: 'Karma',
+      options: {},
+      command: karmaBin + ' start karma.conf.js --single-run'
+    }, callback);
+  } else {
+    callback();
+  }
+}
+
+function isFirstBuildInParallelRun() {
+  const _nodeIndex = process.env.NODE_INDEX;
+  return typeof _nodeIndex !== 'undefined' && parseInt(_nodeIndex) === 0
 }
 
 function runServerTests(callback) {
   // TODO add Meteor 1.3 server testing mode
   callback();
 }
+
 
 function runEndToEndTests(callback) {
   startProcess({

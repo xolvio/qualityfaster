@@ -7,7 +7,10 @@ var path = require('path'),
 
 var baseDir = path.resolve(__dirname, '..'),
    srcDir = path.resolve(baseDir, 'src'),
-   chimpBin = path.resolve(baseDir, '.scripts/node_modules/.bin/chimp');
+   chimpBin = path.resolve(baseDir, '.scripts/node_modules/.bin/chimp'),
+    features = [];
+
+process.argv.slice(2).forEach(function(featureFile) { features.push(path.resolve(featureFile))});
 
 var appOptions = {
   settings: 'settings.json',
@@ -28,8 +31,15 @@ var mirrorOptions = {
   logFile: './chimp-mirror.log'
 };
 
-var chimpSwitches =
-   ' --path=' + path.resolve('tests/specifications') +
+
+var chimpSwitches = '';
+
+if (features.length > 0) {
+  chimpSwitches += ' --path=' + path.resolve('tests') + ' ' + features.join(" ");
+} else {
+  chimpSwitches = ' --path=' + path.resolve('tests/specifications') + chimpSwitches;
+}
+chimpSwitches +=
    ' --domainSteps=' + path.resolve('tests/step_definitions/domain') +
    ' --criticalSteps=' + path.resolve('tests/step_definitions/critical') +
    ' --watchSource=' + path.resolve('tests') +
@@ -78,6 +88,7 @@ function chimpWithMirror() {
 function chimpNoMirror() {
   appOptions.waitForMessage = 'App running at';
   startApp(function () {
+    console.log("inside no mirror ", chimpSwitches);
     startChimp('--ddp=' + appOptions.env.ROOT_URL + chimpSwitches);
   });
 }
@@ -110,6 +121,8 @@ function startMirror(callback) {
 }
 
 function startChimp(command) {
+  console.log("chimpBin ", chimpBin);
+  console.log("command ", command);
   startProcess({
     name: 'Chimp',
     command: chimpBin + ' ' + command,
@@ -155,3 +168,4 @@ function startProcess(opts, callback) {
   });
   processes.push(proc);
 }
+
