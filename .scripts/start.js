@@ -8,7 +8,7 @@ var path = require('path'),
 var baseDir = path.resolve(__dirname, '..'),
    srcDir = path.resolve(baseDir, 'src'),
    chimpBin = path.resolve(baseDir, '.scripts/node_modules/.bin/chimp'),
-    features = [];
+   features = [];
 
 process.argv.slice(2).forEach(function(featureFile) { features.push(path.resolve(featureFile))});
 
@@ -49,6 +49,10 @@ chimpSwitches +=
 if (!process.env.CI && !process.env.TRAVIS && !process.env.CIRCLECI) {
   // when not in Watch mode, Chimp existing will exit Meteor too
   chimpSwitches += ' --watch';
+}
+
+if (process.env.CIRCLECI) {
+  chimpSwitches += ' --screenshotsPath="' + process.env.CIRCLE_ARTIFACTS + '"';
 }
 
 if (process.env.SIMIAN_API && process.env.SIMIAN_REPOSITORY) {
