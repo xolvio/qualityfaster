@@ -2,6 +2,7 @@ var babel = require('babel-core');
 var path = require('path');
 var nodePath = require('child_process')
   .execSync('meteor node -e "process.stdout.write(process.execPath)"', {encoding: 'utf8'});
+var relativeMeteorAppPath = 'src';
 
 module.exports = function (wallaby) {
   var babelCompiler = wallaby.compilers.babel({
@@ -11,39 +12,43 @@ module.exports = function (wallaby) {
   process.env.NODE_PATH += path.delimiter +
     path.join(
       wallaby.localProjectDir,
-      'src/.meteor/local/build/programs/server/node_modules'
+      relativeMeteorAppPath,
+      '.meteor/local/build/programs/server/node_modules'
     );
 
   process.env.NODE_PATH += path.delimiter +
     path.join(
       wallaby.localProjectDir,
-      'src/node_modules'
+      relativeMeteorAppPath,
+      'node_modules'
     );
 
   process.env.NODE_PATH += path.delimiter +
-    path.join(wallaby.projectCacheDir, 'src', 'imports');
+    path.join(wallaby.projectCacheDir, relativeMeteorAppPath, 'imports');
 
   return {
     files: [
-      {pattern: 'src/imports/**/*.@(js|jsx)', load: false},
-      {pattern: 'src/imports/**/*-spec.@(js|jsx)', ignore: true},
-      {pattern: 'src/imports/**/ui/**/*.@(js|jsx)', ignore: true},
+      {pattern: relativeMeteorAppPath + '/imports/**/*.@(js|jsx)', load: false},
+      {pattern: relativeMeteorAppPath + '/imports/**/*-spec.@(js|jsx)', ignore: true},
+      {pattern: relativeMeteorAppPath + '/imports/**/ui/**/*.@(js|jsx)', ignore: true},
     ],
 
     tests: [
-      {pattern: 'src/imports/**/*-spec.@(js|jsx)'},
-      {pattern: 'src/imports/**/ui/**/*-spec.@(js|jsx)', ignore: true},
+      {pattern: relativeMeteorAppPath + '/imports/**/*-spec.@(js|jsx)'},
+      {pattern: relativeMeteorAppPath + '/imports/**/ui/**/*-spec.@(js|jsx)', ignore: true},
       {pattern: 'tests/jasmine/server/unit/**/*-spec.@(js|jsx)'},
       {pattern: 'tests/jasmine/server/unit/quarantine/**/*.@(js|jsx)', ignore: true},
     ],
 
     compilers: {
       // Important: Make sure that src/.meteor/ is excluded from the pattern
-      'src/imports/**/*.@(js|jsx)': babelCompiler,
+      [relativeMeteorAppPath + '/imports/**/*.@(js|jsx)']: babelCompiler,
       'tests/jasmine/server/unit/**/*.@(js|jsx)': babelCompiler,
     },
 
     bootstrap: function () {
+      var relativeMeteorAppPath = 'src';
+
       wallaby.delayStart();
 
       if (!process.env.ROOT_URL) {
@@ -54,7 +59,7 @@ module.exports = function (wallaby) {
       }
 
       var path = require('path');
-      var appPath = path.resolve(wallaby.localProjectDir, 'src');
+      var appPath = path.resolve(wallaby.localProjectDir, relativeMeteorAppPath);
       var serverPath = path.resolve(appPath,
         path.join('.meteor', 'local', 'build', 'programs', 'server')
       );
