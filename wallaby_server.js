@@ -46,6 +46,19 @@ module.exports = function (wallaby) {
       'tests/jasmine/server/unit/**/*.@(js|jsx)': babelCompiler,
     },
 
+    env: {
+      type: 'node',
+      runner: nodePath,
+    },
+
+    testFramework: 'jasmine',
+
+    workers: {
+      recycle: true,
+    },
+
+    debug: true,
+
     bootstrap: function () {
       var relativeMeteorAppPath = 'src';
 
@@ -405,18 +418,5 @@ module.exports = function (wallaby) {
         wallaby.start();
       }).run();
     },
-
-    env: {
-      type: 'node',
-      runner: nodePath,
-    },
-
-    testFramework: 'jasmine',
-
-    workers: {
-      recycle: true,
-    },
-
-    debug: true
   };
 };
