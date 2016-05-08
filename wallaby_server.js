@@ -1,14 +1,21 @@
-var babel = require('babel-core');
+// How to run:
+//
+// 1. Start your Meteor app and wait until it has built.
+// 2. Start Wallaby with this configuration.
+
+// How to modify for your project:
+//
+// 1. Change relativeMeteorAppPath (line 16 and 69) to the relative location of your Meteor app.
+// 2. Adjust the files array (line 37) to match all your Meteor app server files.
+// 3. Adjust the tests array (line 44) to match all your server tests that should run with Wallaby.
+
+
 var path = require('path');
 var nodePath = require('child_process')
   .execSync('meteor node -e "process.stdout.write(process.execPath)"', {encoding: 'utf8'});
 var relativeMeteorAppPath = 'src';
 
 module.exports = function (wallaby) {
-  var babelCompiler = wallaby.compilers.babel({
-    babel: babel
-  });
-
   process.env.NODE_PATH += path.delimiter +
     path.join(
       wallaby.localProjectDir,
@@ -31,6 +38,7 @@ module.exports = function (wallaby) {
       {pattern: relativeMeteorAppPath + '/imports/**/*.@(js|jsx)', load: false},
       {pattern: relativeMeteorAppPath + '/imports/**/*-spec.@(js|jsx)', ignore: true},
       {pattern: relativeMeteorAppPath + '/imports/**/ui/**/*.@(js|jsx)', ignore: true},
+      {pattern: relativeMeteorAppPath + '/.meteor/**/*', ignore: true},
     ],
 
     tests: [
@@ -41,9 +49,7 @@ module.exports = function (wallaby) {
     ],
 
     compilers: {
-      // Important: Make sure that src/.meteor/ is excluded from the pattern
-      [relativeMeteorAppPath + '/imports/**/*.@(js|jsx)']: babelCompiler,
-      'tests/jasmine/server/unit/**/*.@(js|jsx)': babelCompiler,
+      '**/*.@(js|jsx)': wallaby.compilers.babel(),
     },
 
     env: {
