@@ -1,5 +1,7 @@
 var babel = require('babel-core');
 var path = require('path');
+var nodePath = require('child_process')
+  .execSync('meteor node -e "process.stdout.write(process.execPath)"', {encoding: 'utf8'});
 
 module.exports = function (wallaby) {
   var babelCompiler = wallaby.compilers.babel({
@@ -401,7 +403,7 @@ module.exports = function (wallaby) {
 
     env: {
       type: 'node',
-      runner: path.resolve(process.env.HOME, '.nvm/v0.10.43/bin/node')
+      runner: nodePath,
     },
 
     testFramework: 'jasmine',
