@@ -1,5 +1,6 @@
 import {AccountHolders} from '../collections';
 import AccountService from '../../application/services/account-service/index';
+import publications from './publications';
 
 describe('publications', function () {
   beforeEach(function () {
@@ -7,7 +8,7 @@ describe('publications', function () {
     spyOn(Meteor, 'publish').and.callFake((publicationName, publicationFunction) => {
       this.publications[publicationName] = publicationFunction;
     });
-    require('./publications');
+    publications();
   });
   describe('user', function () {
     beforeEach(function () {
