@@ -24,7 +24,7 @@
     "karma-chrome-launcher": "^0.2.2",
     "karma-firefox-launcher": "^0.1.7",
     "karma-jasmine": "^0.3.6",
-    "karma-sourcemap-loader": "0.3.6",
+    "karma-sourcemap-loader": "0.3.7",
     "karma-webpack": "1.7.0",
     "phantomjs": "^1.9.19",
     "shelljs": "^0.5.3",
@@ -33,5 +33,8 @@
     "wallaby-webpack": "0.0.10",
     "webpack": "^1.12.9",
     "xolvio-jasmine-expect": "^1.0.0"
+  },
+  "dependencies": {
+    "lodash": "^4.12.0"
   }
 }
