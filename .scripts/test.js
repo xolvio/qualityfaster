@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 var path = require('path'),
-   extend = require('util')._extend,
-   exec = require('child_process').exec;
+   processes = require('./processes');
 
 var baseDir = path.resolve(__dirname, '..'),
    karmaBin = path.resolve(baseDir, 'node_modules/.bin/karma'),
@@ -27,7 +26,7 @@ function runTestsSequentially() {
 
 function runClientTests(callback) {
   if (isFirstBuildInParallelRun()) {
-    startProcess({
+    processes.startProcess({
       name: 'Karma',
       options: {},
       command: karmaBin + ' start karma.conf.js --single-run'
@@ -49,45 +48,30 @@ function runServerTests(callback) {
 
 
 function runEndToEndTests(callback) {
-  startProcess({
+  processes.startProcess({
     name: 'Chimp - Mocha',
     options: {
       env: extend({CI: 1}, process.env)
     },
+    critical: true,
     command: chimpScript + ' --mocha'
   }, function() {
-    startProcess({
+    processes.startProcess({
       name: 'Chimp - Jasmine',
       options: {
         env: extend({CI: 1}, process.env)
       },
+      critical: true,
       command: chimpScript + ' --jasmine'
     }, function() {
-      startProcess({
+      processes.startProcess({
         name: 'Chimp - Cucumber',
         options: {
           env: extend({CI: 1}, process.env)
         },
+        critical: true,
         command: chimpScript
       }, callback);
     });
-  });
-}
-
-function startProcess(opts, callback) {
-
-  var proc = exec(
-     opts.command,
-     opts.options
-  );
-  proc.stdout.pipe(process.stdout);
-  proc.stderr.pipe(process.stderr);
-  proc.on('close', function (code) {
-    if (code > 0) {
-      console.log(opts.name, 'exited with code ' + code);
-      process.exit(code);
-    } else {
-      callback();
-    }
   });
 }

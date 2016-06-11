@@ -31,11 +31,15 @@ function startProcess(opts, callback) {
     proc.stderr.pipe(logStream);
   }
   proc.on('close', function (code) {
-    console.log(opts.name, 'exited with code ' + code);
-    for (var i = 0; i < processes.length; i += 1) {
-      processes[i].kill();
+    if (!opts.critical || code > 0) {
+      console.log(opts.name, 'exited with code ' + code);
+      for (var i = 0; i < processes.length; i += 1) {
+        processes[i].kill();
+      }
+      process.exit(code);
+    } else {
+      callback();
     }
-    process.exit(code);
   });
   processes.push(proc);
 }
