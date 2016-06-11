@@ -8,6 +8,13 @@ var baseDir = path.resolve(__dirname, '..'),
   srcDir = path.resolve(baseDir, 'src'),
   chimpBin = path.resolve(baseDir, '.scripts/node_modules/.bin/chimp');
 
+function killAll(code) {
+  for (var i = 0; i < processes.length; i += 1) {
+    processes[i].kill();
+  }
+  process.exit(code);
+}
+
 function startProcess(opts, callback) {
   var proc = exec(
      opts.command,
@@ -34,10 +41,7 @@ function startProcess(opts, callback) {
   proc.on('close', function (code) {
     if (!opts.critical || code > 0) {
       console.log(opts.name, 'exited with code ' + code);
-      for (var i = 0; i < processes.length; i += 1) {
-        processes[i].kill();
-      }
-      process.exit(code);
+      killAll(code);
     } else {
       callback();
     }
@@ -93,4 +97,5 @@ module.exports = {
   startApp: startApp,
   startMirror: startMirror,
   startChimp: startChimp,
+  killAll: killAll,
 };

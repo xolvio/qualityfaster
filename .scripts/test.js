@@ -23,6 +23,7 @@ function runTestsSequentially() {
       runServerTests(function () {
         runEndToEndTests(function () {
           console.log('Yay!');
+          processes.killAll();
         });
       });
     });
