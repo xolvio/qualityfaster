@@ -1,11 +1,14 @@
 #!/usr/bin/env node
 var path = require('path'),
+   extend = require('util')._extend,
    processes = require('./processes');
 
 var baseDir = path.resolve(__dirname, '..'),
    karmaBin = path.resolve(baseDir, 'node_modules/.bin/karma'),
    chimpScript = path.resolve(__dirname, 'start.js'),
     features = process.argv.slice(2);
+
+var appOptions = require('./app.config.js');
 
 if (features.length > 0) {
   chimpScript = chimpScript + ' ' + features.join(" ");
@@ -16,9 +19,11 @@ runTestsSequentially();
 
 function runTestsSequentially() {
   runClientTests(function () {
-    runServerTests(function () {
-      runEndToEndTests(function () {
-        console.log('Yay!');
+    runMeteor(function() {
+      runServerTests(function () {
+        runEndToEndTests(function () {
+          console.log('Yay!');
+        });
       });
     });
   });
@@ -46,6 +51,10 @@ function runServerTests(callback) {
   callback();
 }
 
+function runMeteor(callback) {
+  appOptions.waitForMessage = 'App running at';
+  processes.startApp(callback, appOptions);
+}
 
 function runEndToEndTests(callback) {
   processes.startProcess({
@@ -54,7 +63,7 @@ function runEndToEndTests(callback) {
       env: extend({CI: 1}, process.env)
     },
     critical: true,
-    command: chimpScript + ' --mocha'
+    command: 'NO_METEOR=1 ' + chimpScript + ' --mocha'
   }, function() {
     processes.startProcess({
       name: 'Chimp - Jasmine',
@@ -62,7 +71,7 @@ function runEndToEndTests(callback) {
         env: extend({CI: 1}, process.env)
       },
       critical: true,
-      command: chimpScript + ' --jasmine'
+      command: 'NO_METEOR=1 ' + chimpScript + ' --jasmine'
     }, function() {
       processes.startProcess({
         name: 'Chimp - Cucumber',
@@ -70,7 +79,7 @@ function runEndToEndTests(callback) {
           env: extend({CI: 1}, process.env)
         },
         critical: true,
-        command: chimpScript
+        command: 'NO_METEOR=1 ' + chimpScript
       }, callback);
     });
   });

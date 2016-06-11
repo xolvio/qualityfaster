@@ -6,24 +6,8 @@ var features = [];
 var argv = require('minimist')(process.argv.slice(2));
 argv._.forEach(function(featureFile) { features.push(path.resolve(featureFile))});
 
-var appOptions = {
-  settings: 'settings.json',
-  port: 3000,
-  env: {
-    ROOT_URL: 'http://localhost:3000'
-  }
-};
-
-var mirrorOptions = {
-  settings: appOptions.settings,
-  port: 3100,
-  env: {
-    IS_MIRROR: 1,
-    MONGO_URL: 'mongodb://localhost:' + 3001 + '/chimp_db',
-    ROOT_URL: 'http://localhost:3100'
-  },
-  logFile: './chimp-mirror.log'
-};
+var appOptions = require('./app.config.js');
+var mirrorOptions = require('./mirror.config.js');
 
 if (argv.mocha) {
   startMocha();
