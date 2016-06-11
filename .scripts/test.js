@@ -57,12 +57,20 @@ function runEndToEndTests(callback) {
     command: chimpScript + ' --mocha'
   }, function() {
     startProcess({
-      name: 'Chimp - Cucumber',
+      name: 'Chimp - Jasmine',
       options: {
         env: extend({CI: 1}, process.env)
       },
-      command: chimpScript
-    }, callback);
+      command: chimpScript + ' --jasmine'
+    }, function() {
+      startProcess({
+        name: 'Chimp - Cucumber',
+        options: {
+          env: extend({CI: 1}, process.env)
+        },
+        command: chimpScript
+      }, callback);
+    });
   });
 }
 

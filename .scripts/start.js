@@ -41,7 +41,7 @@ if (argv.mocha) {
 }
 
 function startCucumber(callback) {
-  console.log('Running Cucumber');
+  console.log('=> Running Cucumber');
   callChimp({
     path: path.resolve('tests/specifications'),
     domainSteps: path.resolve('tests/step_definitions/domain'),
@@ -51,7 +51,7 @@ function startCucumber(callback) {
 }
 
 function startJasmine(callback) {
-  console.log('Running Jasmine');
+  console.log('=> Running Jasmine');
   callChimp({
     jasmine: true,
     path: path.resolve('tests/features'),
@@ -59,7 +59,7 @@ function startJasmine(callback) {
 }
 
 function startMocha(callback) {
-  console.log('Running Mocha');
+  console.log('=> Running Mocha');
   callChimp({
     mocha: true,
     path: path.resolve('tests/features'),
