@@ -1,6 +1,7 @@
 {
   "private": true,
   "devDependencies": {
-    "chimp": "^0.33.1"
+    "chimp": "^0.35.0",
+    "minimist": "^1.2.0"
   }
 }
