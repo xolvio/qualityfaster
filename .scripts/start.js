@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 var path = require('path'),
-   fs = require('fs'),
    processes = require('./processes');
 
 var features = [];
@@ -116,7 +115,7 @@ function chimpWithMirror(switches) {
       console.log('=> Test App running at:', mirrorOptions.env.ROOT_URL);
       console.log('=> Log file: tail -f', path.resolve(mirrorOptions.logFile), '\n');
       processes.startChimp('--ddp=' + mirrorOptions.env.ROOT_URL + switches);
-    });
+    }, mirrorOptions);
   }, appOptions);
 }
 

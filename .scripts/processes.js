@@ -1,4 +1,5 @@
-var path = require('path')
+var path = require('path'),
+  fs = require('fs'),
   extend = require('util')._extend,
   exec = require('child_process').exec,
   processes = [];
@@ -56,17 +57,17 @@ function startApp(callback, options) {
   }, callback);
 }
 
-function startMirror(callback) {
+function startMirror(callback, options) {
   startProcess({
     // TODO check if settings file exists first
     name: 'Meteor Mirror',
-    command: 'meteor --settings ' + mirrorOptions.settings + ' --port ' + mirrorOptions.port,
+    command: 'meteor --settings ' + options.settings + ' --port ' + options.port,
     silent: true,
-    logFile: mirrorOptions.logFile,
+    logFile: options.logFile,
     waitForMessage: 'App running at',
     options: {
       cwd: srcDir,
-      env: extend(mirrorOptions.env, process.env)
+      env: extend(options.env, process.env)
     }
   }, callback);
 }
