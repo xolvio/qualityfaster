@@ -54,6 +54,12 @@ function callChimp(chimpSwitches, callback) {
   chimpSwitches.singleSnippetPerFile = 1;
   chimpSwitches['no-source'] = true;
 
+  if (argv.debug) {
+    chimpSwitches.debug = true;
+    chimpSwitches.debugCucumber = true;
+    chimpSwitches.debugMocha = true;
+  }
+
   if (!process.env.CI && !process.env.TRAVIS && !process.env.CIRCLECI) {
     // when not in Watch mode, Chimp existing will exit Meteor too
     chimpSwitches.watch = true;
@@ -70,43 +76,39 @@ function callChimp(chimpSwitches, callback) {
 
   // set this flag to start with a mirror locally (ala Velocity xolvio:cucumber style)
   if (process.env.WITH_MIRROR) {
-    chimpWithMirror(stringify(chimpSwitches));
+    chimpWithMirror(chimpSwitches);
   } else if (process.env.NO_METEOR) {
-    processes.startChimp('--ddp=' + appOptions.env.ROOT_URL + stringify(chimpSwitches), callback);
+    chimpSwitches.ddp = appOptions.env.ROOT_URL;
+    processes.startChimp(chimpSwitches, callback);
   } else {
     // *************************************************
     // THIS IS THE DEFAULT
     // *************************************************
-    chimpNoMirror(stringify(chimpSwitches));
+    chimpNoMirror(chimpSwitches);
   }
 }
 
 // *************************************************
 
-function stringify(switches) {
-  var chimpSwitches = '';
-  for (var key in switches) {
-    if (!switches[key] || !switches.hasOwnProperty(key)) continue;
-    chimpSwitches += ' --' + key + (switches[key] === true ? '' : '=' + switches[key]);
-  }
-  return chimpSwitches;
-}
-
 function chimpWithMirror(switches) {
   appOptions.waitForMessage = 'Started MongoDB';
+  switches.ddp = mirrorOptions.env.ROOT_URL;
+
   processes.startApp(function () {
     processes.startMirror(function () {
       console.log('=> Test App running at:', mirrorOptions.env.ROOT_URL);
       console.log('=> Log file: tail -f', path.resolve(mirrorOptions.logFile), '\n');
-      processes.startChimp('--ddp=' + mirrorOptions.env.ROOT_URL + switches);
+      processes.startChimp(switches);
     }, mirrorOptions);
   }, appOptions);
 }
 
 function chimpNoMirror(switches) {
   appOptions.waitForMessage = 'App running at';
+  switches.ddp = appOptions.env.ROOT_URL;
+
   processes.startApp(function () {
     console.log("inside no mirror ", switches);
-    processes.startChimp('--ddp=' + appOptions.env.ROOT_URL + switches);
+    processes.startChimp(switches);
   }, appOptions);
 }

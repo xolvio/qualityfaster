@@ -6,7 +6,7 @@ var path = require('path'),
 var baseDir = path.resolve(__dirname, '..'),
    karmaBin = path.resolve(baseDir, 'node_modules/.bin/karma'),
    chimpScript = path.resolve(__dirname, 'start.js'),
-    features = process.argv.slice(2);
+   features = process.argv.slice(2);
 
 var appOptions = require('./app.config.js');
 
