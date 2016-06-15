@@ -105,10 +105,12 @@ function startChimp(switches, callback) {
     },
   }, callback);
 
-  console.log(chalk.white.bgRed.bold('\n >> Debug mode is ON! \n'));
-  console.log(chalk.green(' >> start debugging your tests at:'));
-  console.log(chalk.green(' >>', chalk.underline('http://127.0.0.1:8080/?ws=127.0.0.1:8080&port=5859'), '\n'));
-  console.log(chalk.yellow(' Remember to add `debugger;` statements in your tests!', '\n\n'));
+  if(switches.debug) {
+    console.log(chalk.white.bgRed.bold('\n >> Debug mode on! \n'));
+    console.log(chalk.green(' >> start debugging your tests at:'));
+    console.log(chalk.green(' >>', chalk.underline('http://127.0.0.1:8080/?ws=127.0.0.1:8080&port=5859'), '\n'));
+    console.log(chalk.yellow(' Remember to add `debugger;` statements in your tests!', '\n\n'));
+  }
 }
 
 module.exports = {
