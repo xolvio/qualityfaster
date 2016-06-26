@@ -1,5 +1,7 @@
 import {AccountHolderRepository} from './account-holder-repository';
-import {AccountHolders} from '../../../infrastructure/collections'
+import {AccountHolders} from '../../../infrastructure/collections';
+import {AccountHolder} from './account-holder';
+import {Account} from './account';
 
 describe('Account Holder Repository', function () {
   beforeEach(function () {

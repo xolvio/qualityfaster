@@ -1,4 +1,6 @@
 import {AccountHolderFactory} from './account-holder-factory';
+import {AccountHolder} from './account-holder';
+import {Account} from './account';
 
 describe('AccountHolderFactory', function () {
   describe('create', function () {
