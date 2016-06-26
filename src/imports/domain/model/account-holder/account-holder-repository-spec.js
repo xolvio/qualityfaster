@@ -15,15 +15,14 @@ describe('Account Holder Repository', function () {
 
       const actualAccountHolder = AccountHolderRepository.find('noMatter');
 
-      expect(actualAccountHolder.constructor.name).toBe('AccountHolder');
-      expect(actualAccountHolder).not.toBe(this.accountHolder);
+      expect(actualAccountHolder instanceof AccountHolder).toBe(true);
     });
     it('should convert the account object into an Account instance', function () {
       spyOn(AccountHolders, 'findOne').and.returnValue(this.accountHolder);
 
       const actualAccountHolder = AccountHolderRepository.find('noMatter');
 
-      expect(actualAccountHolder.account.constructor.name).toBe('Account');
+      expect(actualAccountHolder.account instanceof Account).toBe(true);
     });
     describe('getNullAccountHolder', function () {
       it('should returns a NullObject', function () {
