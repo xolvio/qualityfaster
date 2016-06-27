@@ -1,4 +1,6 @@
 import {AccountHolderFactory} from './account-holder-factory';
+import {AccountHolder} from './account-holder';
+import {Account} from './account';
 
 describe('AccountHolderFactory', function () {
   describe('create', function () {
@@ -9,10 +11,10 @@ describe('AccountHolderFactory', function () {
       });
     });
     it('should create a new AccountHolder', function () {
-      expect(this.accountHolder.constructor.name).toBe('AccountHolder');
+      expect(this.accountHolder instanceof AccountHolder).toBe(true);
     });
     it('should create an account for the account holder', function() {
-      expect(this.accountHolder.account.constructor.name).toBe('Account');
+      expect(this.accountHolder.account instanceof Account).toBe(true);
     });
     it('should set the name of the account holder', function() {
       expect(this.accountHolder.name).toBe('Jon Doe');
