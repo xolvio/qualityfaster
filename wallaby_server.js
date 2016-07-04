@@ -83,7 +83,15 @@ module.exports = function (wallaby) {
         path.join('.meteor', 'local', 'build', 'programs', 'server')
       );
       process.argv.splice(2, 0, 'program.json');
-      process.chdir(serverPath);
+      try {
+        process.chdir(serverPath);
+      } catch (error) {
+        if (error.message.match(/^ENOENT/)) {
+          throw new Error('You need to run the Meteor app before you start Wallaby!');
+        } else {
+          throw error;
+        }
+      }
 
       //
       // boot.js
