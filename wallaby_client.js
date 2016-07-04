@@ -22,11 +22,7 @@ module.exports = function (wallaby) {
   var wallabyPostprocessor = wallabyWebpack(webpackConfig);
 
 
-  var babelCompiler = wallaby.compilers.babel({
-    babel: babel,
-    presets: ['react', 'es2015', 'stage-0'],
-    plugins: ['transform-decorators-legacy'],
-  });
+  var babelCompiler = wallaby.compilers.babel();
 
   var packageStubs = fs.readdirSync('./src/imports/testing/client/stubs')
     .map(function (fileName) {
