@@ -24,7 +24,7 @@ module.exports = function (wallaby) {
 
   var babelCompiler = wallaby.compilers.babel();
 
-  var packageStubs = fs.readdirSync('./src/imports/testing/client/stubs')
+  var packageStubs = fs.readdirSync('./src/imports/testing/client/stubs/packages')
     .map(function (fileName) {
       return 'packages/' + fileName;
     });
@@ -39,7 +39,7 @@ module.exports = function (wallaby) {
     })
     .map(function (file) {
       var basePath = packageStubs.indexOf(file.path) !== -1 ?
-        'tests/client/stubs' :
+        'src/imports/testing/client/stubs' :
         'src/.meteor/local/build/programs/web.browser';
       return {pattern: path.join(basePath, file.path)};
     });
