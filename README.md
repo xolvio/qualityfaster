@@ -5,8 +5,8 @@ The companion repository for Xolv.io's "Quality Faster" knowledge base and guide
 ## Installation
 
 ```bash
-git clone https://github.com/xolvio/qualityfaster.git
-cd qualityfaster
+git clone https://github.com/xolvio/quality-faster.git
+cd quality-faster
 npm install
 ```
 
