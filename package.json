@@ -2,12 +2,13 @@
   "name": "qualityfaster",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "test": "mocha --opts ./config/mocha.opts.once && karma start --singleRun --reporters=mocha ./config/karma.conf.js",
-    "mocha": "mocha --opts ./config/mocha.opts",
-    "karma": "karma start ./config/karma.conf.js",
-    "watch": "npm run mocha & npm run karma"
+    "test": "scripty",
+    "test:karma": "scripty",
+    "test:mocha": "scripty",
+    "watch": "SCRIPTY_PARALLEL=true scripty",
+    "watch:karma": "scripty",
+    "watch:mocha": "scripty"
   },
   "author": "",
   "license": "ISC",
@@ -30,6 +31,8 @@
     "karma-mocha-reporter": "^2.1.0",
     "karma-source-map-support": "^1.2.0",
     "mocha": "^3.0.2",
+    "scripty": "^1.6.0",
+    "shelljs": "^0.7.4",
     "testdouble": "^1.6.1",
     "watchify": "^3.7.0"
   }

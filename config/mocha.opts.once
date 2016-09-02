@@ -1,3 +1,4 @@
-./{,!(node_modules)/**/!(ui|browser)/**}*spec.js
+./src/imports/**/!(ui|browser)/**/*spec.js
 --compilers js:babel-core/register
 --require ./config/mocha.bootstrap.js
+--colors
