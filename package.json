@@ -1,0 +1,34 @@
+{
+  "name": "qualityfaster",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --opts ./config/mocha.opts.once && karma start --singleRun --reporters=mocha ./config/karma.conf.js",
+    "mocha": "mocha --opts ./config/mocha.opts",
+    "karma": "karma start ./config/karma.conf.js",
+    "watch": "npm run mocha & npm run karma"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel": "^6.5.2",
+    "babel-preset-es2015": "^6.6.0",
+    "babel-preset-react": "^6.5.0",
+    "babelify": "^7.3.0",
+    "browserify": "^13.1.0",
+    "chai": "^3.5.0",
+    "chimp": "^0.40.4",
+    "karma": "^1.2.0",
+    "karma-babel-preprocessor": "^6.0.1",
+    "karma-browserify": "^5.1.0",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-mocha": "^1.1.1",
+    "karma-mocha-reporter": "^2.1.0",
+    "karma-source-map-support": "^1.2.0",
+    "mocha": "^3.0.2",
+    "testdouble": "^1.6.1",
+    "watchify": "^3.7.0"
+  }
+}
