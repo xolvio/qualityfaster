@@ -10,22 +10,33 @@ cd quality-faster
 npm install
 ```
 
-To run all the tests (client and server) both locally or on CI:
+
+### Development Mode
+To start both client and server in watch mode:
 ```
-npm test
+npm run watch
 ```
 
 To start server watch mode:
 ```
-npm run mocha
+npm run watch:mocha
 ```
 
 To start client watch mode:
 ```
-npm run karma
+npm run watch:karma
 ```
 
-To start both client and server in watch mode (not for Windows):
+### Continuous Integration
+To run all the tests (client and server) both locally or on CI:
 ```
-npm run watch
+npm test
+```
+To run all the tests (server only) both locally or on CI:
+```
+npm test:mocha
+```
+To run all the tests (client only) both locally or on CI:
+```
+npm test:karma
 ```
