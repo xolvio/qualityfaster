@@ -6,9 +6,11 @@
     "test": "scripty",
     "test:karma": "scripty",
     "test:mocha": "scripty",
+    "test:chimp": "scripty",
     "watch": "cross-env SCRIPTY_PARALLEL=true scripty",
     "watch:karma": "scripty",
-    "watch:mocha": "scripty"
+    "watch:mocha": "scripty",
+    "watch:chimp": "scripty"
   },
   "author": "",
   "license": "ISC",
