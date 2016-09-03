@@ -1,3 +1,3 @@
 #!/usr/bin/env node
 require('shelljs/global');
-exec('karma start ./config/karma.conf.js');
+exec('karma start --reporters=dots ./config/karma.conf.js');
