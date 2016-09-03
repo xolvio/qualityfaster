@@ -6,7 +6,7 @@
     "test": "scripty",
     "test:karma": "scripty",
     "test:mocha": "scripty",
-    "watch": "SCRIPTY_PARALLEL=true scripty",
+    "watch": "cross-env SCRIPTY_PARALLEL=true scripty",
     "watch:karma": "scripty",
     "watch:mocha": "scripty"
   },
@@ -22,6 +22,7 @@
     "browserify": "^13.1.0",
     "chai": "^3.5.0",
     "chimp": "^0.40.4",
+    "cross-env": "^2.0.1",
     "karma": "^1.2.0",
     "karma-babel-preprocessor": "^6.0.1",
     "karma-browserify": "^5.1.0",
