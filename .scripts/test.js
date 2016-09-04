@@ -1,12 +1,14 @@
 #!/usr/bin/env node
 var path = require('path'),
    extend = require('util')._extend,
-   exec = require('child_process').exec;
+   processes = require('./processes');
 
 var baseDir = path.resolve(__dirname, '..'),
    karmaBin = path.resolve(baseDir, 'node_modules/.bin/karma'),
    chimpScript = path.resolve(__dirname, 'start.js'),
     features = process.argv.slice(2);
+
+var appOptions = require('./app.config.js');
 
 if (features.length > 0) {
   chimpScript = chimpScript + ' ' + features.join(" ");
@@ -17,9 +19,12 @@ runTestsSequentially();
 
 function runTestsSequentially() {
   runClientTests(function () {
-    runServerTests(function () {
-      runEndToEndTests(function () {
-        console.log('Yay!');
+    runMeteor(function() {
+      runServerTests(function () {
+        runEndToEndTests(function () {
+          console.log('Yay!');
+          processes.killAll();
+        });
       });
     });
   });
@@ -27,7 +32,7 @@ function runTestsSequentially() {
 
 function runClientTests(callback) {
   if (isFirstBuildInParallelRun()) {
-    startProcess({
+    processes.startProcess({
       name: 'Karma',
       options: {},
       command: karmaBin + ' start karma.conf.js --single-run'
@@ -47,31 +52,36 @@ function runServerTests(callback) {
   callback();
 }
 
+function runMeteor(callback) {
+  appOptions.waitForMessage = 'App running at';
+  processes.startApp(callback, appOptions);
+}
 
 function runEndToEndTests(callback) {
-  startProcess({
-    name: 'Chimp',
+  processes.startProcess({
+    name: 'Chimp - Mocha',
     options: {
       env: extend({CI: 1}, process.env)
     },
-    command: chimpScript
-  }, callback);
-}
-
-function startProcess(opts, callback) {
-
-  var proc = exec(
-     opts.command,
-     opts.options
-  );
-  proc.stdout.pipe(process.stdout);
-  proc.stderr.pipe(process.stderr);
-  proc.on('close', function (code) {
-    if (code > 0) {
-      console.log(opts.name, 'exited with code ' + code);
-      process.exit(code);
-    } else {
-      callback();
-    }
+    critical: true,
+    command: 'NO_METEOR=1 ' + chimpScript + ' --mocha'
+  }, function() {
+    processes.startProcess({
+      name: 'Chimp - Jasmine',
+      options: {
+        env: extend({CI: 1}, process.env)
+      },
+      critical: true,
+      command: 'NO_METEOR=1 ' + chimpScript + ' --jasmine'
+    }, function() {
+      processes.startProcess({
+        name: 'Chimp - Cucumber',
+        options: {
+          env: extend({CI: 1}, process.env)
+        },
+        critical: true,
+        command: 'NO_METEOR=1 ' + chimpScript
+      }, callback);
+    });
   });
 }
