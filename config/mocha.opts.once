@@ -1,3 +1,0 @@
---compilers js:babel-core/register
---require ./config/mocha.bootstrap.js
---colors
