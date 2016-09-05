@@ -4,7 +4,13 @@
   "description": "",
   "scripts": {
     "watch": "gulp -S",
-    "test": "gulp test"
+    "watch:client": "gulp -S watchKarma",
+    "watch:server": "gulp -S watchMocha",
+    "watch:e2e": "gulp -S watchChimp",
+    "test": "gulp test",
+    "test:client": "gulp -S karma",
+    "test:server": "gulp -S mocha",
+    "test:e2e": "gulp -S chimp"
   },
   "author": "",
   "license": "ISC",
@@ -35,6 +41,7 @@
     "karma-mocha-reporter": "^2.1.0",
     "karma-source-map-support": "^1.2.0",
     "mocha": "^3.0.2",
+    "run-sequence": "^1.2.2",
     "shelljs": "^0.7.4",
     "testdouble": "^1.6.1",
     "watchify": "^3.7.0"

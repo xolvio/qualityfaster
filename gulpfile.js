@@ -2,7 +2,9 @@ const gulp = require('gulp'),
   path = require('path'),
   mocha = require('gulp-spawn-mocha'),
   karmaServer = require('karma').Server,
-  Chimp = require('chimp');
+  Chimp = require('chimp'),
+  runSequence = require('run-sequence');
+
 
 const DEBUG = process.env.DEBUG === 'true' || process.env.DEBUG === '1',
   CI = process.env.CI === 'true' || process.env.CI === '1';
@@ -64,7 +66,7 @@ gulp.task('karma', function (done) {
   new karmaServer(karmaConfig, done).start();
 });
 
-gulp.task('karmaWatch', function () {
+gulp.task('watchKarma', function () {
   console.log('Karma is running in watch mode');
   karmaConfig.singleRun = false;
   gulp.start('karma');
@@ -75,7 +77,7 @@ gulp.task('mocha', function () {
     .pipe(mocha(mochaConfig));
 });
 
-gulp.task('mochaWatch', function () {
+gulp.task('watchMocha', function () {
   console.log('Mocha is running in watch mode');
   gulp.start('mocha');
   gulp.watch('src/imports/**/*.js', function (event) {
@@ -95,12 +97,15 @@ gulp.task('chimp', function (done) {
   });
 });
 
-gulp.task('chimpWatch', function () {
+gulp.task('watchChimp', function () {
   console.log('Chimp is running in watch mode');
   chimpConfig.watch = true;
   gulp.start('chimp');
 });
 
-gulp.task('default', ['mochaWatch', 'karmaWatch']);
+gulp.task('default', ['watchMocha', 'watchKarma', 'watchChimp']);
 
-gulp.task('test', ['mocha', 'karma', 'chimp']);
+// gulp.task('test', ['mocha', 'karma', 'chimp'], function() {
+gulp.task('test', function (done) {
+  runSequence('mocha', 'karma', 'chimp', done);
+});
