@@ -1,0 +1,27 @@
+machine:
+  java:
+    version: oraclejdk8
+  node:
+    version: 6.5.0
+
+dependencies:
+  cache_directories:
+    - "node_modules"
+    - "~/.npm"
+    - "~/_opt"
+
+  override:
+    # Cache npm deps
+    - npm install
+
+    # Cache Chimp's Selenium & ChromeDriver downloads
+    - mkdir ./temporaryDirectory
+    - ./node_modules/.bin/chimp --path=./temporaryDirectory # there are no tests here
+    - rm -rf ./temporaryDirectory
+
+    # Cache Karma dependencies
+    - ./node_modules/.bin/karma start ./config/karma.config.js
+
+test:
+  override:
+    - npm test
