@@ -11,7 +11,7 @@ dependencies:
 
   override:
     # Cache npm deps
-    - npm install --loglevel=error
+    - npm install
 
 test:
   override:
