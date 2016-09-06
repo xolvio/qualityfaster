@@ -4,6 +4,6 @@ module.exports = function () {
   this.When(/^I eat it$/, function () {
   });
   this.Then(/^I'm satisfied$/, function () {
-    expect(true).toBe(false)
+    expect(true).to.equal(false)
   });
 };
