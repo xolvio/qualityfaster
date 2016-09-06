@@ -1,5 +1,5 @@
 describe('imports/', function () {
   it('/my-spec.js', function () {
-    'hello'.should.be.a('string');
+    'hello'.should.not.be.a('string');
   });
 });
