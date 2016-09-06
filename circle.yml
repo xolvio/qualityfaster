@@ -8,7 +8,6 @@ dependencies:
   cache_directories:
     - "node_modules"
     - "~/.npm"
-    - "~/_opt"
 
   override:
     # Cache npm deps

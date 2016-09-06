@@ -16,8 +16,8 @@ addons:
 
 cache:
   directories:
-    - "$HOME/node_modules"
-    - "$HOME/.npm"
+    - "node_modules"
+    - "~/.npm"
 
 before_install:
   # Use X Virtual Frame Buffer
@@ -26,15 +26,7 @@ before_install:
   - "export DISPLAY=:99.0"
 
   # Install NPM dependencies
-  - npm install --loglevel=error
-
-  # Cache Chimp's Selenium & ChromeDriver downloads
-  - mkdir ./temporaryDirectory
-  - ./node_modules/.bin/chimp --path=./temporaryDirectory # there are no tests here
-  - rm -rf ./temporaryDirectory
-
-  # Cache Karma dependencies
-  - ./node_modules/.bin/karma start ./config/karma.config.js > /dev/null 2>&1
+  - npm install
 
 script:
   - npm test
