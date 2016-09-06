@@ -2,11 +2,16 @@ Quality, Faster.
 ================
 The companion code repository for Xolv.io's ["Quality Faster"](http://quality.xolv.io) knowledge base and guide.
 
-## The Tech Stack  
-* [Gulp](http://gulpjs.com/) orchestrates.
-* [Mocha](http://mochajs.org) runs server-side Node.js based tests.
-* [Karma](https://karma-runner.github.io/) runs client-side browser tests.
-* [Chimp](http://chimpjs.com) runs acceptance and end-to-end.
+## The Tech Stack
+The following tools and technologies are used in this repository:
+  
+* [Gulp.js](http://gulpjs.com/) to orchestration.
+* [Mocha](http://mochajs.org) to test server-side Node.js code.
+* [Karma](https://karma-runner.github.io/) to test client-side browser code.
+* [Chimp.js](http://chimpjs.com) to run acceptance and end-to-end tests.
+
+Optional but HIGHLY recommended
+* [Wallaby.js](http://wallabyjs.com) to run acceptance and end-to-end tests. 
 
 ## Installation
 ```bash
@@ -15,11 +20,30 @@ cd quality-faster
 npm install
 ```
 
-### Watch Mode
-When you are developing, you want the fastest possible feedback to let you know if you've broken any tests. To do that, this code repository allows you to run client, server, acceptance and end-to-end tests at hyper speeds using a hand-picked and configured test stack.
+## Usage
 
-It is recommended that you start each commands below in a separate terminal window, and to make that sure you can see all of them with the IDE.
+### Development Mode
+When you are developing, you want the fastest possible feedback to let you know if you've broken any tests. To do that, this code repository allows you to run client, server, acceptance and end-to-end tests at hyper speeds.
 
+#### Option A: Paid (Recommended)
+Wallaby.js provides you with real-time feedback in your IDE. This feature is completely inline with the "Quality Faster" ethos and therefore it is highly recommended. The tool saves you a lot of time which means money, and so it pays back for itself in no time.
+
+You'll need to first install Wallaby.js for your IDE. You can find [a list of supported IDEs here](https://wallabyjs.com/docs/intro/install.html) and instructions on how to install and run the plugin. 
+
+Once you've installed the plugin, you just need to create two run configurations for the client and server using the `.wallaby-client.js` and `.wallaby-server.js` files.
+
+At the time of writing this, Wallaby only supports running one mode at a time, so you'll need to switch between the server and client modes as you work on the respective files.
+
+In addition to running Wallaby.js server/client tests, you'll also need to run acceptance and end-to-end tests using Chimp's watch mode as follows: 
+
+```bash
+npm run watch:e2e
+```
+
+#### Option B: Free
+You also have the option of using the watch modes we have provided using Gulp and Karma.
+
+Start each commands below in a separate terminal window, and to make that sure you can see all of them with the IDE.
 ```bash
 npm run watch:client
 npm run watch:server

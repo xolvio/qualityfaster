@@ -41,9 +41,11 @@
     "karma-mocha-reporter": "^2.1.0",
     "karma-source-map-support": "^1.2.0",
     "mocha": "^3.0.2",
+    "phantomjs2-ext": "^0.2.2",
     "run-sequence": "^1.2.2",
     "shelljs": "^0.7.4",
     "testdouble": "^1.6.1",
+    "wallabify": "0.0.14",
     "watchify": "^3.7.0"
   }
 }
