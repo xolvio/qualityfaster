@@ -1,9 +1,10 @@
-sudo: false
+sudo: required
+dist: trusty
 
 language: node_js
 
 node_js:
-  - 6.3.0
+  - 6.5.0
 
 addons:
   apt:
