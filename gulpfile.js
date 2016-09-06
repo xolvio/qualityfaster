@@ -38,9 +38,7 @@ gulp.task('chimp', function (done) {
   chimpOptions._ = [];
   const options = Object.assign({}, chimpDefaultOptions, chimpOptions);
   var chimp = new Chimp(options);
-  chimp.init(function () {
-    done();
-  });
+  chimp.init(done);
 });
 
 gulp.task('watchChimp', function () {
@@ -52,5 +50,13 @@ gulp.task('watchChimp', function () {
 gulp.task('default', ['watchMocha', 'watchKarma', 'watchChimp']);
 
 gulp.task('test', function (done) {
-  runSequence('mocha', 'karma', 'chimp', done);
+  runSequence('chimp', function(error) {
+    if (error) {
+      console.error(error.message);
+      process.exit(1);
+    } else {
+      process.exit(0);
+    }
+    done();
+  });
 });
