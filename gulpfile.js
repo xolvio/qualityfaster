@@ -50,7 +50,7 @@ gulp.task('watchChimp', function () {
 gulp.task('default', ['watchMocha', 'watchKarma', 'watchChimp']);
 
 gulp.task('test', function (done) {
-  runSequence('chimp', function(error) {
+  runSequence('mocha', 'karma', 'chimp', function(error) {
     if (error) {
       console.error(error.message);
       process.exit(1);
