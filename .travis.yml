@@ -26,7 +26,7 @@ before_install:
   - "export DISPLAY=:99.0"
 
   # Install NPM dependencies
-  - npm install
+  - npm install --loglevel=error
 
   # Cache Chimp's Selenium & ChromeDriver downloads
   - mkdir ./temporaryDirectory
@@ -34,7 +34,7 @@ before_install:
   - rm -rf ./temporaryDirectory
 
   # Cache Karma dependencies
-  - ./node_modules/.bin/karma start ./config/karma.config.js
+  - ./node_modules/.bin/karma start ./config/karma.config.js > /dev/null 2>&1
 
 script:
   - npm test

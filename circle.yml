@@ -12,7 +12,7 @@ dependencies:
 
   override:
     # Cache npm deps
-    - npm install
+    - npm install --loglevel=error
 
     # Cache Chimp's Selenium & ChromeDriver downloads
     - mkdir ./temporaryDirectory
@@ -20,7 +20,7 @@ dependencies:
     - rm -rf ./temporaryDirectory
 
     # Cache Karma dependencies
-    - ./node_modules/.bin/karma start ./config/karma.config.js
+    - ./node_modules/.bin/karma start ./config/karma.config.js > /dev/null 2>&1
 
 test:
   override:
