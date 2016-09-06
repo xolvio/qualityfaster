@@ -13,14 +13,6 @@ dependencies:
     # Cache npm deps
     - npm install --loglevel=error
 
-    # Cache Chimp's Selenium & ChromeDriver downloads
-    - mkdir ./temporaryDirectory
-    - ./node_modules/.bin/chimp --path=./temporaryDirectory # there are no tests here
-    - rm -rf ./temporaryDirectory
-
-    # Cache Karma dependencies
-    - ./node_modules/.bin/karma start ./config/karma.config.js > /dev/null 2>&1
-
 test:
   override:
     - npm test
