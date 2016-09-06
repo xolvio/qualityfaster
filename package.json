@@ -7,7 +7,7 @@
     "watch:client": "gulp -S watchKarma",
     "watch:server": "gulp -S watchMocha",
     "watch:e2e": "gulp -S watchChimp",
-    "test": "gulp test",
+    "test": "gulp -S test",
     "test:client": "gulp -S karma",
     "test:server": "gulp -S mocha",
     "test:e2e": "gulp -S chimp"
