@@ -28,7 +28,7 @@ before_install:
   # Install NPM dependencies
   - npm install
 
-  # Cache Selenium & ChromeDriver
+  # Cache Chimp's Selenium & ChromeDriver downloads
   - mkdir ./temporaryDirectory
   - ./node_modules/.bin/chimp --path=./temporaryDirectory # there are no tests here
   - rm -rf ./temporaryDirectory
