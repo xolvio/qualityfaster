@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/xolvio/qualityfaster.svg?branch=dev)](https://travis-ci.org/xolvio/qualityfaster) [![CircleCI](https://circleci.com/gh/xolvio/qualityfaster/tree/dev.svg?style=svg)](https://circleci.com/gh/xolvio/qualityfaster/tree/dev)
+
 Quality, Faster.
 ================
 The companion code repository for Xolv.io's ["Quality Faster"](http://quality.xolv.io) knowledge base and guide.
