@@ -4,6 +4,9 @@ machine:
   java:
     # This is needed by Chimp to run Selenium so we can start Chrome and Firefox
     version: oraclejdk8
+  environment:
+    # Circle runs each command in a separate shell. This mechanism allows us to centralize varialbes in this file
+    DEPLOY_SITE: qualityfaster
 
 dependencies:
   cache_directories:
@@ -35,12 +38,13 @@ test:
     # The build & test lifecycle is orchestrated by Gulp, which is wired up through npm's test script
     - npm test
 
-# For the deployment code below to work, you need to first carry out the following steps:
-# 1. Create a Meteor developer account and sign-up for Galaxy
-# 2. Execute these commands on your local machine:
-#    METEOR_SESSION_FILE=meteor-session-file.json meteor login
-#    FILE_CONTENT=`cat meteor-session-file.json` node -e "console.log(new Buffer(process.env.FILE_CONTENT).toString('base64'))"
-# 3. Store the output in an environment variable called METEOR_SESSION_FILE_CONTENT in CircleCI
+# For the deployment code below to work, you need to first carry out the following steps on your local machine:
+# 1.  Create a Meteor developer account and sign-up for Galaxy
+# 2a. Login with Meteor and save the session to file
+#     METEOR_SESSION_FILE=meteor-session-file.json meteor login
+# 2b. Use Node.js to encode and output the file as a Base64 string
+#     FILE_CONTENT=`cat meteor-session-file.json` node -e "console.log(new Buffer(process.env.FILE_CONTENT).toString('base64'))"
+# 3.  Copy & paste the output in an environment variable called METEOR_SESSION_FILE_CONTENT in the project settings on CircleCI
 
 deployment:
   # We deploy to production any time the previous test step passed AND...
@@ -48,8 +52,8 @@ deployment:
    # ...when the commit is made to this branch
    branch: dev
    commands:
-     # Use Node.js to decode and output the Base64 environment variable called METEOR_SESSION_FILE, then redirect the output to a file called meteor-session-file.json
+     # Use Node.js to decode the Base64 environment variable called METEOR_SESSION_FILE and write it to a file called meteor-session-file.json
    - node -e "console.log(new Buffer(process.env.METEOR_SESSION_FILE_CONTENT, 'Base64').toString('utf-8'))" > src/meteor-session-file.json
      # Next we tell Meteor deploy to use the session file, to deploy to app.qualityfaster.com and to use the production-settings.json
-   - DEPLOY_HOSTNAME=galaxy.meteor.com METEOR_SESSION_FILE=meteor-session-file.json meteor deploy qualityfaster:
+   - DEPLOY_HOSTNAME=galaxy.meteor.com METEOR_SESSION_FILE=meteor-session-file.json meteor deploy $DEPLOY_SITE:
        pwd: src
