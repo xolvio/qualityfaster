@@ -14,8 +14,12 @@ module.exports = {
   ],
   exclude: [                  // since karma is a front-end only testing framework, we ignore server directories
     'src/**/server/**',
+    '**/*.html',
     '**/*.md'
   ],
+  client: {
+    useIframe: false
+  },
   preprocessors: {            // uses browserify to transform files before the browser loads them
     'src/**/*.js': ['browserify'],
   },
