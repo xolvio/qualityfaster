@@ -19,6 +19,8 @@ dependencies:
     # Cache Karma's dependencies
     - ./node_modules/.bin/karma start ./config/karma.config.js || true
 
+    - node -e "console.log(process.env.HELLO)"
+
 test:
   override:
     - npm test
