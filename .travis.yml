@@ -41,6 +41,7 @@ before_install:
   # Cache Meteor
   - if [ -d ~/.meteor ]; then sudo ln -s ~/.meteor/meteor /usr/local/bin/meteor; fi # setup the meteor command
   - if [ ! -e $HOME/.meteor/meteor ]; then curl https://install.meteor.com | sh; fi # install Meteor
+  - meteor --version
 
 script:
   - npm test
