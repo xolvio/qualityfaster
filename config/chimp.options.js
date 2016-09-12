@@ -1,6 +1,6 @@
 module.exports = {
   path: 'tests',
-  browser: 'chrome',
+  browser: process.env.BROWSER ? process.env.BROWSER : 'chrome',
   chai: true,
   timeout: 60000,
   port: 4444,

@@ -7,6 +7,7 @@ machine:
   environment:
     # Circle runs each command in a separate shell. This mechanism allows us to centralize varialbes in this file
     DEPLOY_SITE: qualityfaster
+    BROWSER: chrome
 
 dependencies:
   cache_directories:
