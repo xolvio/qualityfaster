@@ -53,6 +53,7 @@ deploy:
   provider: script
   # We use the script to deploy
   script: scripts/deploy.sh
+  skip_cleanup: true
   on:
     # ...when the commit is made to this branch
     branch: dev
