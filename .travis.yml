@@ -1,6 +1,10 @@
 sudo: required
 dist: trusty
 
+env:
+  - DEPLOY_SITE=qualityfaster
+  - BROWSER=chrome
+
 language: node_js
 node_js: "stable"
 
