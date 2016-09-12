@@ -19,7 +19,7 @@ module.exports = function () {
       {pattern: 'src/imports/@(server)/**/*.js', ignore: true},
     ],
     env: {
-      runner: require('phantomjs2-ext').path,
+      runner: require('phantomjs-prebuilt').path,
       params: {runner: '--web-security=false'}
     },
     postprocessor: wallabyPostprocessor,

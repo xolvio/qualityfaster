@@ -41,7 +41,7 @@
     "karma-mocha-reporter": "^2.1.0",
     "karma-source-map-support": "^1.2.0",
     "mocha": "^3.0.2",
-    "phantomjs2-ext": "^0.2.2",
+    "phantomjs-prebuilt": "^2.1.12",
     "run-sequence": "^1.2.2",
     "shelljs": "^0.7.4",
     "testdouble": "^1.6.1",
