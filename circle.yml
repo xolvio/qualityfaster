@@ -8,6 +8,7 @@ dependencies:
   cache_directories:
     - "node_modules"
     - "~/.npm"
+    - "~/.meteor"
 
   override:
     # Cache npm deps
@@ -17,7 +18,11 @@ dependencies:
     - mkdir ./tmp && ./node_modules/.bin/chimp --path=./tmp && rm -rf ./tmp # there are no tests here
 
     # Cache Karma's dependencies
-    - ./node_modules/.bin/karma start ./config/karma.config.js || true
+    - ./node_modules/.bin/karma start ./config/karma.config.js || true # we're not interested in testing at this stage
+
+    # Cache Meteor
+    - if [ -d ~/.meteor ]; then sudo ln -s ~/.meteor/meteor /usr/local/bin/meteor; fi
+    - if [ ! -e $HOME/.meteor/meteor ]; then curl https://install.meteor.com | sh; fi
 
 test:
   override:
