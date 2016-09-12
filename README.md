@@ -7,13 +7,13 @@ The companion code repository for Xolv.io's ["Quality Faster"](http://quality.xo
 ## The Tech Stack
 The following tools and technologies are used in this repository:
   
-* [Gulp.js](http://gulpjs.com/) to orchestration.
+* [Gulp.js](http://gulpjs.com/) for orchestration.
 * [Mocha](http://mochajs.org) to test server-side Node.js code.
 * [Karma](https://karma-runner.github.io/) to test client-side browser code.
 * [Chimp.js](http://chimpjs.com) to run acceptance and end-to-end tests.
 
 Optional but HIGHLY recommended
-* [Wallaby.js](http://wallabyjs.com) to run acceptance and end-to-end tests. 
+* [Wallaby.js](http://wallabyjs.com) to run in-IDE unit tests in real time. 
 
 ## Installation
 ```bash
