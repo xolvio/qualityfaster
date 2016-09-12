@@ -54,4 +54,4 @@ deployment:
    branch: dev
    commands:
    # We use the script to deploy
-  - scripts/deploy.sh
+   - scripts/deploy.sh
