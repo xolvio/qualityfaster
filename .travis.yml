@@ -17,11 +17,11 @@ node_js: "stable"
 #      - google-chrome-stable
 #  firefox: "latest"
 
-#cache:
-#  directories:
+cache:
+  directories:
 #    - "node_modules"
 #    - "~/.npm"
-#    - "~/.meteor"
+    - "~/.meteor"
 
 before_install:
   # Use X Virtual Frame Buffer
