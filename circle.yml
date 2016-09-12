@@ -35,5 +35,5 @@ deployment:
    # Use Node.js to decode and output the Base64 environment variable called METEOR_SESSION_FILE, then redirect the output to a file called meteor-session-file.json
    - node -e "console.log(new Buffer(process.env.METEOR_SESSION_FILE_CONTENT, 'Base64').toString('utf-8'))" > src/meteor-session-file.json
    # Next we tell Meteor deploy to use the session file, to deploy to app.qualityfaster.com and to use the production-settings.json
-   - DEPLOY_HOSTNAME=galaxy.meteor.com METEOR_SESSION_FILE=meteor-session-file.json meteor deploy app.qualityfaster.com --settings production-settings.json:
+   - DEPLOY_HOSTNAME=galaxy.meteor.com METEOR_SESSION_FILE=meteor-session-file.json meteor deploy app.qualityfaster.com
        pwd: src
