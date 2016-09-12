@@ -25,7 +25,7 @@
     "babelify": "^7.3.0",
     "browserify": "^13.1.0",
     "chai": "^3.5.0",
-    "chimp": "^0.40.6",
+    "chimp": "^0.40.7",
     "cross-env": "^2.0.1",
     "gulp": "^3.9.1",
     "gulp-cli": "^1.2.2",
