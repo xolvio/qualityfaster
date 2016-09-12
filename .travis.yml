@@ -22,6 +22,12 @@ cache:
 #    - "node_modules"
 #    - "~/.npm"
     - "~/.meteor"
+    - "src/node_modules"
+    - "src/.meteor/local/build"
+    - "src/.meteor/local/bundler-cache"
+    - "src/.meteor/local/db"
+    - "src/.meteor/local/isopacks"
+    - "src/.meteor/local/plugin-cache"
 
 before_install:
   # Use X Virtual Frame Buffer
@@ -40,8 +46,6 @@ before_install:
 
   # Install & Cache Meteor
   - scripts/install-meteor.sh
-  - which meteor
-  - meteor --version
 
 script:
 #  - npm test

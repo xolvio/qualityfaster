@@ -5,7 +5,10 @@ if [ -d ~/.meteor ]; then
   sudo ln -s ~/.meteor/meteor /usr/local/bin/meteor
 fi
 
-# install Meteor if it's not already restored from the cache
+# Install Meteor if it's not already restored from the cache
 if [ ! -e $HOME/.meteor/meteor ]; then
   curl https://install.meteor.com | sh
 fi
+
+# Output the Meteor version after the install / restore from cache
+meteor --version
