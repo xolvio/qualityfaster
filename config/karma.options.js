@@ -25,7 +25,7 @@ module.exports = {
   },
   port: 9876,                 // tells karma the port to use for its server, which is used to manage the browsers
   logLevel: DEBUG ? 'DEBUG' : 'ERROR',
-  autoWatch: true,
+  autoWatch: !CI,
 
   singleRun: true,           // tells karma to either watch the file system or run a single test run
   concurrency: Infinity,       // The number of browsers Karma is allows to open for parallelism
