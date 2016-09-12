@@ -9,34 +9,34 @@ env:
 language: node_js
 node_js: "stable"
 
-addons:
-  apt:
-    sources:
-      - google-chrome
-    packages:
-      - google-chrome-stable
-  firefox: "latest"
+#addons:
+#  apt:
+#    sources:
+#      - google-chrome
+#    packages:
+#      - google-chrome-stable
+#  firefox: "latest"
 
-cache:
-  directories:
-    - "node_modules"
-    - "~/.npm"
-    - "~/.meteor"
+#cache:
+#  directories:
+#    - "node_modules"
+#    - "~/.npm"
+#    - "~/.meteor"
 
 before_install:
   # Use X Virtual Frame Buffer
-  - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1027x768x16"
-  - sleep 3 # give xvfb some time to start
-  - "export DISPLAY=:99.0"
+#  - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1027x768x16"
+#  - sleep 3 # give xvfb some time to start
+#  - "export DISPLAY=:99.0"
 
   # Install NPM dependencies
-  - npm install
+#  - npm install
 
   # Cache Chimp's Selenium & ChromeDriver downloads
-  - mkdir ./tmp && ./node_modules/.bin/chimp --path=./tmp && rm -rf ./tmp # there are no tests here
+#  - mkdir ./tmp && ./node_modules/.bin/chimp --path=./tmp && rm -rf ./tmp # there are no tests here
 
   # Cache Karma's dependencies
-  - ./node_modules/.bin/karma start ./config/karma.config.js || true
+#  - ./node_modules/.bin/karma start ./config/karma.config.js || true
 
   # Install & Cache Meteor
   - scripts/install-meteor.sh
@@ -44,7 +44,8 @@ before_install:
   - meteor --version
 
 script:
-  - npm test
+#  - npm test
+  - echo hello
 
 # For the deployment code below to work, you need to first carry out the following steps on your local machine:
 # 1.  Create a Meteor developer account and sign-up for Galaxy
@@ -54,12 +55,12 @@ script:
 #     FILE_CONTENT=`cat meteor-session-file.json` node -e "console.log(new Buffer(process.env.FILE_CONTENT).toString('base64'))"
 # 3.  Copy & paste the output in an environment variable called METEOR_SESSION_FILE_CONTENT in the project settings on TravisCI
 
-deploy:
-  # We deploy to production any time the previous test step passed AND...
-  provider: script
-  # We use the script to deploy
-  script: scripts/deploy.sh
-  skip_cleanup: true
-  on:
-    # ...when the commit is made to this branch
-    branch: dev
+#deploy:
+#  # We deploy to production any time the previous test step passed AND...
+#  provider: script
+#  # We use the script to deploy
+#  script: scripts/deploy.sh
+#  skip_cleanup: true
+#  on:
+#    # ...when the commit is made to this branch
+#    branch: dev
