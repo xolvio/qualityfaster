@@ -5,7 +5,7 @@ machine:
     # This is needed by Chimp to run Selenium so we can start Chrome and Firefox
     version: oraclejdk8
   environment:
-    # Circle runs each command in a separate shell. This mechanism allows us to centralize varialbes in this file
+    # Circle runs each command in a separate shell. This mechanism allows us to centralize variables in this file
     DEPLOY_SITE: qualityfaster
     BROWSER: chrome
 
