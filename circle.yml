@@ -47,11 +47,11 @@ test:
 #     FILE_CONTENT=`cat meteor-session-file.json` node -e "console.log(new Buffer(process.env.FILE_CONTENT).toString('base64'))"
 # 3.  Copy & paste the output in an environment variable called METEOR_SESSION_FILE_CONTENT in the project settings on CircleCI
 
-deployment:
-  # We deploy to production any time the previous test step passed AND...
-  production:
-   # ...when the commit is made to this branch
-   branch: dev
-   commands:
-   # We use the script to deploy
-   - scripts/deploy.sh
+#deployment:
+#  # We deploy to production any time the previous test step passed AND...
+#  production:
+#   # ...when the commit is made to this branch
+#   branch: dev
+#   commands:
+#   # We use the script to deploy
+#   - scripts/deploy.sh

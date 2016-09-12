@@ -34,3 +34,20 @@ before_install:
 
 script:
   - npm test
+
+# For the deployment code below to work, you need to first carry out the following steps on your local machine:
+# 1.  Create a Meteor developer account and sign-up for Galaxy
+# 2a. Login with Meteor and save the session to file
+#     METEOR_SESSION_FILE=meteor-session-file.json meteor login
+# 2b. Use Node.js to encode and output the file as a Base64 string
+#     FILE_CONTENT=`cat meteor-session-file.json` node -e "console.log(new Buffer(process.env.FILE_CONTENT).toString('base64'))"
+# 3.  Copy & paste the output in an environment variable called METEOR_SESSION_FILE_CONTENT in the project settings on TravisCI
+
+deploy:
+  # We deploy to production any time the previous test step passed AND...
+  provider: script
+  # We use the script to deploy
+  script: scripts/deploy.sh
+  on:
+    # ...when the commit is made to this branch
+    branch: dev
