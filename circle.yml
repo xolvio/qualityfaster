@@ -1,8 +1,9 @@
 machine:
-  java:
-    version: oraclejdk8
   node:
     version: 6.5.0
+  java:
+    # This is needed by Chimp to run Selenium so we can start Chrome and Firefox
+    version: oraclejdk8
 
 dependencies:
   cache_directories:
@@ -11,29 +12,44 @@ dependencies:
     - "~/.meteor"
 
   override:
-    # Cache npm deps
+    # Cache npm dependencies
     - npm install
 
-    # Cache Chimp's Selenium & ChromeDriver downloads
+    # Cache Chimp's dependencies
+      # Running Chimp with an empty directory for path means it will not run any tests. This allows us to run Chimp
+      # quickly and download runtime dependencies so they can be cached.
     - mkdir ./tmp && ./node_modules/.bin/chimp --path=./tmp && rm -rf ./tmp # there are no tests here
 
     # Cache Karma's dependencies
-    - ./node_modules/.bin/karma start ./config/karma.config.js || true # we're not interested in testing at this stage
+      # The karma.options.js file defines a basePath of '.' and a test path of `src`, and since the config file is in
+      # ./config, it means karma will look for tests under ./config/src where there is a simple test file. This allows
+      # us to run Karma quickly and download runtime dependencies so they can be cached
+    - ./node_modules/.bin/karma start ./config/karma.config.js || true
 
     # Cache Meteor
-    - if [ -d ~/.meteor ]; then sudo ln -s ~/.meteor/meteor /usr/local/bin/meteor; fi
-    - if [ ! -e $HOME/.meteor/meteor ]; then curl https://install.meteor.com | sh; fi
+    - if [ -d ~/.meteor ]; then sudo ln -s ~/.meteor/meteor /usr/local/bin/meteor; fi # setup the meteor command
+    - if [ ! -e $HOME/.meteor/meteor ]; then curl https://install.meteor.com | sh; fi # install Meteor
 
 test:
   override:
+    # The build & test lifecycle is orchestrated by Gulp, which is wired up through npm's test script
     - npm test
 
+# For the deployment code below to work, you need to first carry out the following steps:
+# 1. Create a Meteor developer account and sign-up for Galaxy
+# 2. Execute these commands on your local machine:
+#    METEOR_SESSION_FILE=meteor-session-file.json meteor login
+#    FILE_CONTENT=`cat meteor-session-file.json` node -e "console.log(new Buffer(process.env.FILE_CONTENT).toString('base64'))"
+# 3. Store the output in an environment variable called METEOR_SESSION_FILE_CONTENT in CircleCI
+
 deployment:
+  # We deploy to production any time the previous test step passed AND...
   production:
+   # ...when the commit is made to this branch
    branch: dev
    commands:
-   # Use Node.js to decode and output the Base64 environment variable called METEOR_SESSION_FILE, then redirect the output to a file called meteor-session-file.json
+     # Use Node.js to decode and output the Base64 environment variable called METEOR_SESSION_FILE, then redirect the output to a file called meteor-session-file.json
    - node -e "console.log(new Buffer(process.env.METEOR_SESSION_FILE_CONTENT, 'Base64').toString('utf-8'))" > src/meteor-session-file.json
-   # Next we tell Meteor deploy to use the session file, to deploy to app.qualityfaster.com and to use the production-settings.json
-   - DEPLOY_HOSTNAME=galaxy.meteor.com METEOR_SESSION_FILE=meteor-session-file.json meteor deploy app.qualityfaster.com:
+     # Next we tell Meteor deploy to use the session file, to deploy to app.qualityfaster.com and to use the production-settings.json
+   - DEPLOY_HOSTNAME=galaxy.meteor.com METEOR_SESSION_FILE=meteor-session-file.json meteor deploy qualityfaster:
        pwd: src
