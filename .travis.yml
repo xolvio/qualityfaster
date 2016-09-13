@@ -31,16 +31,17 @@ cache:
     - "src/.meteor/local/plugin-cache"
 
 before_cache:
-  - rm -rf ~/build/xolvio/qualityfaster/.meteor/local/log
-  - rm -rf ~/build/xolvio/qualityfaster/.meteor/local/run
+    # Remove any log files before caching
+    - find . -name "*.log" -type f -delete
+
 
 before_install:
-  # Use X Virtual Frame Buffer
+  # Start X Virtual Frame Buffer for headless testing with real browsers
   - scripts/start-xvfb.sh
 
 install:
   # Install NPM dependencies
-  - npm install
+  - npm install --no-bin-links
 
   # Download & cache Chimp's dependencies
   - scripts/download-chimp-dependencies.sh

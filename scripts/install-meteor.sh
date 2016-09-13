@@ -2,7 +2,7 @@
 
 if [ -f ~/.meteor/meteor ]
 then
-    echo `~/.meteor/meteor --version` is installed, restoring link
+    echo `~/.meteor/meteor --version` found, restoring symlink
 	sudo ln -s ~/.meteor/meteor /usr/local/bin/meteor
 else
     echo Installing Meteor
