@@ -16,23 +16,17 @@ dependencies:
     - "~/.meteor"
 
   override:
-    # Cache npm dependencies
+    # Install and cache NPM dependencies
     - npm install
 
-    # Cache Chimp's dependencies
-      # Running Chimp with an empty directory for path means it will not run any tests. This allows us to run Chimp
-      # quickly and download runtime dependencies so they can be cached.
-    - mkdir ./tmp && ./node_modules/.bin/chimp --path=./tmp && rm -rf ./tmp # there are no tests here
+    # Download & cache Chimp's dependencies
+    - scripts/download-chimp-dependencies.sh
 
-    # Cache Karma's dependencies
-      # The karma.options.js file defines a basePath of '.' and a test path of `src`, and since the config file is in
-      # ./config, it means karma will look for tests under ./config/src where there is a simple test file. This allows
-      # us to run Karma quickly and download runtime dependencies so they can be cached
-    - ./node_modules/.bin/karma start ./config/karma.config.js || true
+    # Download & cache Karma's dependencies
+    - scripts/download-karma-dependencies.sh
 
-    # Cache Meteor
-    - if [ -d ~/.meteor ]; then sudo ln -s ~/.meteor/meteor /usr/local/bin/meteor; fi # setup the meteor command
-    - if [ ! -e $HOME/.meteor/meteor ]; then curl https://install.meteor.com | sh; fi # install Meteor
+    # Install & cache Meteor
+    - scripts/install-meteor.sh
 
 test:
   override:

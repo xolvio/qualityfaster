@@ -10,7 +10,8 @@
     "test": "gulp -S test",
     "test:client": "gulp -S karma",
     "test:server": "gulp -S mocha",
-    "test:e2e": "gulp -S chimp"
+    "test:e2e": "gulp -S chimp",
+    "start": "gulp -S startMeteor"
   },
   "author": "",
   "license": "ISC",
@@ -39,6 +40,7 @@
     "karma-firefox-launcher": "^1.0.0",
     "karma-mocha": "^1.1.1",
     "karma-mocha-reporter": "^2.1.0",
+    "karma-quiet-reporter": "^0.1.2",
     "karma-source-map-support": "^1.2.0",
     "mocha": "^3.0.2",
     "phantomjs-prebuilt": "^2.1.12",

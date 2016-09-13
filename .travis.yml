@@ -5,6 +5,7 @@ env:
   global:
     - DEPLOY_SITE=qualityfaster
     - BROWSER=chrome
+    - DISPLAY=:99.0
 
 language: node_js
 node_js: "stable"
@@ -35,21 +36,19 @@ before_cache:
 
 before_install:
   # Use X Virtual Frame Buffer
-  - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1027x768x16"
-  - sleep 3 # give xvfb some time to start
-  - "export DISPLAY=:99.0"
+  - scripts/start-xvfb.sh
 
 install:
   # Install NPM dependencies
   - npm install
 
-  # Cache Chimp's Selenium & ChromeDriver downloads
-  - mkdir ./tmp && ./node_modules/.bin/chimp --path=./tmp && rm -rf ./tmp # there are no tests here
+  # Download & cache Chimp's dependencies
+  - scripts/download-chimp-dependencies.sh
 
-  # Cache Karma's dependencies
-  - ./node_modules/.bin/karma start ./config/karma.config.js || true
+  # Download & cache Karma's dependencies
+  - scripts/download-karma-dependencies.sh
 
-  # Install & Cache Meteor
+  # Install & cache Meteor
   - scripts/install-meteor.sh
 
 script:
