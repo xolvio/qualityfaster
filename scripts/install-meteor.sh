@@ -11,11 +11,14 @@ else
 	echo Installed Meteor
 fi
 
-echo Which Meteor
+echo ~/.meteor/meteor --version
+~/.meteor/meteor --version
+
+echo /usr/local/bin/meteor --version
+/usr/local/bin/meteor --version
+
+echo which meteor
 which meteor
 
-echo Cat Which Meteor
-cat `which meteor`
-
-echo Meteor version
+echo meteor --version
 meteor --version
