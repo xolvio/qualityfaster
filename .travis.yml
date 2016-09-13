@@ -34,14 +34,13 @@ before_cache:
     # Remove any log files before caching
     - find . -name "*.log" -type f -delete
 
-
 before_install:
   # Start X Virtual Frame Buffer for headless testing with real browsers
   - scripts/start-xvfb.sh
 
 install:
   # Install NPM dependencies
-  - npm install --no-bin-links
+  - npm install
 
   # Download & cache Chimp's dependencies
   - scripts/download-chimp-dependencies.sh
