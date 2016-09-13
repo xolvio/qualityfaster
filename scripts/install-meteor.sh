@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -d ~/.meteor ]
+if [ -f ~/.meteor/meteor ]
 then
     echo Meteor installed, restoring link
 	sudo ln -s ~/.meteor/meteor /usr/local/bin/meteor
