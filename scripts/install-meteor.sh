@@ -11,14 +11,4 @@ else
 	echo Installed Meteor
 fi
 
-echo ~/.meteor/meteor --version
-~/.meteor/meteor --version
-
-echo /usr/local/bin/meteor --version
-/usr/local/bin/meteor --version
-
-echo which meteor
-which meteor
-
-echo meteor --version
 meteor --version
