@@ -6,9 +6,9 @@
 #fi
 
 # Install Meteor if it's not already restored from the cache
-#if [ ! -e $HOME/.meteor/meteor ]; then
-curl https://install.meteor.com | sh
-#fi
+if [ ! -e ~/.meteor/meteor ]; then
+  curl https://install.meteor.com | sh
+fi
 
 which meteor
 
