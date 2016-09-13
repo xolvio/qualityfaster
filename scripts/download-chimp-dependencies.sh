@@ -3,7 +3,7 @@
 # Guarantee a directory that contains no tests
 mkdir ./tmp
 
-# Run Chimp with the no-test directory. Chimp will start and download any dependencies
+echo Starting Chimp without any tests to download dependencies
 ./node_modules/.bin/chimp --path=./tmp
 
 # Clean up
