@@ -4,7 +4,7 @@ if [ -d ~/.meteor ]
 then
     echo Meteor installed, restoring link
     # Restore the Meteor command if Meteor was restored from the cache
-	sudo ln -s ~/.meteor/meteor /usr/local/bin/meteor
+	ln -s ~/.meteor/meteor /usr/local/bin/meteor
 else
     # Install Meteor
     echo Installing Meteor
