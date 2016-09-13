@@ -34,7 +34,7 @@ module.exports = {
   singleRun: true,           // tells karma to either watch the file system or run a single test run
   concurrency: Infinity,       // The number of browsers Karma is allows to open for parallelism
 
-  //
+  // When running locally we want a low-noise reporter in watch mode, but on CI we want to see the full report
   reporters: CI ? 'mocha' : 'dots',
   // the browser to run the test in. We can add many here, and on CI we are adding Firefox
   browsers: CI ? ['Chrome', 'Firefox'] : ['Chrome']
