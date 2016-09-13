@@ -1,19 +1,16 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-# Restore the Meteor command if Meteor was restored from the cache
-#if [ -d ~/.meteor ]; then
-#  sudo ln -s ~/.meteor/meteor /usr/local/bin/meteor
-#fi
-
-# Install Meteor if it's not already restored from the cache
-
-if [ ! -f ~/.meteor/meteor ]; then
-  curl https://install.meteor.com | sh
+if [ -d ~/.meteor ]
+then
+    echo Meteor installed, restoring link
+    # Restore the Meteor command if Meteor was restored from the cache
+	sudo ln -s ~/.meteor/meteor /usr/local/bin/meteor
+else
+    # Install Meteor
+    echo Installing Meteor
+	curl https://install.meteor.com | sh
 fi
 
 which meteor
-
 cat `which meteor`
-
-# Output the Meteor version after the install / restore from cache
 meteor --version
