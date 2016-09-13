@@ -10,5 +10,9 @@ if [ ! -e $HOME/.meteor/meteor ]; then
   curl https://install.meteor.com | sh
 fi
 
+which meteor
+
+cat `which meteor`
+
 # Output the Meteor version after the install / restore from cache
 meteor --version
