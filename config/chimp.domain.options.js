@@ -1,10 +1,12 @@
 module.exports = {
-  path: 'tests',
+  path: 'tests/specifications',
   browser: process.env.BROWSER ? process.env.BROWSER : 'chrome',
   chai: true,
   timeout: 60000,
-  port: 4444,
+  port: 4455,
   domainSteps: 'tests/step_definitions/domain',
-  criticalSteps: 'tests/step_definitions/critical',
+  fullDomain: true,
+  domainOnly: true,
   watchSource: 'src/imports',
+  format: 'progress'
 };

@@ -6,14 +6,15 @@ const gulp = require('gulp'),
   runSequence = require('run-sequence'),
   karmaOptions = require('./config/karma.options'),
   mochaOptions = require('./config/mocha.options'),
-  chimpOptions = require('./config/chimp.options');
+  chimpDomainOptions = require('./config/chimp.domain.options');
+  chimpE2EOptions = require('./config/chimp.e2e.options');
 
 gulp.task('karma', function (done) {
   new karmaServer(karmaOptions, done).start();
 });
 
 gulp.task('watchKarma', function () {
-  console.log('Karma is running in watch mode');
+  console.log('Karma is running in watch mode'.white);
   karmaOptions.singleRun = false;
   gulp.start('karma');
 });
@@ -24,7 +25,7 @@ gulp.task('mocha', function () {
 });
 
 gulp.task('watchMocha', function () {
-  console.log('Mocha is running in watch mode');
+  console.log('Mocha is running in watch mode'.white);
   gulp.start('mocha');
   gulp.watch('src/imports/**/*.js', function (event) {
     if (!event.path.match(/browser|ui/)) {
@@ -33,24 +34,36 @@ gulp.task('watchMocha', function () {
   });
 });
 
-gulp.task('chimp', function (done) {
+gulp.task('chimpDomain', function (done) {
   const chimpDefaultOptions = require(path.resolve(process.cwd() + '/node_modules/chimp/dist/bin/default.js'));
-  chimpOptions._ = [];
-  const options = Object.assign({}, chimpDefaultOptions, chimpOptions);
+  chimpDomainOptions._ = [];
+  const options = Object.assign({}, chimpDefaultOptions, chimpDomainOptions);
   var chimp = new Chimp(options);
   chimp.init(done);
 });
 
-gulp.task('watchChimp', function () {
-  console.log('Chimp is running in watch mode');
-  chimpOptions.watch = true;
-  gulp.start('chimp');
+gulp.task('watchChimpDomain', function () {
+  chimpDomainOptions.watch = true;
+  gulp.start('chimpDomain');
 });
 
-gulp.task('default', ['watchMocha', 'watchKarma', 'watchChimp']);
+gulp.task('chimpE2E', function (done) {
+  const chimpDefaultOptions = require(path.resolve(process.cwd() + '/node_modules/chimp/dist/bin/default.js'));
+  chimpE2EOptions._ = [];
+  const options = Object.assign({}, chimpDefaultOptions, chimpE2EOptions);
+  var chimp = new Chimp(options);
+  chimp.init(done);
+});
+
+gulp.task('watchChimpE2E', function () {
+  chimpE2EOptions.watch = true;
+  gulp.start('chimpE2E');
+});
+
+gulp.task('default', ['watchMocha', 'watchKarma', 'watchChimpDomain', 'watchChimpE2E']);
 
 gulp.task('test', function (done) {
-  runSequence('mocha', 'karma', 'chimp', function(error) {
+  runSequence('mocha', 'karma', 'chimpDomain', 'chimpE2E', function(error) {
     if (error) {
       console.error(error.message);
       process.exit(1);
