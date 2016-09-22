@@ -15,7 +15,8 @@ module.exports = {
   exclude: [                  // since karma is a front-end only testing framework, we ignore server directories
     'src/**/server/**',
     '**/*.html',
-    '**/*.md'
+    '**/*.md',
+    'src/node_modules/**'
   ],
   client: {
     useIframe: false
