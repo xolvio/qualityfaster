@@ -59,10 +59,11 @@ function runEndToEndTests(callback) {
 }
 
 function startProcess(opts, callback) {
+  var options = extend({ maxBuffer: Number.MAX_SAFE_INTEGER }, opts.options);
 
   var proc = exec(
      opts.command,
-     opts.options
+     options
   );
   proc.stdout.pipe(process.stdout);
   proc.stderr.pipe(process.stderr);
