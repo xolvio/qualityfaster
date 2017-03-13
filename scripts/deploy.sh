@@ -17,4 +17,4 @@ export DEPLOY_HOSTNAME=galaxy.meteor.com
 export METEOR_SESSION_FILE=meteor-session-file.json
 
 echo Deploying to $DEPLOY_SITE on Galaxy
-meteor deploy $DEPLOY_SITE
+#meteor deploy $DEPLOY_SITE
