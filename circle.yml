@@ -45,7 +45,7 @@ deployment:
   # We deploy to production any time the previous test step passed AND...
   production:
    # ...when the commit is made to this branch
-   branch: dev
+   branch: master
    commands:
    # We use the script to deploy
    - scripts/deploy.sh
