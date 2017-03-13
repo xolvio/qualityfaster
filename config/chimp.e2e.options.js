@@ -6,6 +6,6 @@ module.exports = {
   port: 4444,
   e2eTags: '@e2e',
   e2eSteps: 'tests/step_definitions/end-to-end',
-  watchSource: 'src/imports',
+  ddp: 'http://localhost:3000',
   format: 'progress'
 };
