@@ -1,4 +1,15 @@
+const main = require('require-main-filename')();
+
 const chai = require('chai');
-global.assert = chai.assert;
-global.expect = chai.expect;
 chai.should();
+global.expect = chai.expect;
+global.assert = chai.assert;
+
+const td = require('testdouble');
+const quibble = require('quibble');
+global.td = td;
+
+beforeEach(() => {
+  td.reset();
+  quibble.ignoreCallsFromThisFile(main);
+});

@@ -1,8 +1,8 @@
-const _ = require("underscore");
-const path = require("path");
-
-module.exports = function (wallaby) {
+module.exports = (wallaby) => {
+  const path = require('path');
   return {
+    debug: false,
+    testFramework: 'mocha',
     files: [
       'src/imports/**/*.js',
       {pattern: 'src/imports/**/*spec.js', ignore: true},
@@ -14,17 +14,11 @@ module.exports = function (wallaby) {
       {pattern: 'src/imports/*(browser|ui)*', ignore: true},
       {pattern: 'src/imports/@(browser|ui)/**/*.js', ignore: true},
     ],
-    preprocessors: {
-      '**/*.js': wallaby.compilers.babel({
-        presets: ['es2015']
-      })
+    compilers: {'**/*.js': wallaby.compilers.babel()},
+    env: {type: 'node'},
+    workers: {initial: 1, regular: 1, recycle: true},
+    setup: () => {
+      wallaby.testFramework.addFile(`${wallaby.localProjectDir}/config/mocha.bootstrap.js`);
     },
-    env: {
-      type: 'node',
-      runner: path.resolve(process.env.HOME, '.nvm/versions/node/v6.3.0/bin/node'),
-    },
-    setup: function () {
-      require(wallaby.localProjectDir + '/config/mocha.bootstrap.js');
-    }
   }
 };

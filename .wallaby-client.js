@@ -1,13 +1,19 @@
-const _ = require("underscore");
-const path = require("path");
+const path = require('path');
 
-const wallabify = require('wallabify');
-const wallabyPostprocessor = wallabify({});
+module.exports = function (wallaby) {
+  const wallabify = require('wallabify');
+  const postprocessor = wallabify({
+    entryPatterns: [
+      'config/mocha.bootstrap.js',
+      'src/imports/**/*spec.js'
+    ]
+  });
 
-module.exports = function () {
   return {
+    debug: false,
+    testFramework: 'mocha',
     files: [
-      {pattern: 'node_modules/chai/chai.js', instrument: false},
+      {pattern: 'config/mocha.bootstrap.js', load: false, instrument: false},
       {pattern: 'src/imports/**/*.js', load: false},
       {pattern: 'src/imports/**/*spec.js', ignore: true},
       {pattern: 'src/imports/*(server)*', ignore: true},
@@ -18,15 +24,14 @@ module.exports = function () {
       {pattern: 'src/imports/*(server)*', ignore: true},
       {pattern: 'src/imports/@(server)/**/*.js', ignore: true},
     ],
-    env: {
-      runner: require('phantomjs-prebuilt').path,
-      params: {runner: '--web-security=false'}
+    compilers: {
+      '**/*.js': wallaby.compilers.babel()
     },
-    postprocessor: wallabyPostprocessor,
-    setup: function () {
-      window.assert = chai.assert;
-      window.expect = chai.expect;
-      chai.should();
+    env: {
+      kind: 'electron'
+    },
+    postprocessor: postprocessor,
+    setup: () => {
       window.__moduleBundler.loadTests();
     }
   }
