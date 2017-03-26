@@ -3,7 +3,7 @@ module.exports = function (wallaby) {
   const postprocessor = wallabify({
     entryPatterns: [
       'config/mocha.bootstrap.js',
-      'src/imports/adaptors/web/**/*spec.js'
+      'src/imports/ui/**/*spec.js'
     ]
   });
   return {
@@ -11,11 +11,11 @@ module.exports = function (wallaby) {
     testFramework: 'mocha',
     files: [
       {pattern: 'config/mocha.bootstrap.js', load: false, instrument: false},
-      {pattern: 'src/imports/adaptors/web/**/*.js', load: false},
-      {pattern: 'src/imports/adaptors/web/**/*spec.js', ignore: true},
+      {pattern: 'src/imports/ui/**/*.js', load: false},
+      {pattern: 'src/imports/ui/**/*spec.js', ignore: true},
     ],
     tests: [
-      {pattern: 'src/imports/adaptors/web/**/*spec.js', load: false},
+      {pattern: 'src/imports/ui/**/*spec.js', load: false},
     ],
     compilers: {
       '**/*.js': wallaby.compilers.babel()
