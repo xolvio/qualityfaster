@@ -7,13 +7,16 @@ The companion code repository for Xolv.io's ["Quality Faster"](http://quality.xo
 ## The Tech Stack
 The following tools and technologies are used in this repository:
   
+## Build & Test 
 * [Gulp.js](http://gulpjs.com/) for orchestration.
 * [Mocha](http://mochajs.org) to test server-side Node.js code.
 * [Karma](https://karma-runner.github.io/) to test client-side browser code.
 * [Chimp.js](http://chimpjs.com) to run acceptance and end-to-end tests.
-
-Optional but HIGHLY recommended
-* [Wallaby.js](http://wallabyjs.com) to run in-IDE unit tests in real time. 
+* [Wallaby.js](http://wallabyjs.com) to run in-IDE unit tests in real time. (Optional but HIGHLY recommended)
+ 
+## Application
+* [Meteor.js](http://meteor.com) is the application framework
+* [React.js](https://facebook.github.io/react) for the view layer
 
 ## Installation
 ```bash
@@ -54,7 +57,7 @@ npm run watch:domain
 npm run watch:end-to-end
 ```
 
-You can also start all the modes in one terminal, but be warned that this can get noisy:
+You can also start all the modes in one terminal, but be warned that the terminal output can get noisy:
 ```bash
 npm run watch
 ```
