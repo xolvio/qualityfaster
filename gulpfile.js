@@ -45,6 +45,7 @@ function finish(done, exitParam) {
       console.error(error);
     }
     if (!finishShouldWaitForParam || (finishShouldWaitForParam && exitParam)) {
+      processManager.killAll();
       process.exit(!!error)
     }
     done(error);
@@ -64,7 +65,7 @@ gulp.task('watchChimpDomain', function () {
   gulp.start('chimpDomain');
 });
 
-gulp.task('chimpE2E', function (done) {
+gulp.task('chimpE2E', ['startMeteor'], function (done) {
   const chimpDefaultOptions = require(path.resolve(process.cwd() + '/node_modules/chimp/dist/bin/default.js'));
   chimpE2EOptions._ = [];
   const options = Object.assign({}, chimpDefaultOptions, chimpE2EOptions);

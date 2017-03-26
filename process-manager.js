@@ -30,12 +30,15 @@ class ProcessManager {
     }
     proc.on('close', function (code) {
       console.log(opts.name, 'exited with code ' + code);
-      for (let i = 0; i < this.processes.length; i += 1) {
-        this.processes[i].kill();
-      }
+      this.killAll();
       this.process.exit(code);
     });
     this.processes.push(proc);
+  }
+  killAll() {
+    for (let i = 0; i < this.processes.length; i += 1) {
+      this.processes[i].kill();
+    }
   }
 }
 
