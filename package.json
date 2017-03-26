@@ -5,7 +5,7 @@
   "description": "",
   "repository": "https://github.com/xolvio/qualityfaster",
   "scripts": {
-    "install": "npm install --prefix src",
+    "install": "meteor npm install --prefix src",
     "watch": "gulp -S",
     "watch:client-unit": "gulp -S watchClientUnit",
     "watch:server-unit": "gulp -S watchServerUnit",
