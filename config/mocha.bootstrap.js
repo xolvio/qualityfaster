@@ -12,4 +12,7 @@ global.td = td;
 beforeEach(() => {
   td.reset();
   quibble.ignoreCallsFromThisFile(main);
+  global.Meteor = {
+    call: function empty() {}
+  }
 });

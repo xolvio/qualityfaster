@@ -50,7 +50,7 @@ gulp.task('watchChimpDomain', function () {
   gulp.start('chimpDomain');
 });
 
-gulp.task('chimpE2E', ['startMeteor'], function () {
+gulp.task('chimpE2E', function () {
   const chimpDefaultOptions = require(path.resolve(process.cwd() + '/node_modules/chimp/dist/bin/default.js'));
   chimpE2EOptions._ = [];
   const options = Object.assign({}, chimpDefaultOptions, chimpE2EOptions);
