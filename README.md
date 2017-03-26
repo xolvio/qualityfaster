@@ -39,7 +39,8 @@ At the time of writing this, Wallaby only supports running one mode at a time, s
 In addition to running Wallaby.js server/client tests, you'll also need to run acceptance and end-to-end tests using Chimp's watch mode as follows: 
 
 ```bash
-npm run watch:e2e
+npm run watch:domain
+npm run watch:end-to-end
 ```
 
 #### Option B: Free
@@ -47,9 +48,10 @@ You also have the option of using the watch modes we have provided using Gulp an
 
 Start each commands below in a separate terminal window, and to make that sure you can see all of them with the IDE.
 ```bash
-npm run watch:client
-npm run watch:server
-npm run watch:e2e
+npm run watch:client-unit
+npm run watch:server-unit
+npm run watch:domain
+npm run watch:end-to-end
 ```
 
 You can also start all the modes in one terminal, but be warned that this can get noisy:
@@ -65,7 +67,8 @@ npm test
 
 And if you want to run single test modes individually, you can do so like this:
 ```bash
-npm run test:client
-npm run test:server
-npm run test:e2e
+npm run test:client-unit
+npm run test:server-unit
+npm run test:domain
+npm run test:end-to-end
 ```
