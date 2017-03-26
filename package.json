@@ -1,22 +1,22 @@
 {
   "name": "qualityfaster",
+  "author": "Sam Hatoum",
   "version": "1.0.0",
   "description": "",
   "repository": "https://github.com/xolvio/qualityfaster",
   "scripts": {
     "watch": "gulp -S",
-    "watch:client": "gulp -S watchKarma",
-    "watch:server": "gulp -S watchMocha",
-    "watch:domain": "gulp -S watchChimpDomain",
-    "watch:e2e": "gulp -S watchChimpE2E",
+    "watch:client-unit": "gulp -S watchClientUnit",
+    "watch:server-unit": "gulp -S watchServerUnit",
+    "watch:domain": "gulp -S watchDomain",
+    "watch:endToEnd": "gulp -S watchEndToEnd",
     "test": "gulp -S test",
-    "test:client": "gulp -S karma",
-    "test:server": "gulp -S mocha",
-    "test:domain": "gulp -S chimpDomain",
-    "test:e2e": "gulp -S chimpE2E",
-    "start": "gulp -S startMeteor"
+    "test:client-unit": "gulp -S clientUnit",
+    "test:server-unit": "gulp -S serverUnit",
+    "test:domain": "gulp -S domain",
+    "test:endToEnd": "gulp -S endToEnd",
+    "start": "gulp -S startApplicationServer"
   },
-  "author": "",
   "license": "ISC",
   "devDependencies": {
     "babel-cli": "^6.14.0",

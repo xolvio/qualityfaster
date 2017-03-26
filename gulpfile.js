@@ -8,34 +8,9 @@ const gulp = require('gulp'),
   extend = require('util')._extend,
   runSequence = require('run-sequence'),
   karmaOptions = require('./config/karma.options'),
-  mochaOptions = require('./config/mocha.options'),
+  mochaServerOptions = require('./config/mocha.server.options'),
   chimpDomainOptions = require('./config/chimp.domain.options'),
   chimpE2EOptions = require('./config/chimp.e2e.options');
-
-gulp.task('karma', function (done) {
-  new karmaServer(karmaOptions, done).start();
-});
-
-gulp.task('watchKarma', function () {
-  console.log('Karma is running in watch mode'.white);
-  karmaOptions.singleRun = false;
-  gulp.start('karma');
-});
-
-gulp.task('mocha', function () {
-  return gulp.src(mochaOptions.files, {read: false})
-    .pipe(mocha(mochaOptions));
-});
-
-gulp.task('watchMocha', function () {
-  console.log('Mocha is running in watch mode'.white);
-  gulp.start('mocha');
-  gulp.watch(mochaOptions.watchDir, function (event) {
-    if (!event.path.match(/browser|ui/)) {
-      gulp.start('mocha');
-    }
-  });
-});
 
 // TODO remove this smelly code. The real issue is that Chimp should exit without hogging the process
 let finishShouldWaitForParam = false;
@@ -52,7 +27,32 @@ function finish(done, exitParam) {
   }
 }
 
-gulp.task('chimpDomain', function (done) {
+gulp.task('clientUnit', function (done) {
+  new karmaServer(karmaOptions, done).start();
+});
+
+gulp.task('watchClientUnit', function () {
+  console.log('Karma is running in watch mode'.white);
+  karmaOptions.singleRun = false;
+  gulp.start('clientUnit');
+});
+
+gulp.task('serverUnit', function () {
+  return gulp.src(mochaServerOptions.files, {read: false})
+    .pipe(mocha(mochaServerOptions));
+});
+
+gulp.task('watchServerUnit', function () {
+  console.log('Mocha is running in watch mode'.white);
+  gulp.start('serverUnit');
+  gulp.watch(mochaServerOptions.watchDir, function (event) {
+    if (!event.path.match(/browser|ui|web/)) {
+      gulp.start('serverUnit');
+    }
+  });
+});
+
+gulp.task('domain', function (done) {
   const chimpDefaultOptions = require(path.resolve(process.cwd() + '/node_modules/chimp/dist/bin/default.js'));
   chimpDomainOptions._ = [];
   const options = Object.assign({}, chimpDefaultOptions, chimpDomainOptions);
@@ -60,12 +60,12 @@ gulp.task('chimpDomain', function (done) {
   chimp.init(finish(done));
 });
 
-gulp.task('watchChimpDomain', function () {
+gulp.task('watchDomain', function () {
   chimpDomainOptions.watch = true;
-  gulp.start('chimpDomain');
+  gulp.start('domain');
 });
 
-gulp.task('chimpE2E', ['startMeteor'], function (done) {
+gulp.task('endToEnd', ['startApplicationServer'], function (done) {
   const chimpDefaultOptions = require(path.resolve(process.cwd() + '/node_modules/chimp/dist/bin/default.js'));
   chimpE2EOptions._ = [];
   const options = Object.assign({}, chimpDefaultOptions, chimpE2EOptions);
@@ -74,19 +74,19 @@ gulp.task('chimpE2E', ['startMeteor'], function (done) {
   chimp.init(finish(done));
 });
 
-gulp.task('watchChimpE2E', function () {
+gulp.task('watchEndToEnd', function () {
   chimpE2EOptions.watch = true;
-  gulp.start('chimpE2E');
+  gulp.start('endToEnd');
 });
 
-gulp.task('default', ['watchMocha', 'watchKarma', 'watchChimpDomain', 'watchChimpE2E']);
+gulp.task('default', ['watchServerUnit', 'watchClientUnit', 'watchDomain', 'watchEndToEnd']);
 
 gulp.task('test', function (done) {
   finishShouldWaitForParam = true;
-  runSequence('mocha', 'karma', 'chimpDomain', 'chimpE2E', finish(done, true));
+  runSequence('serverUnit', 'clientUnit', 'domain', 'endToEnd', finish(done, true));
 });
 
-gulp.task('startMeteor', function (done) {
+gulp.task('startApplicationServer', function (done) {
   const srcDir = path.resolve(__dirname, 'src');
   processManager.startProcess({
     name: 'Meteor App',

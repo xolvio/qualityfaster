@@ -10,7 +10,7 @@ module.exports = {
     'source-map-support'      // allows us to see which source lines are cause failures when they occur
   ],
   files: [                    // the order in which to load the source and test files
-    'src/**/*.js'
+    'src/imports/adaptors/web/**/*.js'
   ],
   exclude: [                  // since karma is a front-end only testing framework, we ignore server directories
     'src/**/server/**',
