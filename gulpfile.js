@@ -37,12 +37,26 @@ gulp.task('watchMocha', function () {
   });
 });
 
+// TODO remove this smelly code. The real issue is that Chimp should exit without hogging the process
+let finishShouldWaitForParam = false;
+function finish(done, exitParam) {
+  return function (error) {
+    if (error) {
+      console.error(error);
+    }
+    if (!finishShouldWaitForParam || (finishShouldWaitForParam && exitParam)) {
+      process.exit(!!error)
+    }
+    done(error);
+  }
+}
+
 gulp.task('chimpDomain', function (done) {
   const chimpDefaultOptions = require(path.resolve(process.cwd() + '/node_modules/chimp/dist/bin/default.js'));
   chimpDomainOptions._ = [];
   const options = Object.assign({}, chimpDefaultOptions, chimpDomainOptions);
   const chimp = new Chimp(options);
-  chimp.init(done);
+  chimp.init(finish(done));
 });
 
 gulp.task('watchChimpDomain', function () {
@@ -50,19 +64,13 @@ gulp.task('watchChimpDomain', function () {
   gulp.start('chimpDomain');
 });
 
-gulp.task('chimpE2E', function () {
+gulp.task('chimpE2E', function (done) {
   const chimpDefaultOptions = require(path.resolve(process.cwd() + '/node_modules/chimp/dist/bin/default.js'));
   chimpE2EOptions._ = [];
   const options = Object.assign({}, chimpDefaultOptions, chimpE2EOptions);
+  process.env.DEBUG = 'true';
   const chimp = new Chimp(options);
-  chimp.init((error) => {
-    if (error) {
-      console.error(error.message);
-      process.exit(1);
-    } else {
-      process.exit(0);
-    }
-  });
+  chimp.init(finish(done));
 });
 
 gulp.task('watchChimpE2E', function () {
@@ -73,15 +81,8 @@ gulp.task('watchChimpE2E', function () {
 gulp.task('default', ['watchMocha', 'watchKarma', 'watchChimpDomain', 'watchChimpE2E']);
 
 gulp.task('test', function (done) {
-  runSequence('mocha', 'karma', 'chimpDomain', 'chimpE2E', function (error) {
-    if (error) {
-      console.error(error.message);
-      process.exit(1);
-    } else {
-      process.exit(0);
-    }
-    done();
-  });
+  finishShouldWaitForParam = true;
+  runSequence('mocha', 'karma', 'chimpDomain', 'chimpE2E', finish(done, true));
 });
 
 gulp.task('startMeteor', function (done) {
