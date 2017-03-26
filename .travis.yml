@@ -39,6 +39,9 @@ before_install:
   - scripts/start-xvfb.sh
 
 install:
+  # Install & cache Meteor
+  - scripts/install-meteor.sh
+
   # Install NPM dependencies
   - npm install
 
@@ -47,9 +50,6 @@ install:
 
   # Download & cache Karma's dependencies
   - scripts/download-karma-dependencies.sh
-
-  # Install & cache Meteor
-  - scripts/install-meteor.sh
 
 script:
   - npm test

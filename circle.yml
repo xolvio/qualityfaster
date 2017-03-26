@@ -16,6 +16,9 @@ dependencies:
     - "~/.meteor"
 
   override:
+    # Install & cache Meteor
+    - scripts/install-meteor.sh
+
     # Install and cache NPM dependencies
     - npm install
 
@@ -24,9 +27,6 @@ dependencies:
 
     # Download & cache Karma's dependencies
     - scripts/download-karma-dependencies.sh
-
-    # Install & cache Meteor
-    - scripts/install-meteor.sh
 
 test:
   override:
