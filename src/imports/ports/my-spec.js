@@ -1,5 +1,5 @@
-describe('imports/common', function () {
-  it('/my-spec.js', function () {
+describe('a port', function () {
+  it('command', function () {
     'hello'.should.be.a('string');
   });
 });

@@ -1,5 +1,5 @@
-describe('imports/ui', function () {
-  it('/my-spec.js', function () {
+describe('a web page', function () {
+  it('render', function () {
     'hello'.should.be.a('string');
   });
 });

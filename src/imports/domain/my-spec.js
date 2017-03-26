@@ -1,5 +1,5 @@
-describe('imports/browser', function () {
-  it('/my-spec.js', function () {
+describe('a domain', function () {
+  it('entity', function () {
     'hello'.should.be.a('string');
   });
 });
