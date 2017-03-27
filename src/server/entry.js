@@ -5,8 +5,9 @@ require('reflect-metadata');
 import {inject, Container, Factory} from 'aurelia-dependency-injection';
 
 const TYPES = {
-  IMyDomainService: 'IMyDomainService',
-  IApplicationService: 'IApplicationService',
+  IMyDomainService: 'MyDomainService',
+  IApplicationService: 'ApplicationService',
+  IConfigurationService: 'ConfigurationService',
 };
 
 class MyDomainService {
@@ -19,29 +20,26 @@ class MyDomainService {
   }
 }
 
-// THIS WORKS when using registered key without Factor.of
-// @inject(TYPES.IMyDomainService)
-// class ApplicationService {
-//   constructor(myDomainService) {
-//     this.domainService = myDomainService;
-//     this.domainService.doSomething();
-//   }
-// }
+class ConfigurationService {
+  constructor() {
+    // TODO load the configuration based on some discriminator like an ENVIRONMENT variable
+    this.configuration = {
+      MyDomainService: {
+        thing: 'a real thing'
+      }
+    };
+  }
 
-// THIS WORKS when using class Reference
-// @inject(Factory.of(MyDomainService))
-// class ApplicationService {
-//   constructor(myDomainServiceFactory) {
-//     this.domainService = myDomainServiceFactory({thing: 'a real thing'});
-//     this.domainService.doSomething();
-//   }
-// }
+  configurationFor(service) {
+    return this.configuration[service];
+  }
+}
 
-// THIS FAILS when using registered key
-@inject(Factory.of(TYPES.IMyDomainService))
+// FIXME use TYPES.IMyDomainService to decouple the dependency. Blocking issue is being tracked at https://goo.gl/ZKh5zd
+@inject(Factory.of(MyDomainService), TYPES.IConfigurationService)
 class ApplicationService {
-  constructor(myDomainServiceFactory) {
-    this.domainService = myDomainServiceFactory({thing: 'a real thing'});
+  constructor(myDomainServiceFactory, configurationService) {
+    this.domainService = myDomainServiceFactory(configurationService.configurationFor(TYPES.IMyDomainService));
     this.domainService.doSomething();
   }
 }
@@ -50,6 +48,7 @@ Meteor.startup(() => {
   const container = new Container();
   container.registerSingleton(TYPES.IMyDomainService, MyDomainService);
   container.registerSingleton(TYPES.IApplicationService, ApplicationService);
+  container.registerSingleton(TYPES.IConfigurationService, ConfigurationService);
   const IApplicationService = container.get(TYPES.IApplicationService);
 });
 
