@@ -1,8 +1,7 @@
+import {inject, Container, Factory} from 'aurelia-dependency-injection';
 // shims needed for Reflect to work
 require('harmony-reflect');
 require('reflect-metadata');
-
-import {inject, Container, Factory} from 'aurelia-dependency-injection';
 
 const TYPES = {
   IMyDomainService: 'MyDomainService',
@@ -23,11 +22,20 @@ class MyDomainService {
 class ConfigurationService {
   constructor() {
     // TODO load the configuration based on some discriminator like an ENVIRONMENT variable
-    this.configuration = {
-      MyDomainService: {
-        thing: 'a real thing'
-      }
-    };
+    if (process.env.environment === 'test') {
+      this.configuration = {
+        MyDomainService: {
+          thing: 'a fake thing'
+        }
+      };
+    }
+    if (process.env.environment === 'production') {
+      this.configuration = {
+        MyDomainService: {
+          thing: 'a real thing'
+        }
+      };
+    }
   }
 
   configurationFor(service) {
@@ -45,6 +53,10 @@ class ApplicationService {
 }
 
 Meteor.startup(() => {
+  // Discriminator
+  process.env.environment = 'test';
+  // process.env.environment = 'production';
+
   const container = new Container();
   container.registerSingleton(TYPES.IMyDomainService, MyDomainService);
   container.registerSingleton(TYPES.IApplicationService, ApplicationService);
